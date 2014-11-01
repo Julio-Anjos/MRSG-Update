@@ -325,7 +325,12 @@ static void send_reduce_to_mrsg_worker (msg_host_t dest)
     size_t  t;
     size_t  tid = NONE;
 
-    if (job_mrsg.tasks_pending[MRSG_REDUCE] <= 0 || (float)job_mrsg.tasks_pending[MRSG_MAP]/config_mrsg.amount_of_tasks_mrsg[MRSG_MAP] > 0.9)
+/** 
+* @brief Hadoop code transfer initialize on 5% task concluded
+*   DEFAULT_COMPLETED_MAPS_PERCENT_FOR_REDUCE_SLOWSTART = 0.05f 
+*/ 
+   
+    if (job_mrsg.tasks_pending[MRSG_REDUCE] <= 0 || (float)job_mrsg.tasks_pending[MRSG_MAP]/config_mrsg.amount_of_tasks_mrsg[MRSG_MAP] > 0.95)
 	return;
 
     enum { NORMAL, SPECULATIVE, NO_TASK };
