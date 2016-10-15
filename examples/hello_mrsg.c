@@ -109,7 +109,7 @@ int main (int argc, char* argv[])
     /* Set the map output function. */
     MRSG_set_map_output_f (mrsg_map_output_function);
     /* Run the simulation. */
-    MRSG_main ("mrsg-2knode.xml", "d-mrsg-2knode.xml", "mrsg-2knode.conf");
+    MRSG_main ("reims-32.g5k.xml", "d-reims-32.g5k.xml", "mrsg32-reims.conf");
 
     return 0;
 }
