@@ -1,0 +1,275 @@
+\hypertarget{common__mrsg_8c}{\section{src/common\-\_\-mrsg.c \-File \-Reference}
+\label{common__mrsg_8c}\index{src/common\-\_\-mrsg.\-c@{src/common\-\_\-mrsg.\-c}}
+}
+{\ttfamily \#include \char`\"{}common\-\_\-mrsg.\-h\char`\"{}}\*
+\-Include dependency graph for common\-\_\-mrsg.\-c\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{common__mrsg_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{common__mrsg_8c_a32bd1bae277b9aa336336310547bb693}{\-X\-B\-T\-\_\-\-L\-O\-G\-\_\-\-E\-X\-T\-E\-R\-N\-A\-L\-\_\-\-D\-E\-F\-A\-U\-L\-T\-\_\-\-C\-A\-T\-E\-G\-O\-R\-Y} (msg\-\_\-test)
+\item 
+msg\-\_\-error\-\_\-t \hyperlink{common__mrsg_8c_a385b12669d8faf7b5cdb54c1ae597e1c}{send} (const char $\ast$str, double cpu, double net, void $\ast$data, const char $\ast$mailbox)
+\begin{DoxyCompactList}\small\item\em \-Send a message/task. \end{DoxyCompactList}\item 
+msg\-\_\-error\-\_\-t \hyperlink{common__mrsg_8c_ab5a4c02ceb90f40606c62816c672c5dd}{send\-\_\-mrsg\-\_\-sms} (const char $\ast$str, const char $\ast$mailbox)
+\begin{DoxyCompactList}\small\item\em \-Send a short message, of size zero. \end{DoxyCompactList}\item 
+msg\-\_\-error\-\_\-t \hyperlink{common__mrsg_8c_a6fc60933b9eabe64a880f68eba3131cc}{receive} (msg\-\_\-task\-\_\-t $\ast$msg, const char $\ast$mailbox)
+\begin{DoxyCompactList}\small\item\em \-Receive a message/task from a mailbox. \end{DoxyCompactList}\item 
+int \hyperlink{common__mrsg_8c_ad37a02c988c597622a346cb5293243fb}{message\-\_\-is} (msg\-\_\-task\-\_\-t msg, const char $\ast$str)
+\begin{DoxyCompactList}\small\item\em \-Compare the message from a task with a string. \end{DoxyCompactList}\item 
+int \hyperlink{common__mrsg_8c_a411d5133ab6881d40ef4cb44a7a47428}{maxval} (int a, int b)
+\begin{DoxyCompactList}\small\item\em \-Return the maximum of two values. \end{DoxyCompactList}\item 
+size\-\_\-t \hyperlink{common__mrsg_8c_a61a91e500b5bc5aa1b1f1fb6712753d9}{map\-\_\-output\-\_\-size} (size\-\_\-t mid)
+\begin{DoxyCompactList}\small\item\em \-Return the output size of a map task. \end{DoxyCompactList}\item 
+size\-\_\-t \hyperlink{common__mrsg_8c_a468d6fbac86e23eb900382eaa1fd00af}{reduce\-\_\-mrsg\-\_\-input\-\_\-size} (size\-\_\-t rid)
+\begin{DoxyCompactList}\small\item\em \-Return the input size of a reduce task. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{common__mrsg_8c_a61a91e500b5bc5aa1b1f1fb6712753d9}{\index{common\-\_\-mrsg.\-c@{common\-\_\-mrsg.\-c}!map\-\_\-output\-\_\-size@{map\-\_\-output\-\_\-size}}
+\index{map\-\_\-output\-\_\-size@{map\-\_\-output\-\_\-size}!common_mrsg.c@{common\-\_\-mrsg.\-c}}
+\subsubsection[{map\-\_\-output\-\_\-size}]{\setlength{\rightskip}{0pt plus 5cm}size\-\_\-t {\bf map\-\_\-output\-\_\-size} (
+\begin{DoxyParamCaption}
+\item[{size\-\_\-t}]{mid}
+\end{DoxyParamCaption}
+)}}\label{common__mrsg_8c_a61a91e500b5bc5aa1b1f1fb6712753d9}
+
+
+\-Return the output size of a map task. 
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em mid} & \-The map task \-I\-D. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-The task output size in bytes. 
+\end{DoxyReturn}
+\hypertarget{common__mrsg_8c_a411d5133ab6881d40ef4cb44a7a47428}{\index{common\-\_\-mrsg.\-c@{common\-\_\-mrsg.\-c}!maxval@{maxval}}
+\index{maxval@{maxval}!common_mrsg.c@{common\-\_\-mrsg.\-c}}
+\subsubsection[{maxval}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf maxval} (
+\begin{DoxyParamCaption}
+\item[{int}]{a, }
+\item[{int}]{b}
+\end{DoxyParamCaption}
+)}}\label{common__mrsg_8c_a411d5133ab6881d40ef4cb44a7a47428}
+
+
+\-Return the maximum of two values. 
+
+
+
+\-Here is the caller graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{common__mrsg_8c_a411d5133ab6881d40ef4cb44a7a47428_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{common__mrsg_8c_ad37a02c988c597622a346cb5293243fb}{\index{common\-\_\-mrsg.\-c@{common\-\_\-mrsg.\-c}!message\-\_\-is@{message\-\_\-is}}
+\index{message\-\_\-is@{message\-\_\-is}!common_mrsg.c@{common\-\_\-mrsg.\-c}}
+\subsubsection[{message\-\_\-is}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf message\-\_\-is} (
+\begin{DoxyParamCaption}
+\item[{msg\-\_\-task\-\_\-t}]{msg, }
+\item[{const char $\ast$}]{str}
+\end{DoxyParamCaption}
+)}}\label{common__mrsg_8c_ad37a02c988c597622a346cb5293243fb}
+
+
+\-Compare the message from a task with a string. 
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em msg} & \-The message/task. \\
+\hline
+{\em str} & \-The string to compare with. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-A positive value if matches, zero if doesn't. 
+\end{DoxyReturn}
+
+
+\-Here is the caller graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{common__mrsg_8c_ad37a02c988c597622a346cb5293243fb_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{common__mrsg_8c_a6fc60933b9eabe64a880f68eba3131cc}{\index{common\-\_\-mrsg.\-c@{common\-\_\-mrsg.\-c}!receive@{receive}}
+\index{receive@{receive}!common_mrsg.c@{common\-\_\-mrsg.\-c}}
+\subsubsection[{receive}]{\setlength{\rightskip}{0pt plus 5cm}msg\-\_\-error\-\_\-t {\bf receive} (
+\begin{DoxyParamCaption}
+\item[{msg\-\_\-task\-\_\-t $\ast$}]{msg, }
+\item[{const char $\ast$}]{mailbox}
+\end{DoxyParamCaption}
+)}}\label{common__mrsg_8c_a6fc60933b9eabe64a880f68eba3131cc}
+
+
+\-Receive a message/task from a mailbox. 
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em msg} & \-Where to store the received message. \\
+\hline
+{\em mailbox} & \-The mailbox alias. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-The status of the transfer. 
+\end{DoxyReturn}
+
+
+\-Here is the caller graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{common__mrsg_8c_a6fc60933b9eabe64a880f68eba3131cc_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{common__mrsg_8c_a468d6fbac86e23eb900382eaa1fd00af}{\index{common\-\_\-mrsg.\-c@{common\-\_\-mrsg.\-c}!reduce\-\_\-mrsg\-\_\-input\-\_\-size@{reduce\-\_\-mrsg\-\_\-input\-\_\-size}}
+\index{reduce\-\_\-mrsg\-\_\-input\-\_\-size@{reduce\-\_\-mrsg\-\_\-input\-\_\-size}!common_mrsg.c@{common\-\_\-mrsg.\-c}}
+\subsubsection[{reduce\-\_\-mrsg\-\_\-input\-\_\-size}]{\setlength{\rightskip}{0pt plus 5cm}size\-\_\-t {\bf reduce\-\_\-mrsg\-\_\-input\-\_\-size} (
+\begin{DoxyParamCaption}
+\item[{size\-\_\-t}]{rid}
+\end{DoxyParamCaption}
+)}}\label{common__mrsg_8c_a468d6fbac86e23eb900382eaa1fd00af}
+
+
+\-Return the input size of a reduce task. 
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em rid} & \-The reduce task \-I\-D. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-The task input size in bytes. 
+\end{DoxyReturn}
+
+
+\-Here is the caller graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{common__mrsg_8c_a468d6fbac86e23eb900382eaa1fd00af_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{common__mrsg_8c_a385b12669d8faf7b5cdb54c1ae597e1c}{\index{common\-\_\-mrsg.\-c@{common\-\_\-mrsg.\-c}!send@{send}}
+\index{send@{send}!common_mrsg.c@{common\-\_\-mrsg.\-c}}
+\subsubsection[{send}]{\setlength{\rightskip}{0pt plus 5cm}msg\-\_\-error\-\_\-t {\bf send} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{str, }
+\item[{double}]{cpu, }
+\item[{double}]{net, }
+\item[{void $\ast$}]{data, }
+\item[{const char $\ast$}]{mailbox}
+\end{DoxyParamCaption}
+)}}\label{common__mrsg_8c_a385b12669d8faf7b5cdb54c1ae597e1c}
+
+
+\-Send a message/task. 
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em str} & \-The message. \\
+\hline
+{\em cpu} & \-The amount of cpu required by the task. \\
+\hline
+{\em net} & \-The message size in bytes. \\
+\hline
+{\em data} & \-Any data to attatch to the message. \\
+\hline
+{\em mailbox} & \-The destination mailbox alias. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-The \-M\-S\-G status of the operation. 
+\end{DoxyReturn}
+
+
+\-Here is the call graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=228pt]{common__mrsg_8c_a385b12669d8faf7b5cdb54c1ae597e1c_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{common__mrsg_8c_a385b12669d8faf7b5cdb54c1ae597e1c_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{common__mrsg_8c_ab5a4c02ceb90f40606c62816c672c5dd}{\index{common\-\_\-mrsg.\-c@{common\-\_\-mrsg.\-c}!send\-\_\-mrsg\-\_\-sms@{send\-\_\-mrsg\-\_\-sms}}
+\index{send\-\_\-mrsg\-\_\-sms@{send\-\_\-mrsg\-\_\-sms}!common_mrsg.c@{common\-\_\-mrsg.\-c}}
+\subsubsection[{send\-\_\-mrsg\-\_\-sms}]{\setlength{\rightskip}{0pt plus 5cm}msg\-\_\-error\-\_\-t {\bf send\-\_\-mrsg\-\_\-sms} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{str, }
+\item[{const char $\ast$}]{mailbox}
+\end{DoxyParamCaption}
+)}}\label{common__mrsg_8c_ab5a4c02ceb90f40606c62816c672c5dd}
+
+
+\-Send a short message, of size zero. 
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em str} & \-The message. \\
+\hline
+{\em mailbox} & \-The destination mailbox alias. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-The \-M\-S\-G status of the operation. 
+\end{DoxyReturn}
+
+
+\-Here is the call graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{common__mrsg_8c_ab5a4c02ceb90f40606c62816c672c5dd_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{common__mrsg_8c_ab5a4c02ceb90f40606c62816c672c5dd_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{common__mrsg_8c_a32bd1bae277b9aa336336310547bb693}{\index{common\-\_\-mrsg.\-c@{common\-\_\-mrsg.\-c}!\-X\-B\-T\-\_\-\-L\-O\-G\-\_\-\-E\-X\-T\-E\-R\-N\-A\-L\-\_\-\-D\-E\-F\-A\-U\-L\-T\-\_\-\-C\-A\-T\-E\-G\-O\-R\-Y@{\-X\-B\-T\-\_\-\-L\-O\-G\-\_\-\-E\-X\-T\-E\-R\-N\-A\-L\-\_\-\-D\-E\-F\-A\-U\-L\-T\-\_\-\-C\-A\-T\-E\-G\-O\-R\-Y}}
+\index{\-X\-B\-T\-\_\-\-L\-O\-G\-\_\-\-E\-X\-T\-E\-R\-N\-A\-L\-\_\-\-D\-E\-F\-A\-U\-L\-T\-\_\-\-C\-A\-T\-E\-G\-O\-R\-Y@{\-X\-B\-T\-\_\-\-L\-O\-G\-\_\-\-E\-X\-T\-E\-R\-N\-A\-L\-\_\-\-D\-E\-F\-A\-U\-L\-T\-\_\-\-C\-A\-T\-E\-G\-O\-R\-Y}!common_mrsg.c@{common\-\_\-mrsg.\-c}}
+\subsubsection[{\-X\-B\-T\-\_\-\-L\-O\-G\-\_\-\-E\-X\-T\-E\-R\-N\-A\-L\-\_\-\-D\-E\-F\-A\-U\-L\-T\-\_\-\-C\-A\-T\-E\-G\-O\-R\-Y}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-X\-B\-T\-\_\-\-L\-O\-G\-\_\-\-E\-X\-T\-E\-R\-N\-A\-L\-\_\-\-D\-E\-F\-A\-U\-L\-T\-\_\-\-C\-A\-T\-E\-G\-O\-R\-Y} (
+\begin{DoxyParamCaption}
+\item[{msg\-\_\-test}]{}
+\end{DoxyParamCaption}
+)}}\label{common__mrsg_8c_a32bd1bae277b9aa336336310547bb693}

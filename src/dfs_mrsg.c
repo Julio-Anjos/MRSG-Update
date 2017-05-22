@@ -1,5 +1,4 @@
 /* Copyright (c) 2012-2014. MRSG Team. All rights reserved. */
-
 /* This file is part of MRSG.
 
 MRSG is free software: you can redistribute it and/or modify
@@ -15,16 +14,14 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with MRSG.  If not, see <http://www.gnu.org/licenses/>. */
 
-#include <msg/msg.h>
+#include <simgrid/msg.h>
 #include "common_mrsg.h"
 #include "worker_mrsg.h"
 #include "dfs_mrsg.h"
 
 XBT_LOG_EXTERNAL_DEFAULT_CATEGORY (msg_test);
 
-
 static void send_mrsg_data (msg_task_t msg);
-
 
 void distribute_data_mrsg (void)
 {
@@ -109,6 +106,9 @@ int data_node_mrsg (int argc, char* argv[])
 
     sprintf (mailbox, DATANODE_MRSG_MAILBOX, get_mrsg_worker_id (MSG_host_self ()));
 
+    size_t wid =get_mrsg_worker_id (MSG_host_self ())+1 ;
+    mrsg_task_pid.data_node[wid] = MSG_process_self_PID ();
+
     while (!job_mrsg.finished)
     {
 	msg = NULL;
@@ -156,4 +156,3 @@ static void send_mrsg_data (msg_task_t msg)
 
     MSG_task_destroy (msg);
 }
-

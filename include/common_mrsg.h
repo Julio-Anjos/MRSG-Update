@@ -18,7 +18,7 @@ along with MRSG.  If not, see <http://www.gnu.org/licenses/>. */
 #ifndef MRSG_COMMON_H
 #define MRSG_COMMON_H
 
-#include <msg/msg.h>
+#include <simgrid/msg.h>
 #include <xbt/sysdep.h>
 #include <xbt/log.h>
 #include <xbt/asserts.h>
@@ -39,6 +39,9 @@ along with MRSG.  If not, see <http://www.gnu.org/licenses/>. */
 
 #define NONE (-1)
 #define MAX_SPECULATIVE_COPIES 3
+
+#define ON 1
+#define OFF -1
 
 /* Mailbox related. */
 #define MAILBOX_ALIAS_SIZE 256
@@ -74,6 +77,10 @@ struct mrsg_config_s {
     int            mrsg_number_of_workers;
     int            mrsg_slots[2];
     float          mrsg_perc;
+    double         cpu_required_reduce_mrsg;
+    double         cpu_required_map_mrsg;
+    double 				 map_task_cost_mrsg;
+    double         reduce_task_cost_mrsg;
     int            initialized;
     msg_host_t*    workers_mrsg;
 } config_mrsg;
@@ -98,9 +105,20 @@ struct mrsg_task_info_s {
     msg_task_t    mrsg_task;
     size_t*       map_output_copied;
     double        shuffle_mrsg_end;
+    int           mrsg_size_data_proc;
 };
 
 typedef struct mrsg_task_info_s* mrsg_task_info_t;
+
+typedef struct {
+  int * listen;
+  int * data_node;
+  int * worker;
+  int workers_on;
+  int * status;
+}task_pid;
+
+task_pid mrsg_task_pid;
 
 struct mrsg_stats_s {
     int   map_local_mrsg;
@@ -109,6 +127,8 @@ struct mrsg_stats_s {
     int   map_spec_mrsg_r;
     int   reduce_mrsg_normal;
     int   reduce_mrsg_spec;
+    double map_time;
+    double reduce_time;
 } stats_mrsg;
 
 struct mrsg_user_s {
@@ -118,7 +138,7 @@ struct mrsg_user_s {
 } user_mrsg;
 
 
-/** 
+/**
  * @brief  Send a message/task.
  * @param  str      The message.
  * @param  cpu      The amount of cpu required by the task.
@@ -129,7 +149,7 @@ struct mrsg_user_s {
  */
 msg_error_t send (const char* str, double cpu, double net, void* data, const char* mailbox);
 
-/** 
+/**
  * @brief  Send a short message, of size zero.
  * @param  str      The message.
  * @param  mailbox  The destination mailbox alias.
@@ -137,7 +157,7 @@ msg_error_t send (const char* str, double cpu, double net, void* data, const cha
  */
 msg_error_t send_mrsg_sms (const char* str, const char* mailbox);
 
-/** 
+/**
  * @brief  Receive a message/task from a mailbox.
  * @param  msg      Where to store the received message.
  * @param  mailbox  The mailbox alias.
@@ -145,13 +165,17 @@ msg_error_t send_mrsg_sms (const char* str, const char* mailbox);
  */
 msg_error_t receive (msg_task_t* msg, const char* mailbox);
 
-/** 
+/**
  * @brief  Compare the message from a task with a string.
  * @param  msg  The message/task.
  * @param  str  The string to compare with.
  * @return A positive value if matches, zero if doesn't.
  */
 int mrsg_message_is (msg_task_t msg, const char* str);
+
+int mrsg_map_output_function (size_t mid, size_t rid);
+
+double mrsg_task_cost_function (enum mrsg_phase_e mrsg_phase, size_t tid, size_t mrsg_wid);
 
 /**
  * @brief  Return the maximum of two values.

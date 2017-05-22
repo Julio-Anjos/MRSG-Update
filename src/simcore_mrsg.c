@@ -15,7 +15,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with MRSG.  If not, see <http://www.gnu.org/licenses/>. */
 
-#include <msg/msg.h>
+#include <simgrid/msg.h>
 #include <xbt/sysdep.h>
 #include <xbt/log.h>
 #include <xbt/asserts.h>
@@ -50,17 +50,6 @@ static void free_mrsg_global_mem (void);
 
 int MRSG_main (const char* plat, const char* depl, const char* conf)
 {
-    int argc = 8;
-    char* argv[] = {
-	"mra",
-	"--cfg=tracing:1",
-	"--cfg=tracing/buffer:1",
-	"--cfg=tracing/filename:tracefile.trace",
-	"--cfg=tracing/categorized:1",
-	"--cfg=tracing/uncategorized:1",
-	"--cfg=viva/categorized:cat.plist",
-	"--cfg=viva/uncategorized:uncat.plist"
-    };
 
     msg_error_t  res_mrsg = MSG_OK;
 
@@ -68,10 +57,9 @@ int MRSG_main (const char* plat, const char* depl, const char* conf)
 
     check_config_mrsg ();
 
-    MSG_init (&argc, argv);
     res_mrsg = run_mrsg_simulation (plat, depl, conf);
 
-    if (res_mrsg == MSG_OK) 
+    if (res_mrsg == MSG_OK)
 	return 0;
     else
 	return 1;
@@ -100,8 +88,8 @@ static msg_error_t run_mrsg_simulation (const char* platform_file, const char* d
     MSG_create_environment (platform_file);
 
     // for tracing purposes..
-    TRACE_category_with_color ("MRSG_MAP", "1 0 0");
-    TRACE_category_with_color ("MRSG_REDUCE", "0 0 1");
+  //  TRACE_category_with_color ("MRSG_MAP", "1 0 0");
+  //  TRACE_category_with_color ("MRSG_REDUCE", "0 0 1");
 
     MSG_function_register ("master_mrsg", master_mrsg);
     MSG_function_register ("worker_mrsg", worker_mrsg);
@@ -139,14 +127,15 @@ static void read_mrsg_config_file (const char* file_name)
     FILE*   file;
 
     /* Set the default configuration. */
+   /*
     config_mrsg.mrsg_chunk_size = 67108864;
     config_mrsg.mrsg_chunk_count = 0;
     config_mrsg.mrsg_chunk_replicas = 3;
     config_mrsg.mrsg_slots[MRSG_MAP] = 2;
     config_mrsg.amount_of_tasks_mrsg[MRSG_REDUCE] = 1;
     config_mrsg.mrsg_slots[MRSG_REDUCE] = 2;
-    config_mrsg.mrsg_perc = 100.0;
-    
+    config_mrsg.mrsg_perc = 100.0; */
+
 
     /* Read the user configuration file. */
 
@@ -172,6 +161,14 @@ static void read_mrsg_config_file (const char* file_name)
 	else if ( strcmp (property, "mrsg_map_slots") == 0 )
 	{
 	    fscanf (file, "%d", &config_mrsg.mrsg_slots[MRSG_MAP]);
+	}
+	else if ( strcmp (property, "mrsg_map_task_cost") == 0 )
+	{
+	    fscanf (file, "%lg", &config_mrsg.map_task_cost_mrsg);
+	}
+	else if ( strcmp (property, "mrsg_reduce_task_cost") == 0 )
+	{
+	    fscanf (file, "%lg", &config_mrsg.reduce_task_cost_mrsg);
 	}
 	else if ( strcmp (property, "mrsg_reduces") == 0 )
 	{
@@ -203,7 +200,9 @@ static void read_mrsg_config_file (const char* file_name)
     xbt_assert (config_mrsg.amount_of_tasks_mrsg[MRSG_REDUCE] >= 0, "The number of reduce tasks can't be negative");
     xbt_assert (config_mrsg.mrsg_slots[MRSG_REDUCE] > 0, "Reduce slots must be greater than zero");
     xbt_assert (config_mrsg.mrsg_perc > 0, "Intermediate percent must be greater than zero");
-    
+
+
+
 }
 
 /**
@@ -247,7 +246,7 @@ static void init_mrsg_config (void)
 	    wi->mrsg_wid = mrsg_wid;
 	    MSG_host_set_data (host, (void*)wi);
 	    /* Add the worker's cpu power to the grid total. */
-	    config_mrsg.grid_cpu_power += MSG_get_host_speed (host);
+	    config_mrsg.grid_cpu_power += MSG_host_get_speed (host);
 	    mrsg_wid++;
 	}
     }
@@ -269,10 +268,20 @@ static void init_job_mrsg (void)
 
     job_mrsg.finished = 0;
     job_mrsg.mrsg_heartbeats = xbt_new (struct mrsg_heartbeat_s, config_mrsg.mrsg_number_of_workers);
+
+    //Workrs PID info
+        mrsg_task_pid.listen = xbt_new(int,config_mrsg.mrsg_number_of_workers);
+        mrsg_task_pid.data_node = xbt_new(int,config_mrsg.mrsg_number_of_workers);
+        mrsg_task_pid.worker = xbt_new(int,config_mrsg.mrsg_number_of_workers);
+        mrsg_task_pid.workers_on = config_mrsg.mrsg_number_of_workers;
+        mrsg_task_pid.status = xbt_new(int,config_mrsg.mrsg_number_of_workers);
+
     for (mrsg_wid = 0; mrsg_wid < config_mrsg.mrsg_number_of_workers; mrsg_wid++)
     {
-	job_mrsg.mrsg_heartbeats[mrsg_wid].slots_av[MRSG_MAP] = config_mrsg.mrsg_slots[MRSG_MAP];
-	job_mrsg.mrsg_heartbeats[mrsg_wid].slots_av[MRSG_REDUCE] = config_mrsg.mrsg_slots[MRSG_REDUCE];
+    	job_mrsg.mrsg_heartbeats[mrsg_wid].slots_av[MRSG_MAP] = config_mrsg.mrsg_slots[MRSG_MAP];
+    	job_mrsg.mrsg_heartbeats[mrsg_wid].slots_av[MRSG_REDUCE] = config_mrsg.mrsg_slots[MRSG_REDUCE];
+      mrsg_task_pid.status[mrsg_wid] = ON;
+
     }
 
     /* Initialize map information. */
@@ -334,5 +343,9 @@ static void free_mrsg_global_mem (void)
     for (i = 0; i < config_mrsg.amount_of_tasks_mrsg[MRSG_REDUCE]; i++)
 	xbt_free_ref (&job_mrsg.task_list[MRSG_REDUCE][i]);
     xbt_free_ref (&job_mrsg.task_list[MRSG_REDUCE]);
-}
 
+    xbt_free_ref(&mrsg_task_pid.worker);
+    xbt_free_ref(&mrsg_task_pid.data_node);
+    xbt_free_ref(&mrsg_task_pid.listen);
+    xbt_free_ref(&mrsg_task_pid.status);
+}

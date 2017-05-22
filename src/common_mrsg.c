@@ -77,6 +77,8 @@ int mrsg_maxval (int a, int b)
 }
 
 /**
+* FIXME Not have calls yet.
+*
  * @brief  Return the output size of a map task.
  * @param  mid  The map task ID.
  * @return The task output size in bytes.
