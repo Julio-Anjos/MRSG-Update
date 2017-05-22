@@ -1,0 +1,101 @@
+\hypertarget{user__mrsg_8c}{\section{src/user\-\_\-mrsg.c \-File \-Reference}
+\label{user__mrsg_8c}\index{src/user\-\_\-mrsg.\-c@{src/user\-\_\-mrsg.\-c}}
+}
+{\ttfamily \#include \char`\"{}common\-\_\-mrsg.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}dfs\-\_\-mrsg.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}mrsg.\-h\char`\"{}}\*
+\-Include dependency graph for user\-\_\-mrsg.\-c\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{user__mrsg_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{user__mrsg_8c_a2689aec4c5d83cc973a3b61bbcbe12dc}{\-M\-R\-S\-G\-\_\-init} (void)
+\item 
+void \hyperlink{user__mrsg_8c_aa88243a62ee5e506ca37eac8e961270c}{\-M\-R\-S\-G\-\_\-set\-\_\-task\-\_\-cost\-\_\-f} (double($\ast$f)(enum \hyperlink{mrsg_8h_afa14b6e068c0e0b8557777e16f2582f2}{phase\-\_\-e} phase, size\-\_\-t tid, size\-\_\-t mrsg\-\_\-wid))
+\item 
+void \hyperlink{user__mrsg_8c_abba96af9fa70347eff51b0de0654c962}{\-M\-R\-S\-G\-\_\-set\-\_\-dfs\-\_\-f} (void($\ast$f)(char $\ast$$\ast$dfs\-\_\-matrix, size\-\_\-t chunks, size\-\_\-t workers\-\_\-mrsg, int replicas))
+\item 
+void \hyperlink{user__mrsg_8c_a41c891d42271dc2ee93f6d6d89ca7ed6}{\-M\-R\-S\-G\-\_\-set\-\_\-map\-\_\-output\-\_\-f} (int($\ast$f)(size\-\_\-t mid, size\-\_\-t rid))
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{user__mrsg_8c_a2689aec4c5d83cc973a3b61bbcbe12dc}{\index{user\-\_\-mrsg.\-c@{user\-\_\-mrsg.\-c}!\-M\-R\-S\-G\-\_\-init@{\-M\-R\-S\-G\-\_\-init}}
+\index{\-M\-R\-S\-G\-\_\-init@{\-M\-R\-S\-G\-\_\-init}!user_mrsg.c@{user\-\_\-mrsg.\-c}}
+\subsubsection[{\-M\-R\-S\-G\-\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-M\-R\-S\-G\-\_\-init} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{user__mrsg_8c_a2689aec4c5d83cc973a3b61bbcbe12dc}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=282pt]{user__mrsg_8c_a2689aec4c5d83cc973a3b61bbcbe12dc_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=218pt]{user__mrsg_8c_a2689aec4c5d83cc973a3b61bbcbe12dc_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{user__mrsg_8c_abba96af9fa70347eff51b0de0654c962}{\index{user\-\_\-mrsg.\-c@{user\-\_\-mrsg.\-c}!\-M\-R\-S\-G\-\_\-set\-\_\-dfs\-\_\-f@{\-M\-R\-S\-G\-\_\-set\-\_\-dfs\-\_\-f}}
+\index{\-M\-R\-S\-G\-\_\-set\-\_\-dfs\-\_\-f@{\-M\-R\-S\-G\-\_\-set\-\_\-dfs\-\_\-f}!user_mrsg.c@{user\-\_\-mrsg.\-c}}
+\subsubsection[{\-M\-R\-S\-G\-\_\-set\-\_\-dfs\-\_\-f}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-M\-R\-S\-G\-\_\-set\-\_\-dfs\-\_\-f} (
+\begin{DoxyParamCaption}
+\item[{void($\ast$)(char $\ast$$\ast$dfs\-\_\-matrix, size\-\_\-t chunks, size\-\_\-t workers\-\_\-mrsg, int replicas)}]{f}
+\end{DoxyParamCaption}
+)}}\label{user__mrsg_8c_abba96af9fa70347eff51b0de0654c962}
+\hypertarget{user__mrsg_8c_a41c891d42271dc2ee93f6d6d89ca7ed6}{\index{user\-\_\-mrsg.\-c@{user\-\_\-mrsg.\-c}!\-M\-R\-S\-G\-\_\-set\-\_\-map\-\_\-output\-\_\-f@{\-M\-R\-S\-G\-\_\-set\-\_\-map\-\_\-output\-\_\-f}}
+\index{\-M\-R\-S\-G\-\_\-set\-\_\-map\-\_\-output\-\_\-f@{\-M\-R\-S\-G\-\_\-set\-\_\-map\-\_\-output\-\_\-f}!user_mrsg.c@{user\-\_\-mrsg.\-c}}
+\subsubsection[{\-M\-R\-S\-G\-\_\-set\-\_\-map\-\_\-output\-\_\-f}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-M\-R\-S\-G\-\_\-set\-\_\-map\-\_\-output\-\_\-f} (
+\begin{DoxyParamCaption}
+\item[{int($\ast$)(size\-\_\-t mid, size\-\_\-t rid)}]{f}
+\end{DoxyParamCaption}
+)}}\label{user__mrsg_8c_a41c891d42271dc2ee93f6d6d89ca7ed6}
+
+
+\-Here is the caller graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=284pt]{user__mrsg_8c_a41c891d42271dc2ee93f6d6d89ca7ed6_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{user__mrsg_8c_aa88243a62ee5e506ca37eac8e961270c}{\index{user\-\_\-mrsg.\-c@{user\-\_\-mrsg.\-c}!\-M\-R\-S\-G\-\_\-set\-\_\-task\-\_\-cost\-\_\-f@{\-M\-R\-S\-G\-\_\-set\-\_\-task\-\_\-cost\-\_\-f}}
+\index{\-M\-R\-S\-G\-\_\-set\-\_\-task\-\_\-cost\-\_\-f@{\-M\-R\-S\-G\-\_\-set\-\_\-task\-\_\-cost\-\_\-f}!user_mrsg.c@{user\-\_\-mrsg.\-c}}
+\subsubsection[{\-M\-R\-S\-G\-\_\-set\-\_\-task\-\_\-cost\-\_\-f}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-M\-R\-S\-G\-\_\-set\-\_\-task\-\_\-cost\-\_\-f} (
+\begin{DoxyParamCaption}
+\item[{double($\ast$)(enum {\bf phase\-\_\-e} phase, size\-\_\-t tid, size\-\_\-t mrsg\-\_\-wid)}]{f}
+\end{DoxyParamCaption}
+)}}\label{user__mrsg_8c_aa88243a62ee5e506ca37eac8e961270c}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=276pt]{user__mrsg_8c_aa88243a62ee5e506ca37eac8e961270c_icgraph}
+\end{center}
+\end{figure}
+
+

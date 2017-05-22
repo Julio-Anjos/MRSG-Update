@@ -1,0 +1,402 @@
+\hypertarget{master__mrsg_8c}{\section{src/master\-\_\-mrsg.c \-File \-Reference}
+\label{master__mrsg_8c}\index{src/master\-\_\-mrsg.\-c@{src/master\-\_\-mrsg.\-c}}
+}
+{\ttfamily \#include $<$stdlib.\-h$>$}\*
+{\ttfamily \#include $<$stdio.\-h$>$}\*
+{\ttfamily \#include $<$string.\-h$>$}\*
+{\ttfamily \#include \char`\"{}common\-\_\-mrsg.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}worker\-\_\-mrsg.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}dfs\-\_\-mrsg.\-h\char`\"{}}\*
+\-Include dependency graph for master\-\_\-mrsg.\-c\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{master__mrsg_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{master__mrsg_8c_a32bd1bae277b9aa336336310547bb693}{\-X\-B\-T\-\_\-\-L\-O\-G\-\_\-\-E\-X\-T\-E\-R\-N\-A\-L\-\_\-\-D\-E\-F\-A\-U\-L\-T\-\_\-\-C\-A\-T\-E\-G\-O\-R\-Y} (msg\-\_\-test)
+\item 
+static void \hyperlink{master__mrsg_8c_a53d4c50f6f7e1f35d489cc05bed43fc8}{print\-\_\-mrsg\-\_\-config} (void)
+\begin{DoxyCompactList}\small\item\em \-Print the job configuration. \end{DoxyCompactList}\item 
+static void \hyperlink{master__mrsg_8c_a7953ea070463353c3245fded0bc1663b}{print\-\_\-mrsg\-\_\-stats} (void)
+\begin{DoxyCompactList}\small\item\em \-Print job statistics. \end{DoxyCompactList}\item 
+static int \hyperlink{master__mrsg_8c_a84abd07226d1639dd58f506c26c37545}{is\-\_\-straggler\-\_\-mrsg} (msg\-\_\-host\-\_\-t \hyperlink{worker__mrsg_8c_aea3bc3b96c3603289c25ce693b2e830d}{worker\-\_\-mrsg})
+\begin{DoxyCompactList}\small\item\em \-Checks if a worker is a straggler. \end{DoxyCompactList}\item 
+static int \hyperlink{master__mrsg_8c_adc329f1938e0a9e4f4b44e375ade3387}{task\-\_\-time\-\_\-elapsed\-\_\-mrsg} (msg\-\_\-task\-\_\-t mrsg\-\_\-task)
+\begin{DoxyCompactList}\small\item\em \-Returns for how long a task is running. \end{DoxyCompactList}\item 
+static void \hyperlink{master__mrsg_8c_ae03d61ebcd6b69faaef7540ffc10e4a4}{set\-\_\-mrsg\-\_\-speculative\-\_\-tasks} (msg\-\_\-host\-\_\-t \hyperlink{worker__mrsg_8c_aea3bc3b96c3603289c25ce693b2e830d}{worker\-\_\-mrsg})
+\begin{DoxyCompactList}\small\item\em \-Mark the tasks of a straggler as possible speculative tasks. \end{DoxyCompactList}\item 
+static void \hyperlink{master__mrsg_8c_a84df5ba7b67178160bfce3ce4c45572d}{send\-\_\-map\-\_\-to\-\_\-mrsg\-\_\-worker} (msg\-\_\-host\-\_\-t dest)
+\begin{DoxyCompactList}\small\item\em \-Choose a map task, and send it to a worker. \end{DoxyCompactList}\item 
+static void \hyperlink{master__mrsg_8c_a430c1751a26792d7664d4c2686ba4ff3}{send\-\_\-reduce\-\_\-to\-\_\-mrsg\-\_\-worker} (msg\-\_\-host\-\_\-t dest)
+\begin{DoxyCompactList}\small\item\em \-Choose a reduce task, and send it to a worker. \end{DoxyCompactList}\item 
+static void \hyperlink{master__mrsg_8c_a39b7b32b8f4f4d2ab770c2fe49b6d12c}{send\-\_\-mrsg\-\_\-task} (enum \hyperlink{mrsg_8h_afa14b6e068c0e0b8557777e16f2582f2}{phase\-\_\-e} phase, size\-\_\-t tid, size\-\_\-t data\-\_\-src, msg\-\_\-host\-\_\-t dest)
+\begin{DoxyCompactList}\small\item\em \-Send a task to a worker. \end{DoxyCompactList}\item 
+static void \hyperlink{master__mrsg_8c_a4ba88956cd2e1474bfc22214cff04a96}{finish\-\_\-all\-\_\-mrsg\-\_\-task\-\_\-copies} (\hyperlink{common__mrsg_8h_aafe4ef026782acb997536f1fecc06c2f}{mrsg\-\_\-task\-\_\-info\-\_\-t} ti)
+\begin{DoxyCompactList}\small\item\em \-Kill all copies of a task. \end{DoxyCompactList}\item 
+int \hyperlink{master__mrsg_8c_a44b26dfb2e22cfd31085aba6df13a25b}{master\-\_\-mrsg} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em \-Main master function. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{\-Variables}
+\begin{DoxyCompactItemize}
+\item 
+static \-F\-I\-L\-E $\ast$ \hyperlink{master__mrsg_8c_a42ff89a9ffd23ba410ff217181554f6c}{tasks\-\_\-log}
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{master__mrsg_8c_a4ba88956cd2e1474bfc22214cff04a96}{\index{master\-\_\-mrsg.\-c@{master\-\_\-mrsg.\-c}!finish\-\_\-all\-\_\-mrsg\-\_\-task\-\_\-copies@{finish\-\_\-all\-\_\-mrsg\-\_\-task\-\_\-copies}}
+\index{finish\-\_\-all\-\_\-mrsg\-\_\-task\-\_\-copies@{finish\-\_\-all\-\_\-mrsg\-\_\-task\-\_\-copies}!master_mrsg.c@{master\-\_\-mrsg.\-c}}
+\subsubsection[{finish\-\_\-all\-\_\-mrsg\-\_\-task\-\_\-copies}]{\setlength{\rightskip}{0pt plus 5cm}static void {\bf finish\-\_\-all\-\_\-mrsg\-\_\-task\-\_\-copies} (
+\begin{DoxyParamCaption}
+\item[{{\bf mrsg\-\_\-task\-\_\-info\-\_\-t}}]{ti}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{master__mrsg_8c_a4ba88956cd2e1474bfc22214cff04a96}
+
+
+\-Kill all copies of a task. 
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em ti} & \-The task information of any task instance. \\
+\hline
+\end{DoxyParams}
+
+
+\-Here is the caller graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{master__mrsg_8c_a4ba88956cd2e1474bfc22214cff04a96_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{master__mrsg_8c_a84abd07226d1639dd58f506c26c37545}{\index{master\-\_\-mrsg.\-c@{master\-\_\-mrsg.\-c}!is\-\_\-straggler\-\_\-mrsg@{is\-\_\-straggler\-\_\-mrsg}}
+\index{is\-\_\-straggler\-\_\-mrsg@{is\-\_\-straggler\-\_\-mrsg}!master_mrsg.c@{master\-\_\-mrsg.\-c}}
+\subsubsection[{is\-\_\-straggler\-\_\-mrsg}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf is\-\_\-straggler\-\_\-mrsg} (
+\begin{DoxyParamCaption}
+\item[{msg\-\_\-host\-\_\-t}]{worker\-\_\-mrsg}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{master__mrsg_8c_a84abd07226d1639dd58f506c26c37545}
+
+
+\-Checks if a worker is a straggler. 
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em worker\-\_\-mrsg} & \-The worker to be probed. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+1 if true, 0 if false. 
+\end{DoxyReturn}
+
+
+\-Here is the call graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=322pt]{master__mrsg_8c_a84abd07226d1639dd58f506c26c37545_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{master__mrsg_8c_a84abd07226d1639dd58f506c26c37545_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{master__mrsg_8c_a44b26dfb2e22cfd31085aba6df13a25b}{\index{master\-\_\-mrsg.\-c@{master\-\_\-mrsg.\-c}!master\-\_\-mrsg@{master\-\_\-mrsg}}
+\index{master\-\_\-mrsg@{master\-\_\-mrsg}!master_mrsg.c@{master\-\_\-mrsg.\-c}}
+\subsubsection[{master\-\_\-mrsg}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf master\-\_\-mrsg} (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{master__mrsg_8c_a44b26dfb2e22cfd31085aba6df13a25b}
+
+
+\-Main master function. 
+
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{master__mrsg_8c_a44b26dfb2e22cfd31085aba6df13a25b_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{master__mrsg_8c_a44b26dfb2e22cfd31085aba6df13a25b_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{master__mrsg_8c_a53d4c50f6f7e1f35d489cc05bed43fc8}{\index{master\-\_\-mrsg.\-c@{master\-\_\-mrsg.\-c}!print\-\_\-mrsg\-\_\-config@{print\-\_\-mrsg\-\_\-config}}
+\index{print\-\_\-mrsg\-\_\-config@{print\-\_\-mrsg\-\_\-config}!master_mrsg.c@{master\-\_\-mrsg.\-c}}
+\subsubsection[{print\-\_\-mrsg\-\_\-config}]{\setlength{\rightskip}{0pt plus 5cm}static void {\bf print\-\_\-mrsg\-\_\-config} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{master__mrsg_8c_a53d4c50f6f7e1f35d489cc05bed43fc8}
+
+
+\-Print the job configuration. 
+
+
+
+\-Here is the caller graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{master__mrsg_8c_a53d4c50f6f7e1f35d489cc05bed43fc8_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{master__mrsg_8c_a7953ea070463353c3245fded0bc1663b}{\index{master\-\_\-mrsg.\-c@{master\-\_\-mrsg.\-c}!print\-\_\-mrsg\-\_\-stats@{print\-\_\-mrsg\-\_\-stats}}
+\index{print\-\_\-mrsg\-\_\-stats@{print\-\_\-mrsg\-\_\-stats}!master_mrsg.c@{master\-\_\-mrsg.\-c}}
+\subsubsection[{print\-\_\-mrsg\-\_\-stats}]{\setlength{\rightskip}{0pt plus 5cm}static void {\bf print\-\_\-mrsg\-\_\-stats} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{master__mrsg_8c_a7953ea070463353c3245fded0bc1663b}
+
+
+\-Print job statistics. 
+
+
+
+\-Here is the caller graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{master__mrsg_8c_a7953ea070463353c3245fded0bc1663b_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{master__mrsg_8c_a84df5ba7b67178160bfce3ce4c45572d}{\index{master\-\_\-mrsg.\-c@{master\-\_\-mrsg.\-c}!send\-\_\-map\-\_\-to\-\_\-mrsg\-\_\-worker@{send\-\_\-map\-\_\-to\-\_\-mrsg\-\_\-worker}}
+\index{send\-\_\-map\-\_\-to\-\_\-mrsg\-\_\-worker@{send\-\_\-map\-\_\-to\-\_\-mrsg\-\_\-worker}!master_mrsg.c@{master\-\_\-mrsg.\-c}}
+\subsubsection[{send\-\_\-map\-\_\-to\-\_\-mrsg\-\_\-worker}]{\setlength{\rightskip}{0pt plus 5cm}static void {\bf send\-\_\-map\-\_\-to\-\_\-mrsg\-\_\-worker} (
+\begin{DoxyParamCaption}
+\item[{msg\-\_\-host\-\_\-t}]{dest}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{master__mrsg_8c_a84df5ba7b67178160bfce3ce4c45572d}
+
+
+\-Choose a map task, and send it to a worker. 
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em dest} & \-The destination worker. \\
+\hline
+\end{DoxyParams}
+
+
+\-Here is the call graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{master__mrsg_8c_a84df5ba7b67178160bfce3ce4c45572d_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{master__mrsg_8c_a84df5ba7b67178160bfce3ce4c45572d_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{master__mrsg_8c_a39b7b32b8f4f4d2ab770c2fe49b6d12c}{\index{master\-\_\-mrsg.\-c@{master\-\_\-mrsg.\-c}!send\-\_\-mrsg\-\_\-task@{send\-\_\-mrsg\-\_\-task}}
+\index{send\-\_\-mrsg\-\_\-task@{send\-\_\-mrsg\-\_\-task}!master_mrsg.c@{master\-\_\-mrsg.\-c}}
+\subsubsection[{send\-\_\-mrsg\-\_\-task}]{\setlength{\rightskip}{0pt plus 5cm}static void {\bf send\-\_\-mrsg\-\_\-task} (
+\begin{DoxyParamCaption}
+\item[{enum {\bf phase\-\_\-e}}]{phase, }
+\item[{size\-\_\-t}]{tid, }
+\item[{size\-\_\-t}]{data\-\_\-src, }
+\item[{msg\-\_\-host\-\_\-t}]{dest}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{master__mrsg_8c_a39b7b32b8f4f4d2ab770c2fe49b6d12c}
+
+
+\-Send a task to a worker. 
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em phase} & \-The current job phase. \\
+\hline
+{\em tid} & \-The task \-I\-D. \\
+\hline
+{\em data\-\_\-src} & \-The \-I\-D of the \-Data\-Node that owns the task data. \\
+\hline
+{\em dest} & \-The destination worker. \\
+\hline
+\end{DoxyParams}
+
+
+\-Here is the call graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=316pt]{master__mrsg_8c_a39b7b32b8f4f4d2ab770c2fe49b6d12c_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{master__mrsg_8c_a39b7b32b8f4f4d2ab770c2fe49b6d12c_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{master__mrsg_8c_a430c1751a26792d7664d4c2686ba4ff3}{\index{master\-\_\-mrsg.\-c@{master\-\_\-mrsg.\-c}!send\-\_\-reduce\-\_\-to\-\_\-mrsg\-\_\-worker@{send\-\_\-reduce\-\_\-to\-\_\-mrsg\-\_\-worker}}
+\index{send\-\_\-reduce\-\_\-to\-\_\-mrsg\-\_\-worker@{send\-\_\-reduce\-\_\-to\-\_\-mrsg\-\_\-worker}!master_mrsg.c@{master\-\_\-mrsg.\-c}}
+\subsubsection[{send\-\_\-reduce\-\_\-to\-\_\-mrsg\-\_\-worker}]{\setlength{\rightskip}{0pt plus 5cm}static void {\bf send\-\_\-reduce\-\_\-to\-\_\-mrsg\-\_\-worker} (
+\begin{DoxyParamCaption}
+\item[{msg\-\_\-host\-\_\-t}]{dest}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{master__mrsg_8c_a430c1751a26792d7664d4c2686ba4ff3}
+
+
+\-Choose a reduce task, and send it to a worker. 
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em dest} & \-The destination worker. \\
+\hline
+\end{DoxyParams}
+
+
+\-Here is the call graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{master__mrsg_8c_a430c1751a26792d7664d4c2686ba4ff3_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{master__mrsg_8c_a430c1751a26792d7664d4c2686ba4ff3_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{master__mrsg_8c_ae03d61ebcd6b69faaef7540ffc10e4a4}{\index{master\-\_\-mrsg.\-c@{master\-\_\-mrsg.\-c}!set\-\_\-mrsg\-\_\-speculative\-\_\-tasks@{set\-\_\-mrsg\-\_\-speculative\-\_\-tasks}}
+\index{set\-\_\-mrsg\-\_\-speculative\-\_\-tasks@{set\-\_\-mrsg\-\_\-speculative\-\_\-tasks}!master_mrsg.c@{master\-\_\-mrsg.\-c}}
+\subsubsection[{set\-\_\-mrsg\-\_\-speculative\-\_\-tasks}]{\setlength{\rightskip}{0pt plus 5cm}static void {\bf set\-\_\-mrsg\-\_\-speculative\-\_\-tasks} (
+\begin{DoxyParamCaption}
+\item[{msg\-\_\-host\-\_\-t}]{worker\-\_\-mrsg}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{master__mrsg_8c_ae03d61ebcd6b69faaef7540ffc10e4a4}
+
+
+\-Mark the tasks of a straggler as possible speculative tasks. 
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em worker\-\_\-mrsg} & \-The straggler worker. \\
+\hline
+\end{DoxyParams}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{master__mrsg_8c_ae03d61ebcd6b69faaef7540ffc10e4a4_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{master__mrsg_8c_ae03d61ebcd6b69faaef7540ffc10e4a4_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{master__mrsg_8c_adc329f1938e0a9e4f4b44e375ade3387}{\index{master\-\_\-mrsg.\-c@{master\-\_\-mrsg.\-c}!task\-\_\-time\-\_\-elapsed\-\_\-mrsg@{task\-\_\-time\-\_\-elapsed\-\_\-mrsg}}
+\index{task\-\_\-time\-\_\-elapsed\-\_\-mrsg@{task\-\_\-time\-\_\-elapsed\-\_\-mrsg}!master_mrsg.c@{master\-\_\-mrsg.\-c}}
+\subsubsection[{task\-\_\-time\-\_\-elapsed\-\_\-mrsg}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf task\-\_\-time\-\_\-elapsed\-\_\-mrsg} (
+\begin{DoxyParamCaption}
+\item[{msg\-\_\-task\-\_\-t}]{mrsg\-\_\-task}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{master__mrsg_8c_adc329f1938e0a9e4f4b44e375ade3387}
+
+
+\-Returns for how long a task is running. 
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em mrsg\-\_\-task} & \-The task to be probed. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-The amount of seconds since the beginning of the computation. 
+\end{DoxyReturn}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{master__mrsg_8c_adc329f1938e0a9e4f4b44e375ade3387_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{master__mrsg_8c_a32bd1bae277b9aa336336310547bb693}{\index{master\-\_\-mrsg.\-c@{master\-\_\-mrsg.\-c}!\-X\-B\-T\-\_\-\-L\-O\-G\-\_\-\-E\-X\-T\-E\-R\-N\-A\-L\-\_\-\-D\-E\-F\-A\-U\-L\-T\-\_\-\-C\-A\-T\-E\-G\-O\-R\-Y@{\-X\-B\-T\-\_\-\-L\-O\-G\-\_\-\-E\-X\-T\-E\-R\-N\-A\-L\-\_\-\-D\-E\-F\-A\-U\-L\-T\-\_\-\-C\-A\-T\-E\-G\-O\-R\-Y}}
+\index{\-X\-B\-T\-\_\-\-L\-O\-G\-\_\-\-E\-X\-T\-E\-R\-N\-A\-L\-\_\-\-D\-E\-F\-A\-U\-L\-T\-\_\-\-C\-A\-T\-E\-G\-O\-R\-Y@{\-X\-B\-T\-\_\-\-L\-O\-G\-\_\-\-E\-X\-T\-E\-R\-N\-A\-L\-\_\-\-D\-E\-F\-A\-U\-L\-T\-\_\-\-C\-A\-T\-E\-G\-O\-R\-Y}!master_mrsg.c@{master\-\_\-mrsg.\-c}}
+\subsubsection[{\-X\-B\-T\-\_\-\-L\-O\-G\-\_\-\-E\-X\-T\-E\-R\-N\-A\-L\-\_\-\-D\-E\-F\-A\-U\-L\-T\-\_\-\-C\-A\-T\-E\-G\-O\-R\-Y}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-X\-B\-T\-\_\-\-L\-O\-G\-\_\-\-E\-X\-T\-E\-R\-N\-A\-L\-\_\-\-D\-E\-F\-A\-U\-L\-T\-\_\-\-C\-A\-T\-E\-G\-O\-R\-Y} (
+\begin{DoxyParamCaption}
+\item[{msg\-\_\-test}]{}
+\end{DoxyParamCaption}
+)}}\label{master__mrsg_8c_a32bd1bae277b9aa336336310547bb693}
+
+
+\subsection{\-Variable \-Documentation}
+\hypertarget{master__mrsg_8c_a42ff89a9ffd23ba410ff217181554f6c}{\index{master\-\_\-mrsg.\-c@{master\-\_\-mrsg.\-c}!tasks\-\_\-log@{tasks\-\_\-log}}
+\index{tasks\-\_\-log@{tasks\-\_\-log}!master_mrsg.c@{master\-\_\-mrsg.\-c}}
+\subsubsection[{tasks\-\_\-log}]{\setlength{\rightskip}{0pt plus 5cm}\-F\-I\-L\-E$\ast$ {\bf tasks\-\_\-log}\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{master__mrsg_8c_a42ff89a9ffd23ba410ff217181554f6c}

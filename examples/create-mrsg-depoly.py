@@ -12,8 +12,8 @@ class PlatformHandler(ContentHandler):
 	def startDocument(self):
 		self.output = open(self.outFileName,'w')
 		self.output.write('<?xml version=\'1.0\'?>\n')
-		self.output.write('<!DOCTYPE platform SYSTEM "http://simgrid.gforge.inria.fr/simgrid.dtd">\n')
-		self.output.write('<platform version="3">\n')
+		self.output.write('<!DOCTYPE platform SYSTEM "http://simgrid.gforge.inria.fr/simgrid/simgrid.dtd">\n')
+		self.output.write('<platform version="4">\n')
 	def startElement(self, name, attrs):
 		if name == 'host':
 			self.printToFile(attrs.get('id'))

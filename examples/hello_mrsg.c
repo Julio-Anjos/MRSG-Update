@@ -18,18 +18,20 @@ along with MRSG.  If not, see <http://www.gnu.org/licenses/>. */
 #include <mrsg.h>
 #include "common_mrsg.h"
 
+double mrsg_task_cost_function (enum mrsg_phase_e mrsg_phase, size_t tid, size_t mrsg_wid);
+int mrsg_map_output_function (size_t mid, size_t rid);
 
 static void read_mrsg_config_file (const char* file_name)
 {
     char    property[256];
     FILE*   file;
 
-    /* Set the default configuration. */
+    /*Set the default configuration.
     config_mrsg.mrsg_chunk_size = 67108864;
     config_mrsg.amount_of_tasks_mrsg[MRSG_REDUCE] = 1;
     config_mrsg.mrsg_slots[MRSG_REDUCE] = 2;
-    config_mrsg.mrsg_perc = 100;
-    
+    config_mrsg.mrsg_perc = 100; */
+
 
     /* Read the user configuration file. */
 
@@ -43,6 +45,26 @@ static void read_mrsg_config_file (const char* file_name)
 	{
 	    fscanf (file, "%lg", &config_mrsg.mrsg_chunk_size);
 	    config_mrsg.mrsg_chunk_size *= 1024 * 1024; /* MB -> bytes */
+	}
+	else if ( strcmp (property, "mrsg_input_chunks") == 0 )
+	{
+	    fscanf (file, "%d", &config_mrsg.mrsg_chunk_count);
+	}
+	else if ( strcmp (property, "mrsg_map_task_cost") == 0 )
+	{
+	    fscanf (file, "%lg", &config_mrsg.map_task_cost_mrsg);
+	}
+	else if ( strcmp (property, "mrsg_reduce_task_cost") == 0 )
+	{
+	    fscanf (file, "%lg", &config_mrsg.reduce_task_cost_mrsg);
+	}
+		else if ( strcmp (property, "mrsg_map_slots") == 0 )
+	{
+	    fscanf (file, "%d", &config_mrsg.mrsg_slots[MRSG_MAP]);
+	}
+	else if ( strcmp (property, "mrsg_reduce_slots") == 0 )
+	{
+	    fscanf (file, "%d", &config_mrsg.mrsg_slots[MRSG_REDUCE]);
 	}
 	else if ( strcmp (property, "mrsg_reduces") == 0 )
 	{
@@ -62,6 +84,12 @@ static void read_mrsg_config_file (const char* file_name)
     fclose (file);
 }
 
+
+
+
+//config_mrsg.cpu_required_map_mrsg *= config_mrsg.mrsg_chunk_size;
+//config_mrsg.cpu_required_reduce_mrsg *= (config.map_out_size / config.number_of_reduces);
+
 /**
  * User function that indicates the amount of bytes
  * that a map task will emit to a reduce task.
@@ -73,9 +101,13 @@ static void read_mrsg_config_file (const char* file_name)
 int mrsg_map_output_function (size_t mid, size_t rid)
 {
 
-		return ((config_mrsg.mrsg_chunk_size*config_mrsg.mrsg_perc/100)/config_mrsg.amount_of_tasks_mrsg[MRSG_REDUCE]);
+int mrsg_int_data;
 
-//    return 4*1024*1024;
+    mrsg_int_data = ((config_mrsg.mrsg_chunk_size*config_mrsg.mrsg_perc/100)/config_mrsg.amount_of_tasks_mrsg[MRSG_REDUCE]);
+
+	 // printf ("Map task %zu Reduce task %zu Tamanho %u", mid, rid, mrsg_int_data);
+
+		return mrsg_int_data;
 }
 
 
@@ -90,27 +122,45 @@ int mrsg_map_output_function (size_t mid, size_t rid)
  */
 double mrsg_task_cost_function (enum mrsg_phase_e mrsg_phase, size_t tid, size_t mrsg_wid)
 {
+   double mrsg_map_required;
+   double mrsg_reduce_required;
+
     switch (mrsg_phase)
     {
 	case MRSG_MAP:
-	    return 5.05e+11;
+	    config_mrsg.cpu_required_map_mrsg = config_mrsg.map_task_cost_mrsg * config_mrsg.mrsg_chunk_size/(1024 * 1024);
+      mrsg_map_required = config_mrsg.cpu_required_map_mrsg/config_mrsg.mrsg_slots[MRSG_MAP];
+	    return mrsg_map_required;
 
 	case MRSG_REDUCE:
-	    return 17.9e+11;
+	    config_mrsg.cpu_required_reduce_mrsg = config_mrsg.reduce_task_cost_mrsg* ((config_mrsg.mrsg_chunk_size/(1024 * 1024) *config_mrsg.mrsg_perc/100)/config_mrsg.amount_of_tasks_mrsg[MRSG_REDUCE]);
+      mrsg_reduce_required = config_mrsg.cpu_required_reduce_mrsg/config_mrsg.mrsg_slots[MRSG_REDUCE];
+	    return mrsg_reduce_required;
     }
+
 }
 
 int main (int argc, char* argv[])
 {
     /* MRSG_init must be called before setting the user functions. */
+   int sg_argc = argc -3; 
+   MSG_init (&sg_argc, argv);
+
     MRSG_init ();
     /* Set the task cost function. */
     MRSG_set_task_cost_f (mrsg_task_cost_function);
     /* Set the map output function. */
     MRSG_set_map_output_f (mrsg_map_output_function);
     /* Run the simulation. */
-    MRSG_main ("reims-32.g5k.xml", "d-reims-32.g5k.xml", "mrsg32-reims.conf");
-
+     //MRSG_main ("mrsg-2knode.xml", "d-mrsg-2knode.xml", "mrsg-2knode.conf");
+    //MRSG_main ("teste5.xml", "d-teste5.xml", "teste5.conf");
+    //MRSG_main ("sophia_g5k.xml", "d-sophia_g5k.xml", "mrsg16-sophia-9g.conf");
+    // MRSG_main ("reims-32.g5k.xml", "d-reims-32.g5k.xml", "mrsg32-reims.conf");
+    // MRSG_main ("julio.plat.xml", "d-julio.plat.xml", "julio.conf");
+    //MRSG_main ("grenoble-64.g5k.xml", "d-grenoble-64.g5k.xml", "mrsg64-grenoble.conf");
+    //MRSG_main ("nancy-128.g5k.xml", "d-nancy-128.g5k.xml", "mrsg128-nancy.conf");
+    //MRSG_main ("mrbitdew-sophia-50.xml", "d-mrbitdew-sophia-50.xml", "mrsg50-bitdew.conf");
+  // MRSG_main("mrsg_32.xml","d-mrsg_32.xml","mrsg_32.conf");
+   MRSG_main(argv[argc-3],argv[argc-2],argv[argc-1]);
     return 0;
 }
-
