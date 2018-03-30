@@ -1,0 +1,5 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$common__mrsg_8c.html#ab5a4c02ceb90f40606c62816c672c5dd" title="Send a short message, of size zero." alt="" coords="169,5,289,35"/>
+<area shape="rect" id="node5" href="$common__mrsg_8c.html#a385b12669d8faf7b5cdb54c1ae597e1c" title="Send a message/task." alt="" coords="340,5,391,35"/>
+<area shape="rect" id="node7" href="$common__mrsg_8c.html#ad37a02c988c597622a346cb5293243fb" title="Compare the message from a task with a string." alt="" coords="440,5,536,35"/>
+</map>

@@ -1,0 +1,454 @@
+\hypertarget{common__mrsg_8h}{\section{include/common\-\_\-mrsg.h \-File \-Reference}
+\label{common__mrsg_8h}\index{include/common\-\_\-mrsg.\-h@{include/common\-\_\-mrsg.\-h}}
+}
+{\ttfamily \#include $<$msg/msg.\-h$>$}\*
+{\ttfamily \#include $<$xbt/sysdep.\-h$>$}\*
+{\ttfamily \#include $<$xbt/log.\-h$>$}\*
+{\ttfamily \#include $<$xbt/asserts.\-h$>$}\*
+{\ttfamily \#include \char`\"{}mrsg.\-h\char`\"{}}\*
+\-Include dependency graph for common\-\_\-mrsg.\-h\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{common__mrsg_8h__incl}
+\end{center}
+\end{figure}
+\-This graph shows which files directly or indirectly include this file\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{common__mrsg_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Data \-Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structheartbeat__s}{heartbeat\-\_\-s}
+\begin{DoxyCompactList}\small\item\em \-Information sent by the workers with every heartbeat. \end{DoxyCompactList}\item 
+struct \hyperlink{structconfig__s}{config\-\_\-s}
+\item 
+struct \hyperlink{structjob__s}{job\-\_\-s}
+\item 
+struct \hyperlink{structtask__info__s}{task\-\_\-info\-\_\-s}
+\begin{DoxyCompactList}\small\item\em \-Information sent as the task data. \end{DoxyCompactList}\item 
+struct \hyperlink{structstats__s}{stats\-\_\-s}
+\item 
+struct \hyperlink{structuser__s}{user\-\_\-s}
+\end{DoxyCompactItemize}
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{common__mrsg_8h_a3ada778261e7a1bf4f029d54c6408a4c}{\-M\-R\-S\-G\-\_\-\-H\-E\-A\-R\-T\-B\-E\-A\-T\-\_\-\-M\-I\-N\-\_\-\-I\-N\-T\-E\-R\-V\-A\-L}~3
+\item 
+\#define \hyperlink{common__mrsg_8h_ad98d05232ca0ddc9b4406ee9957249aa}{\-M\-R\-S\-G\-\_\-\-H\-E\-A\-R\-T\-B\-E\-A\-T\-\_\-\-T\-I\-M\-E\-O\-U\-T}~600
+\item 
+\#define \hyperlink{common__mrsg_8h_a991a24b938294e4d1b54fedfd457698a}{\-S\-M\-S\-\_\-\-G\-E\-T\-\_\-\-M\-R\-S\-G\-\_\-\-C\-H\-U\-N\-K}~\char`\"{}\-S\-M\-S-\/\-G\-C\char`\"{}
+\item 
+\#define \hyperlink{common__mrsg_8h_abe9d0eaf98f72d6ef37b89d365ae4621}{\-S\-M\-S\-\_\-\-G\-E\-T\-\_\-\-I\-N\-T\-E\-R\-\_\-\-M\-R\-S\-G\-\_\-\-P\-A\-I\-R\-S}~\char`\"{}\-S\-M\-S-\/\-G\-I\-P\char`\"{}
+\item 
+\#define \hyperlink{common__mrsg_8h_acef88e1acbe0b89bb51657f55b9da1d4}{\-S\-M\-S\-\_\-\-H\-E\-A\-R\-T\-B\-E\-A\-T\-\_\-\-M\-R\-S\-G}~\char`\"{}\-S\-M\-S-\/\-H\-B\char`\"{}
+\item 
+\#define \hyperlink{common__mrsg_8h_ac21fccca7436107062418b1141b8637e}{\-S\-M\-S\-\_\-\-T\-A\-S\-K\-\_\-\-M\-R\-S\-G}~\char`\"{}\-S\-M\-S-\/\-T\char`\"{}
+\item 
+\#define \hyperlink{common__mrsg_8h_a38207200983740d1ce5ee98ae9efe08c}{\-S\-M\-S\-\_\-\-T\-A\-S\-K\-\_\-\-M\-R\-S\-G\-\_\-\-D\-O\-N\-E}~\char`\"{}\-S\-M\-S-\/\-T\-D\char`\"{}
+\item 
+\#define \hyperlink{common__mrsg_8h_a77fa56fbf137407ed350ec1cbb2c554a}{\-S\-M\-S\-\_\-\-F\-I\-N\-I\-S\-H\-\_\-\-M\-R\-S\-G}~\char`\"{}\-S\-M\-S-\/\-F\char`\"{}
+\item 
+\#define \hyperlink{common__mrsg_8h_a655c84af1b0034986ff56e12e84f983d}{\-N\-O\-N\-E}~(-\/1)
+\item 
+\#define \hyperlink{common__mrsg_8h_a3a11044774f43ab067a966d654bc1fa8}{\-M\-A\-X\-\_\-\-S\-P\-E\-C\-U\-L\-A\-T\-I\-V\-E\-\_\-\-C\-O\-P\-I\-E\-S}~3
+\item 
+\#define \hyperlink{common__mrsg_8h_afaa0d742cbc433ed6d7dbb10dfd94670}{\-M\-A\-I\-L\-B\-O\-X\-\_\-\-A\-L\-I\-A\-S\-\_\-\-S\-I\-Z\-E}~256
+\item 
+\#define \hyperlink{common__mrsg_8h_a08284a5f222851317e854ccc5eb74d47}{\-M\-A\-S\-T\-E\-R\-\_\-\-M\-A\-I\-L\-B\-O\-X}~\char`\"{}\-M\-A\-S\-T\-E\-R\char`\"{}
+\item 
+\#define \hyperlink{common__mrsg_8h_aa277e2cb88a0a2963beb1c09f7110525}{\-D\-A\-T\-A\-N\-O\-D\-E\-\_\-\-M\-R\-S\-G\-\_\-\-M\-A\-I\-L\-B\-O\-X}~\char`\"{}\%zu\-:\-D\-N\char`\"{}
+\item 
+\#define \hyperlink{common__mrsg_8h_a807b63c815c40adb217a130c4db225d2}{\-T\-A\-S\-K\-T\-R\-A\-C\-K\-E\-R\-\_\-\-M\-R\-S\-G\-\_\-\-M\-A\-I\-L\-B\-O\-X}~\char`\"{}\%zu\-:\-T\-T\char`\"{}
+\item 
+\#define \hyperlink{common__mrsg_8h_af8931fa116cf1ca27b82913562eec988}{\-T\-A\-S\-K\-\_\-\-M\-R\-S\-G\-\_\-\-M\-A\-I\-L\-B\-O\-X}~\char`\"{}\%zu\-:\%d\char`\"{}
+\end{DoxyCompactItemize}
+\subsection*{\-Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{structheartbeat__s}{heartbeat\-\_\-s} $\ast$ \hyperlink{common__mrsg_8h_af48c477b08552c23ed34146ca7c5cbde}{mrsg\-\_\-heartbeat\-\_\-t}
+\item 
+typedef struct \hyperlink{structtask__info__s}{task\-\_\-info\-\_\-s} $\ast$ \hyperlink{common__mrsg_8h_aafe4ef026782acb997536f1fecc06c2f}{mrsg\-\_\-task\-\_\-info\-\_\-t}
+\end{DoxyCompactItemize}
+\subsection*{\-Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{common__mrsg_8h_aadf6e8ce08a315d3a320b05b2bcf27c7}{task\-\_\-status\-\_\-e} \{ \hyperlink{common__mrsg_8h_aadf6e8ce08a315d3a320b05b2bcf27c7a760a3f0f793ad855677c509dd05f83b5}{\-T\-\_\-\-S\-T\-A\-T\-U\-S\-\_\-\-M\-R\-S\-G\-\_\-\-P\-E\-N\-D\-I\-N\-G}, 
+\hyperlink{common__mrsg_8h_aadf6e8ce08a315d3a320b05b2bcf27c7ac8f1b0e44b2a3016be5667bc13ca98b7}{\-T\-\_\-\-S\-T\-A\-T\-U\-S\-\_\-\-M\-R\-S\-G\-\_\-\-T\-I\-P}, 
+\hyperlink{common__mrsg_8h_aadf6e8ce08a315d3a320b05b2bcf27c7ad16fa185af560c0ab84a79c9efa94df7}{\-T\-\_\-\-S\-T\-A\-T\-U\-S\-\_\-\-M\-R\-S\-G\-\_\-\-T\-I\-P\-\_\-\-S\-L\-O\-W}, 
+\hyperlink{common__mrsg_8h_aadf6e8ce08a315d3a320b05b2bcf27c7a0f2157a0d04d8a238f744e40687d5fb9}{\-T\-\_\-\-S\-T\-A\-T\-U\-S\-\_\-\-M\-R\-S\-G\-\_\-\-D\-O\-N\-E}
+ \}
+\begin{DoxyCompactList}\small\item\em \-Possible task status. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+msg\-\_\-error\-\_\-t \hyperlink{common__mrsg_8h_a385b12669d8faf7b5cdb54c1ae597e1c}{send} (const char $\ast$str, double cpu, double net, void $\ast$data, const char $\ast$mailbox)
+\begin{DoxyCompactList}\small\item\em \-Send a message/task. \end{DoxyCompactList}\item 
+msg\-\_\-error\-\_\-t \hyperlink{common__mrsg_8h_ab5a4c02ceb90f40606c62816c672c5dd}{send\-\_\-mrsg\-\_\-sms} (const char $\ast$str, const char $\ast$mailbox)
+\begin{DoxyCompactList}\small\item\em \-Send a short message, of size zero. \end{DoxyCompactList}\item 
+msg\-\_\-error\-\_\-t \hyperlink{common__mrsg_8h_a6fc60933b9eabe64a880f68eba3131cc}{receive} (msg\-\_\-task\-\_\-t $\ast$msg, const char $\ast$mailbox)
+\begin{DoxyCompactList}\small\item\em \-Receive a message/task from a mailbox. \end{DoxyCompactList}\item 
+int \hyperlink{common__mrsg_8h_ad37a02c988c597622a346cb5293243fb}{message\-\_\-is} (msg\-\_\-task\-\_\-t msg, const char $\ast$str)
+\begin{DoxyCompactList}\small\item\em \-Compare the message from a task with a string. \end{DoxyCompactList}\item 
+int \hyperlink{common__mrsg_8h_a411d5133ab6881d40ef4cb44a7a47428}{maxval} (int a, int b)
+\begin{DoxyCompactList}\small\item\em \-Return the maximum of two values. \end{DoxyCompactList}\item 
+size\-\_\-t \hyperlink{common__mrsg_8h_a61a91e500b5bc5aa1b1f1fb6712753d9}{map\-\_\-output\-\_\-size} (size\-\_\-t mid)
+\begin{DoxyCompactList}\small\item\em \-Return the output size of a map task. \end{DoxyCompactList}\item 
+size\-\_\-t \hyperlink{common__mrsg_8h_a468d6fbac86e23eb900382eaa1fd00af}{reduce\-\_\-mrsg\-\_\-input\-\_\-size} (size\-\_\-t rid)
+\begin{DoxyCompactList}\small\item\em \-Return the input size of a reduce task. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{\-Variables}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{common__mrsg_8h_af298dd85fb246c663e3146a336dac8dc}{mrsg\-\_\-perc}
+\item 
+struct \hyperlink{structconfig__s}{config\-\_\-s} \hyperlink{common__mrsg_8h_ab861a77c9e18f2fbab653e894a21a77a}{config\-\_\-mrsg}
+\item 
+struct \hyperlink{structjob__s}{job\-\_\-s} \hyperlink{common__mrsg_8h_a0e2d4088d99d0f92743772c3443e334f}{job\-\_\-mrsg}
+\item 
+struct \hyperlink{structstats__s}{stats\-\_\-s} \hyperlink{common__mrsg_8h_a9fbe9d6f0c39c4c6a71bc8efa2c37c56}{stats\-\_\-mrsg}
+\item 
+struct \hyperlink{structuser__s}{user\-\_\-s} \hyperlink{common__mrsg_8h_a3c60775306833ee39965de48b75d9494}{user\-\_\-mrsg}
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Define \-Documentation}
+\hypertarget{common__mrsg_8h_aa277e2cb88a0a2963beb1c09f7110525}{\index{common\-\_\-mrsg.\-h@{common\-\_\-mrsg.\-h}!\-D\-A\-T\-A\-N\-O\-D\-E\-\_\-\-M\-R\-S\-G\-\_\-\-M\-A\-I\-L\-B\-O\-X@{\-D\-A\-T\-A\-N\-O\-D\-E\-\_\-\-M\-R\-S\-G\-\_\-\-M\-A\-I\-L\-B\-O\-X}}
+\index{\-D\-A\-T\-A\-N\-O\-D\-E\-\_\-\-M\-R\-S\-G\-\_\-\-M\-A\-I\-L\-B\-O\-X@{\-D\-A\-T\-A\-N\-O\-D\-E\-\_\-\-M\-R\-S\-G\-\_\-\-M\-A\-I\-L\-B\-O\-X}!common_mrsg.h@{common\-\_\-mrsg.\-h}}
+\subsubsection[{\-D\-A\-T\-A\-N\-O\-D\-E\-\_\-\-M\-R\-S\-G\-\_\-\-M\-A\-I\-L\-B\-O\-X}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-D\-A\-T\-A\-N\-O\-D\-E\-\_\-\-M\-R\-S\-G\-\_\-\-M\-A\-I\-L\-B\-O\-X}~\char`\"{}\%zu\-:\-D\-N\char`\"{}}}\label{common__mrsg_8h_aa277e2cb88a0a2963beb1c09f7110525}
+\hypertarget{common__mrsg_8h_afaa0d742cbc433ed6d7dbb10dfd94670}{\index{common\-\_\-mrsg.\-h@{common\-\_\-mrsg.\-h}!\-M\-A\-I\-L\-B\-O\-X\-\_\-\-A\-L\-I\-A\-S\-\_\-\-S\-I\-Z\-E@{\-M\-A\-I\-L\-B\-O\-X\-\_\-\-A\-L\-I\-A\-S\-\_\-\-S\-I\-Z\-E}}
+\index{\-M\-A\-I\-L\-B\-O\-X\-\_\-\-A\-L\-I\-A\-S\-\_\-\-S\-I\-Z\-E@{\-M\-A\-I\-L\-B\-O\-X\-\_\-\-A\-L\-I\-A\-S\-\_\-\-S\-I\-Z\-E}!common_mrsg.h@{common\-\_\-mrsg.\-h}}
+\subsubsection[{\-M\-A\-I\-L\-B\-O\-X\-\_\-\-A\-L\-I\-A\-S\-\_\-\-S\-I\-Z\-E}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-M\-A\-I\-L\-B\-O\-X\-\_\-\-A\-L\-I\-A\-S\-\_\-\-S\-I\-Z\-E}~256}}\label{common__mrsg_8h_afaa0d742cbc433ed6d7dbb10dfd94670}
+\hypertarget{common__mrsg_8h_a08284a5f222851317e854ccc5eb74d47}{\index{common\-\_\-mrsg.\-h@{common\-\_\-mrsg.\-h}!\-M\-A\-S\-T\-E\-R\-\_\-\-M\-A\-I\-L\-B\-O\-X@{\-M\-A\-S\-T\-E\-R\-\_\-\-M\-A\-I\-L\-B\-O\-X}}
+\index{\-M\-A\-S\-T\-E\-R\-\_\-\-M\-A\-I\-L\-B\-O\-X@{\-M\-A\-S\-T\-E\-R\-\_\-\-M\-A\-I\-L\-B\-O\-X}!common_mrsg.h@{common\-\_\-mrsg.\-h}}
+\subsubsection[{\-M\-A\-S\-T\-E\-R\-\_\-\-M\-A\-I\-L\-B\-O\-X}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-M\-A\-S\-T\-E\-R\-\_\-\-M\-A\-I\-L\-B\-O\-X}~\char`\"{}\-M\-A\-S\-T\-E\-R\char`\"{}}}\label{common__mrsg_8h_a08284a5f222851317e854ccc5eb74d47}
+\hypertarget{common__mrsg_8h_a3a11044774f43ab067a966d654bc1fa8}{\index{common\-\_\-mrsg.\-h@{common\-\_\-mrsg.\-h}!\-M\-A\-X\-\_\-\-S\-P\-E\-C\-U\-L\-A\-T\-I\-V\-E\-\_\-\-C\-O\-P\-I\-E\-S@{\-M\-A\-X\-\_\-\-S\-P\-E\-C\-U\-L\-A\-T\-I\-V\-E\-\_\-\-C\-O\-P\-I\-E\-S}}
+\index{\-M\-A\-X\-\_\-\-S\-P\-E\-C\-U\-L\-A\-T\-I\-V\-E\-\_\-\-C\-O\-P\-I\-E\-S@{\-M\-A\-X\-\_\-\-S\-P\-E\-C\-U\-L\-A\-T\-I\-V\-E\-\_\-\-C\-O\-P\-I\-E\-S}!common_mrsg.h@{common\-\_\-mrsg.\-h}}
+\subsubsection[{\-M\-A\-X\-\_\-\-S\-P\-E\-C\-U\-L\-A\-T\-I\-V\-E\-\_\-\-C\-O\-P\-I\-E\-S}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-M\-A\-X\-\_\-\-S\-P\-E\-C\-U\-L\-A\-T\-I\-V\-E\-\_\-\-C\-O\-P\-I\-E\-S}~3}}\label{common__mrsg_8h_a3a11044774f43ab067a966d654bc1fa8}
+\hypertarget{common__mrsg_8h_a3ada778261e7a1bf4f029d54c6408a4c}{\index{common\-\_\-mrsg.\-h@{common\-\_\-mrsg.\-h}!\-M\-R\-S\-G\-\_\-\-H\-E\-A\-R\-T\-B\-E\-A\-T\-\_\-\-M\-I\-N\-\_\-\-I\-N\-T\-E\-R\-V\-A\-L@{\-M\-R\-S\-G\-\_\-\-H\-E\-A\-R\-T\-B\-E\-A\-T\-\_\-\-M\-I\-N\-\_\-\-I\-N\-T\-E\-R\-V\-A\-L}}
+\index{\-M\-R\-S\-G\-\_\-\-H\-E\-A\-R\-T\-B\-E\-A\-T\-\_\-\-M\-I\-N\-\_\-\-I\-N\-T\-E\-R\-V\-A\-L@{\-M\-R\-S\-G\-\_\-\-H\-E\-A\-R\-T\-B\-E\-A\-T\-\_\-\-M\-I\-N\-\_\-\-I\-N\-T\-E\-R\-V\-A\-L}!common_mrsg.h@{common\-\_\-mrsg.\-h}}
+\subsubsection[{\-M\-R\-S\-G\-\_\-\-H\-E\-A\-R\-T\-B\-E\-A\-T\-\_\-\-M\-I\-N\-\_\-\-I\-N\-T\-E\-R\-V\-A\-L}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-M\-R\-S\-G\-\_\-\-H\-E\-A\-R\-T\-B\-E\-A\-T\-\_\-\-M\-I\-N\-\_\-\-I\-N\-T\-E\-R\-V\-A\-L}~3}}\label{common__mrsg_8h_a3ada778261e7a1bf4f029d54c6408a4c}
+\hypertarget{common__mrsg_8h_ad98d05232ca0ddc9b4406ee9957249aa}{\index{common\-\_\-mrsg.\-h@{common\-\_\-mrsg.\-h}!\-M\-R\-S\-G\-\_\-\-H\-E\-A\-R\-T\-B\-E\-A\-T\-\_\-\-T\-I\-M\-E\-O\-U\-T@{\-M\-R\-S\-G\-\_\-\-H\-E\-A\-R\-T\-B\-E\-A\-T\-\_\-\-T\-I\-M\-E\-O\-U\-T}}
+\index{\-M\-R\-S\-G\-\_\-\-H\-E\-A\-R\-T\-B\-E\-A\-T\-\_\-\-T\-I\-M\-E\-O\-U\-T@{\-M\-R\-S\-G\-\_\-\-H\-E\-A\-R\-T\-B\-E\-A\-T\-\_\-\-T\-I\-M\-E\-O\-U\-T}!common_mrsg.h@{common\-\_\-mrsg.\-h}}
+\subsubsection[{\-M\-R\-S\-G\-\_\-\-H\-E\-A\-R\-T\-B\-E\-A\-T\-\_\-\-T\-I\-M\-E\-O\-U\-T}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-M\-R\-S\-G\-\_\-\-H\-E\-A\-R\-T\-B\-E\-A\-T\-\_\-\-T\-I\-M\-E\-O\-U\-T}~600}}\label{common__mrsg_8h_ad98d05232ca0ddc9b4406ee9957249aa}
+\hypertarget{common__mrsg_8h_a655c84af1b0034986ff56e12e84f983d}{\index{common\-\_\-mrsg.\-h@{common\-\_\-mrsg.\-h}!\-N\-O\-N\-E@{\-N\-O\-N\-E}}
+\index{\-N\-O\-N\-E@{\-N\-O\-N\-E}!common_mrsg.h@{common\-\_\-mrsg.\-h}}
+\subsubsection[{\-N\-O\-N\-E}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-N\-O\-N\-E}~(-\/1)}}\label{common__mrsg_8h_a655c84af1b0034986ff56e12e84f983d}
+\hypertarget{common__mrsg_8h_a77fa56fbf137407ed350ec1cbb2c554a}{\index{common\-\_\-mrsg.\-h@{common\-\_\-mrsg.\-h}!\-S\-M\-S\-\_\-\-F\-I\-N\-I\-S\-H\-\_\-\-M\-R\-S\-G@{\-S\-M\-S\-\_\-\-F\-I\-N\-I\-S\-H\-\_\-\-M\-R\-S\-G}}
+\index{\-S\-M\-S\-\_\-\-F\-I\-N\-I\-S\-H\-\_\-\-M\-R\-S\-G@{\-S\-M\-S\-\_\-\-F\-I\-N\-I\-S\-H\-\_\-\-M\-R\-S\-G}!common_mrsg.h@{common\-\_\-mrsg.\-h}}
+\subsubsection[{\-S\-M\-S\-\_\-\-F\-I\-N\-I\-S\-H\-\_\-\-M\-R\-S\-G}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-S\-M\-S\-\_\-\-F\-I\-N\-I\-S\-H\-\_\-\-M\-R\-S\-G}~\char`\"{}\-S\-M\-S-\/\-F\char`\"{}}}\label{common__mrsg_8h_a77fa56fbf137407ed350ec1cbb2c554a}
+\hypertarget{common__mrsg_8h_abe9d0eaf98f72d6ef37b89d365ae4621}{\index{common\-\_\-mrsg.\-h@{common\-\_\-mrsg.\-h}!\-S\-M\-S\-\_\-\-G\-E\-T\-\_\-\-I\-N\-T\-E\-R\-\_\-\-M\-R\-S\-G\-\_\-\-P\-A\-I\-R\-S@{\-S\-M\-S\-\_\-\-G\-E\-T\-\_\-\-I\-N\-T\-E\-R\-\_\-\-M\-R\-S\-G\-\_\-\-P\-A\-I\-R\-S}}
+\index{\-S\-M\-S\-\_\-\-G\-E\-T\-\_\-\-I\-N\-T\-E\-R\-\_\-\-M\-R\-S\-G\-\_\-\-P\-A\-I\-R\-S@{\-S\-M\-S\-\_\-\-G\-E\-T\-\_\-\-I\-N\-T\-E\-R\-\_\-\-M\-R\-S\-G\-\_\-\-P\-A\-I\-R\-S}!common_mrsg.h@{common\-\_\-mrsg.\-h}}
+\subsubsection[{\-S\-M\-S\-\_\-\-G\-E\-T\-\_\-\-I\-N\-T\-E\-R\-\_\-\-M\-R\-S\-G\-\_\-\-P\-A\-I\-R\-S}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-S\-M\-S\-\_\-\-G\-E\-T\-\_\-\-I\-N\-T\-E\-R\-\_\-\-M\-R\-S\-G\-\_\-\-P\-A\-I\-R\-S}~\char`\"{}\-S\-M\-S-\/\-G\-I\-P\char`\"{}}}\label{common__mrsg_8h_abe9d0eaf98f72d6ef37b89d365ae4621}
+\hypertarget{common__mrsg_8h_a991a24b938294e4d1b54fedfd457698a}{\index{common\-\_\-mrsg.\-h@{common\-\_\-mrsg.\-h}!\-S\-M\-S\-\_\-\-G\-E\-T\-\_\-\-M\-R\-S\-G\-\_\-\-C\-H\-U\-N\-K@{\-S\-M\-S\-\_\-\-G\-E\-T\-\_\-\-M\-R\-S\-G\-\_\-\-C\-H\-U\-N\-K}}
+\index{\-S\-M\-S\-\_\-\-G\-E\-T\-\_\-\-M\-R\-S\-G\-\_\-\-C\-H\-U\-N\-K@{\-S\-M\-S\-\_\-\-G\-E\-T\-\_\-\-M\-R\-S\-G\-\_\-\-C\-H\-U\-N\-K}!common_mrsg.h@{common\-\_\-mrsg.\-h}}
+\subsubsection[{\-S\-M\-S\-\_\-\-G\-E\-T\-\_\-\-M\-R\-S\-G\-\_\-\-C\-H\-U\-N\-K}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-S\-M\-S\-\_\-\-G\-E\-T\-\_\-\-M\-R\-S\-G\-\_\-\-C\-H\-U\-N\-K}~\char`\"{}\-S\-M\-S-\/\-G\-C\char`\"{}}}\label{common__mrsg_8h_a991a24b938294e4d1b54fedfd457698a}
+\hypertarget{common__mrsg_8h_acef88e1acbe0b89bb51657f55b9da1d4}{\index{common\-\_\-mrsg.\-h@{common\-\_\-mrsg.\-h}!\-S\-M\-S\-\_\-\-H\-E\-A\-R\-T\-B\-E\-A\-T\-\_\-\-M\-R\-S\-G@{\-S\-M\-S\-\_\-\-H\-E\-A\-R\-T\-B\-E\-A\-T\-\_\-\-M\-R\-S\-G}}
+\index{\-S\-M\-S\-\_\-\-H\-E\-A\-R\-T\-B\-E\-A\-T\-\_\-\-M\-R\-S\-G@{\-S\-M\-S\-\_\-\-H\-E\-A\-R\-T\-B\-E\-A\-T\-\_\-\-M\-R\-S\-G}!common_mrsg.h@{common\-\_\-mrsg.\-h}}
+\subsubsection[{\-S\-M\-S\-\_\-\-H\-E\-A\-R\-T\-B\-E\-A\-T\-\_\-\-M\-R\-S\-G}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-S\-M\-S\-\_\-\-H\-E\-A\-R\-T\-B\-E\-A\-T\-\_\-\-M\-R\-S\-G}~\char`\"{}\-S\-M\-S-\/\-H\-B\char`\"{}}}\label{common__mrsg_8h_acef88e1acbe0b89bb51657f55b9da1d4}
+\hypertarget{common__mrsg_8h_ac21fccca7436107062418b1141b8637e}{\index{common\-\_\-mrsg.\-h@{common\-\_\-mrsg.\-h}!\-S\-M\-S\-\_\-\-T\-A\-S\-K\-\_\-\-M\-R\-S\-G@{\-S\-M\-S\-\_\-\-T\-A\-S\-K\-\_\-\-M\-R\-S\-G}}
+\index{\-S\-M\-S\-\_\-\-T\-A\-S\-K\-\_\-\-M\-R\-S\-G@{\-S\-M\-S\-\_\-\-T\-A\-S\-K\-\_\-\-M\-R\-S\-G}!common_mrsg.h@{common\-\_\-mrsg.\-h}}
+\subsubsection[{\-S\-M\-S\-\_\-\-T\-A\-S\-K\-\_\-\-M\-R\-S\-G}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-S\-M\-S\-\_\-\-T\-A\-S\-K\-\_\-\-M\-R\-S\-G}~\char`\"{}\-S\-M\-S-\/\-T\char`\"{}}}\label{common__mrsg_8h_ac21fccca7436107062418b1141b8637e}
+\hypertarget{common__mrsg_8h_a38207200983740d1ce5ee98ae9efe08c}{\index{common\-\_\-mrsg.\-h@{common\-\_\-mrsg.\-h}!\-S\-M\-S\-\_\-\-T\-A\-S\-K\-\_\-\-M\-R\-S\-G\-\_\-\-D\-O\-N\-E@{\-S\-M\-S\-\_\-\-T\-A\-S\-K\-\_\-\-M\-R\-S\-G\-\_\-\-D\-O\-N\-E}}
+\index{\-S\-M\-S\-\_\-\-T\-A\-S\-K\-\_\-\-M\-R\-S\-G\-\_\-\-D\-O\-N\-E@{\-S\-M\-S\-\_\-\-T\-A\-S\-K\-\_\-\-M\-R\-S\-G\-\_\-\-D\-O\-N\-E}!common_mrsg.h@{common\-\_\-mrsg.\-h}}
+\subsubsection[{\-S\-M\-S\-\_\-\-T\-A\-S\-K\-\_\-\-M\-R\-S\-G\-\_\-\-D\-O\-N\-E}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-S\-M\-S\-\_\-\-T\-A\-S\-K\-\_\-\-M\-R\-S\-G\-\_\-\-D\-O\-N\-E}~\char`\"{}\-S\-M\-S-\/\-T\-D\char`\"{}}}\label{common__mrsg_8h_a38207200983740d1ce5ee98ae9efe08c}
+\hypertarget{common__mrsg_8h_af8931fa116cf1ca27b82913562eec988}{\index{common\-\_\-mrsg.\-h@{common\-\_\-mrsg.\-h}!\-T\-A\-S\-K\-\_\-\-M\-R\-S\-G\-\_\-\-M\-A\-I\-L\-B\-O\-X@{\-T\-A\-S\-K\-\_\-\-M\-R\-S\-G\-\_\-\-M\-A\-I\-L\-B\-O\-X}}
+\index{\-T\-A\-S\-K\-\_\-\-M\-R\-S\-G\-\_\-\-M\-A\-I\-L\-B\-O\-X@{\-T\-A\-S\-K\-\_\-\-M\-R\-S\-G\-\_\-\-M\-A\-I\-L\-B\-O\-X}!common_mrsg.h@{common\-\_\-mrsg.\-h}}
+\subsubsection[{\-T\-A\-S\-K\-\_\-\-M\-R\-S\-G\-\_\-\-M\-A\-I\-L\-B\-O\-X}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-T\-A\-S\-K\-\_\-\-M\-R\-S\-G\-\_\-\-M\-A\-I\-L\-B\-O\-X}~\char`\"{}\%zu\-:\%d\char`\"{}}}\label{common__mrsg_8h_af8931fa116cf1ca27b82913562eec988}
+\hypertarget{common__mrsg_8h_a807b63c815c40adb217a130c4db225d2}{\index{common\-\_\-mrsg.\-h@{common\-\_\-mrsg.\-h}!\-T\-A\-S\-K\-T\-R\-A\-C\-K\-E\-R\-\_\-\-M\-R\-S\-G\-\_\-\-M\-A\-I\-L\-B\-O\-X@{\-T\-A\-S\-K\-T\-R\-A\-C\-K\-E\-R\-\_\-\-M\-R\-S\-G\-\_\-\-M\-A\-I\-L\-B\-O\-X}}
+\index{\-T\-A\-S\-K\-T\-R\-A\-C\-K\-E\-R\-\_\-\-M\-R\-S\-G\-\_\-\-M\-A\-I\-L\-B\-O\-X@{\-T\-A\-S\-K\-T\-R\-A\-C\-K\-E\-R\-\_\-\-M\-R\-S\-G\-\_\-\-M\-A\-I\-L\-B\-O\-X}!common_mrsg.h@{common\-\_\-mrsg.\-h}}
+\subsubsection[{\-T\-A\-S\-K\-T\-R\-A\-C\-K\-E\-R\-\_\-\-M\-R\-S\-G\-\_\-\-M\-A\-I\-L\-B\-O\-X}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-T\-A\-S\-K\-T\-R\-A\-C\-K\-E\-R\-\_\-\-M\-R\-S\-G\-\_\-\-M\-A\-I\-L\-B\-O\-X}~\char`\"{}\%zu\-:\-T\-T\char`\"{}}}\label{common__mrsg_8h_a807b63c815c40adb217a130c4db225d2}
+
+
+\subsection{\-Typedef \-Documentation}
+\hypertarget{common__mrsg_8h_af48c477b08552c23ed34146ca7c5cbde}{\index{common\-\_\-mrsg.\-h@{common\-\_\-mrsg.\-h}!mrsg\-\_\-heartbeat\-\_\-t@{mrsg\-\_\-heartbeat\-\_\-t}}
+\index{mrsg\-\_\-heartbeat\-\_\-t@{mrsg\-\_\-heartbeat\-\_\-t}!common_mrsg.h@{common\-\_\-mrsg.\-h}}
+\subsubsection[{mrsg\-\_\-heartbeat\-\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf heartbeat\-\_\-s}$\ast$ {\bf mrsg\-\_\-heartbeat\-\_\-t}}}\label{common__mrsg_8h_af48c477b08552c23ed34146ca7c5cbde}
+\hypertarget{common__mrsg_8h_aafe4ef026782acb997536f1fecc06c2f}{\index{common\-\_\-mrsg.\-h@{common\-\_\-mrsg.\-h}!mrsg\-\_\-task\-\_\-info\-\_\-t@{mrsg\-\_\-task\-\_\-info\-\_\-t}}
+\index{mrsg\-\_\-task\-\_\-info\-\_\-t@{mrsg\-\_\-task\-\_\-info\-\_\-t}!common_mrsg.h@{common\-\_\-mrsg.\-h}}
+\subsubsection[{mrsg\-\_\-task\-\_\-info\-\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf task\-\_\-info\-\_\-s}$\ast$ {\bf mrsg\-\_\-task\-\_\-info\-\_\-t}}}\label{common__mrsg_8h_aafe4ef026782acb997536f1fecc06c2f}
+
+
+\subsection{\-Enumeration \-Type \-Documentation}
+\hypertarget{common__mrsg_8h_aadf6e8ce08a315d3a320b05b2bcf27c7}{\index{common\-\_\-mrsg.\-h@{common\-\_\-mrsg.\-h}!task\-\_\-status\-\_\-e@{task\-\_\-status\-\_\-e}}
+\index{task\-\_\-status\-\_\-e@{task\-\_\-status\-\_\-e}!common_mrsg.h@{common\-\_\-mrsg.\-h}}
+\subsubsection[{task\-\_\-status\-\_\-e}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf task\-\_\-status\-\_\-e}}}\label{common__mrsg_8h_aadf6e8ce08a315d3a320b05b2bcf27c7}
+
+
+\-Possible task status. 
+
+\begin{Desc}
+\item[\-Enumerator\-: ]\par
+\begin{description}
+\index{\-T\-\_\-\-S\-T\-A\-T\-U\-S\-\_\-\-M\-R\-S\-G\-\_\-\-P\-E\-N\-D\-I\-N\-G@{\-T\-\_\-\-S\-T\-A\-T\-U\-S\-\_\-\-M\-R\-S\-G\-\_\-\-P\-E\-N\-D\-I\-N\-G}!common\-\_\-mrsg.\-h@{common\-\_\-mrsg.\-h}}\index{common\-\_\-mrsg.\-h@{common\-\_\-mrsg.\-h}!\-T\-\_\-\-S\-T\-A\-T\-U\-S\-\_\-\-M\-R\-S\-G\-\_\-\-P\-E\-N\-D\-I\-N\-G@{\-T\-\_\-\-S\-T\-A\-T\-U\-S\-\_\-\-M\-R\-S\-G\-\_\-\-P\-E\-N\-D\-I\-N\-G}}\item[{\em 
+\hypertarget{common__mrsg_8h_aadf6e8ce08a315d3a320b05b2bcf27c7a760a3f0f793ad855677c509dd05f83b5}{\-T\-\_\-\-S\-T\-A\-T\-U\-S\-\_\-\-M\-R\-S\-G\-\_\-\-P\-E\-N\-D\-I\-N\-G}\label{common__mrsg_8h_aadf6e8ce08a315d3a320b05b2bcf27c7a760a3f0f793ad855677c509dd05f83b5}
+}]\index{\-T\-\_\-\-S\-T\-A\-T\-U\-S\-\_\-\-M\-R\-S\-G\-\_\-\-T\-I\-P@{\-T\-\_\-\-S\-T\-A\-T\-U\-S\-\_\-\-M\-R\-S\-G\-\_\-\-T\-I\-P}!common\-\_\-mrsg.\-h@{common\-\_\-mrsg.\-h}}\index{common\-\_\-mrsg.\-h@{common\-\_\-mrsg.\-h}!\-T\-\_\-\-S\-T\-A\-T\-U\-S\-\_\-\-M\-R\-S\-G\-\_\-\-T\-I\-P@{\-T\-\_\-\-S\-T\-A\-T\-U\-S\-\_\-\-M\-R\-S\-G\-\_\-\-T\-I\-P}}\item[{\em 
+\hypertarget{common__mrsg_8h_aadf6e8ce08a315d3a320b05b2bcf27c7ac8f1b0e44b2a3016be5667bc13ca98b7}{\-T\-\_\-\-S\-T\-A\-T\-U\-S\-\_\-\-M\-R\-S\-G\-\_\-\-T\-I\-P}\label{common__mrsg_8h_aadf6e8ce08a315d3a320b05b2bcf27c7ac8f1b0e44b2a3016be5667bc13ca98b7}
+}]\index{\-T\-\_\-\-S\-T\-A\-T\-U\-S\-\_\-\-M\-R\-S\-G\-\_\-\-T\-I\-P\-\_\-\-S\-L\-O\-W@{\-T\-\_\-\-S\-T\-A\-T\-U\-S\-\_\-\-M\-R\-S\-G\-\_\-\-T\-I\-P\-\_\-\-S\-L\-O\-W}!common\-\_\-mrsg.\-h@{common\-\_\-mrsg.\-h}}\index{common\-\_\-mrsg.\-h@{common\-\_\-mrsg.\-h}!\-T\-\_\-\-S\-T\-A\-T\-U\-S\-\_\-\-M\-R\-S\-G\-\_\-\-T\-I\-P\-\_\-\-S\-L\-O\-W@{\-T\-\_\-\-S\-T\-A\-T\-U\-S\-\_\-\-M\-R\-S\-G\-\_\-\-T\-I\-P\-\_\-\-S\-L\-O\-W}}\item[{\em 
+\hypertarget{common__mrsg_8h_aadf6e8ce08a315d3a320b05b2bcf27c7ad16fa185af560c0ab84a79c9efa94df7}{\-T\-\_\-\-S\-T\-A\-T\-U\-S\-\_\-\-M\-R\-S\-G\-\_\-\-T\-I\-P\-\_\-\-S\-L\-O\-W}\label{common__mrsg_8h_aadf6e8ce08a315d3a320b05b2bcf27c7ad16fa185af560c0ab84a79c9efa94df7}
+}]\index{\-T\-\_\-\-S\-T\-A\-T\-U\-S\-\_\-\-M\-R\-S\-G\-\_\-\-D\-O\-N\-E@{\-T\-\_\-\-S\-T\-A\-T\-U\-S\-\_\-\-M\-R\-S\-G\-\_\-\-D\-O\-N\-E}!common\-\_\-mrsg.\-h@{common\-\_\-mrsg.\-h}}\index{common\-\_\-mrsg.\-h@{common\-\_\-mrsg.\-h}!\-T\-\_\-\-S\-T\-A\-T\-U\-S\-\_\-\-M\-R\-S\-G\-\_\-\-D\-O\-N\-E@{\-T\-\_\-\-S\-T\-A\-T\-U\-S\-\_\-\-M\-R\-S\-G\-\_\-\-D\-O\-N\-E}}\item[{\em 
+\hypertarget{common__mrsg_8h_aadf6e8ce08a315d3a320b05b2bcf27c7a0f2157a0d04d8a238f744e40687d5fb9}{\-T\-\_\-\-S\-T\-A\-T\-U\-S\-\_\-\-M\-R\-S\-G\-\_\-\-D\-O\-N\-E}\label{common__mrsg_8h_aadf6e8ce08a315d3a320b05b2bcf27c7a0f2157a0d04d8a238f744e40687d5fb9}
+}]\end{description}
+\end{Desc}
+
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{common__mrsg_8h_a61a91e500b5bc5aa1b1f1fb6712753d9}{\index{common\-\_\-mrsg.\-h@{common\-\_\-mrsg.\-h}!map\-\_\-output\-\_\-size@{map\-\_\-output\-\_\-size}}
+\index{map\-\_\-output\-\_\-size@{map\-\_\-output\-\_\-size}!common_mrsg.h@{common\-\_\-mrsg.\-h}}
+\subsubsection[{map\-\_\-output\-\_\-size}]{\setlength{\rightskip}{0pt plus 5cm}size\-\_\-t {\bf map\-\_\-output\-\_\-size} (
+\begin{DoxyParamCaption}
+\item[{size\-\_\-t}]{mid}
+\end{DoxyParamCaption}
+)}}\label{common__mrsg_8h_a61a91e500b5bc5aa1b1f1fb6712753d9}
+
+
+\-Return the output size of a map task. 
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em mid} & \-The map task \-I\-D. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-The task output size in bytes. 
+\end{DoxyReturn}
+\hypertarget{common__mrsg_8h_a411d5133ab6881d40ef4cb44a7a47428}{\index{common\-\_\-mrsg.\-h@{common\-\_\-mrsg.\-h}!maxval@{maxval}}
+\index{maxval@{maxval}!common_mrsg.h@{common\-\_\-mrsg.\-h}}
+\subsubsection[{maxval}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf maxval} (
+\begin{DoxyParamCaption}
+\item[{int}]{a, }
+\item[{int}]{b}
+\end{DoxyParamCaption}
+)}}\label{common__mrsg_8h_a411d5133ab6881d40ef4cb44a7a47428}
+
+
+\-Return the maximum of two values. 
+
+
+
+\-Here is the caller graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{common__mrsg_8h_a411d5133ab6881d40ef4cb44a7a47428_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{common__mrsg_8h_ad37a02c988c597622a346cb5293243fb}{\index{common\-\_\-mrsg.\-h@{common\-\_\-mrsg.\-h}!message\-\_\-is@{message\-\_\-is}}
+\index{message\-\_\-is@{message\-\_\-is}!common_mrsg.h@{common\-\_\-mrsg.\-h}}
+\subsubsection[{message\-\_\-is}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf message\-\_\-is} (
+\begin{DoxyParamCaption}
+\item[{msg\-\_\-task\-\_\-t}]{msg, }
+\item[{const char $\ast$}]{str}
+\end{DoxyParamCaption}
+)}}\label{common__mrsg_8h_ad37a02c988c597622a346cb5293243fb}
+
+
+\-Compare the message from a task with a string. 
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em msg} & \-The message/task. \\
+\hline
+{\em str} & \-The string to compare with. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-A positive value if matches, zero if doesn't. 
+\end{DoxyReturn}
+
+
+\-Here is the caller graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{common__mrsg_8h_ad37a02c988c597622a346cb5293243fb_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{common__mrsg_8h_a6fc60933b9eabe64a880f68eba3131cc}{\index{common\-\_\-mrsg.\-h@{common\-\_\-mrsg.\-h}!receive@{receive}}
+\index{receive@{receive}!common_mrsg.h@{common\-\_\-mrsg.\-h}}
+\subsubsection[{receive}]{\setlength{\rightskip}{0pt plus 5cm}msg\-\_\-error\-\_\-t {\bf receive} (
+\begin{DoxyParamCaption}
+\item[{msg\-\_\-task\-\_\-t $\ast$}]{msg, }
+\item[{const char $\ast$}]{mailbox}
+\end{DoxyParamCaption}
+)}}\label{common__mrsg_8h_a6fc60933b9eabe64a880f68eba3131cc}
+
+
+\-Receive a message/task from a mailbox. 
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em msg} & \-Where to store the received message. \\
+\hline
+{\em mailbox} & \-The mailbox alias. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-The status of the transfer. 
+\end{DoxyReturn}
+
+
+\-Here is the caller graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{common__mrsg_8h_a6fc60933b9eabe64a880f68eba3131cc_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{common__mrsg_8h_a468d6fbac86e23eb900382eaa1fd00af}{\index{common\-\_\-mrsg.\-h@{common\-\_\-mrsg.\-h}!reduce\-\_\-mrsg\-\_\-input\-\_\-size@{reduce\-\_\-mrsg\-\_\-input\-\_\-size}}
+\index{reduce\-\_\-mrsg\-\_\-input\-\_\-size@{reduce\-\_\-mrsg\-\_\-input\-\_\-size}!common_mrsg.h@{common\-\_\-mrsg.\-h}}
+\subsubsection[{reduce\-\_\-mrsg\-\_\-input\-\_\-size}]{\setlength{\rightskip}{0pt plus 5cm}size\-\_\-t {\bf reduce\-\_\-mrsg\-\_\-input\-\_\-size} (
+\begin{DoxyParamCaption}
+\item[{size\-\_\-t}]{rid}
+\end{DoxyParamCaption}
+)}}\label{common__mrsg_8h_a468d6fbac86e23eb900382eaa1fd00af}
+
+
+\-Return the input size of a reduce task. 
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em rid} & \-The reduce task \-I\-D. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-The task input size in bytes. 
+\end{DoxyReturn}
+
+
+\-Here is the caller graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{common__mrsg_8h_a468d6fbac86e23eb900382eaa1fd00af_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{common__mrsg_8h_a385b12669d8faf7b5cdb54c1ae597e1c}{\index{common\-\_\-mrsg.\-h@{common\-\_\-mrsg.\-h}!send@{send}}
+\index{send@{send}!common_mrsg.h@{common\-\_\-mrsg.\-h}}
+\subsubsection[{send}]{\setlength{\rightskip}{0pt plus 5cm}msg\-\_\-error\-\_\-t {\bf send} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{str, }
+\item[{double}]{cpu, }
+\item[{double}]{net, }
+\item[{void $\ast$}]{data, }
+\item[{const char $\ast$}]{mailbox}
+\end{DoxyParamCaption}
+)}}\label{common__mrsg_8h_a385b12669d8faf7b5cdb54c1ae597e1c}
+
+
+\-Send a message/task. 
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em str} & \-The message. \\
+\hline
+{\em cpu} & \-The amount of cpu required by the task. \\
+\hline
+{\em net} & \-The message size in bytes. \\
+\hline
+{\em data} & \-Any data to attatch to the message. \\
+\hline
+{\em mailbox} & \-The destination mailbox alias. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-The \-M\-S\-G status of the operation. 
+\end{DoxyReturn}
+
+
+\-Here is the call graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=228pt]{common__mrsg_8h_a385b12669d8faf7b5cdb54c1ae597e1c_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{common__mrsg_8h_a385b12669d8faf7b5cdb54c1ae597e1c_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{common__mrsg_8h_ab5a4c02ceb90f40606c62816c672c5dd}{\index{common\-\_\-mrsg.\-h@{common\-\_\-mrsg.\-h}!send\-\_\-mrsg\-\_\-sms@{send\-\_\-mrsg\-\_\-sms}}
+\index{send\-\_\-mrsg\-\_\-sms@{send\-\_\-mrsg\-\_\-sms}!common_mrsg.h@{common\-\_\-mrsg.\-h}}
+\subsubsection[{send\-\_\-mrsg\-\_\-sms}]{\setlength{\rightskip}{0pt plus 5cm}msg\-\_\-error\-\_\-t {\bf send\-\_\-mrsg\-\_\-sms} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{str, }
+\item[{const char $\ast$}]{mailbox}
+\end{DoxyParamCaption}
+)}}\label{common__mrsg_8h_ab5a4c02ceb90f40606c62816c672c5dd}
+
+
+\-Send a short message, of size zero. 
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em str} & \-The message. \\
+\hline
+{\em mailbox} & \-The destination mailbox alias. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-The \-M\-S\-G status of the operation. 
+\end{DoxyReturn}
+
+
+\-Here is the call graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{common__mrsg_8h_ab5a4c02ceb90f40606c62816c672c5dd_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{common__mrsg_8h_ab5a4c02ceb90f40606c62816c672c5dd_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{\-Variable \-Documentation}
+\hypertarget{common__mrsg_8h_ab861a77c9e18f2fbab653e894a21a77a}{\index{common\-\_\-mrsg.\-h@{common\-\_\-mrsg.\-h}!config\-\_\-mrsg@{config\-\_\-mrsg}}
+\index{config\-\_\-mrsg@{config\-\_\-mrsg}!common_mrsg.h@{common\-\_\-mrsg.\-h}}
+\subsubsection[{config\-\_\-mrsg}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf config\-\_\-s}  {\bf config\-\_\-mrsg}}}\label{common__mrsg_8h_ab861a77c9e18f2fbab653e894a21a77a}
+\hypertarget{common__mrsg_8h_a0e2d4088d99d0f92743772c3443e334f}{\index{common\-\_\-mrsg.\-h@{common\-\_\-mrsg.\-h}!job\-\_\-mrsg@{job\-\_\-mrsg}}
+\index{job\-\_\-mrsg@{job\-\_\-mrsg}!common_mrsg.h@{common\-\_\-mrsg.\-h}}
+\subsubsection[{job\-\_\-mrsg}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf job\-\_\-s}  {\bf job\-\_\-mrsg}}}\label{common__mrsg_8h_a0e2d4088d99d0f92743772c3443e334f}
+\hypertarget{common__mrsg_8h_af298dd85fb246c663e3146a336dac8dc}{\index{common\-\_\-mrsg.\-h@{common\-\_\-mrsg.\-h}!mrsg\-\_\-perc@{mrsg\-\_\-perc}}
+\index{mrsg\-\_\-perc@{mrsg\-\_\-perc}!common_mrsg.h@{common\-\_\-mrsg.\-h}}
+\subsubsection[{mrsg\-\_\-perc}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf mrsg\-\_\-perc}}}\label{common__mrsg_8h_af298dd85fb246c663e3146a336dac8dc}
+\hypertarget{common__mrsg_8h_a9fbe9d6f0c39c4c6a71bc8efa2c37c56}{\index{common\-\_\-mrsg.\-h@{common\-\_\-mrsg.\-h}!stats\-\_\-mrsg@{stats\-\_\-mrsg}}
+\index{stats\-\_\-mrsg@{stats\-\_\-mrsg}!common_mrsg.h@{common\-\_\-mrsg.\-h}}
+\subsubsection[{stats\-\_\-mrsg}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf stats\-\_\-s}  {\bf stats\-\_\-mrsg}}}\label{common__mrsg_8h_a9fbe9d6f0c39c4c6a71bc8efa2c37c56}
+\hypertarget{common__mrsg_8h_a3c60775306833ee39965de48b75d9494}{\index{common\-\_\-mrsg.\-h@{common\-\_\-mrsg.\-h}!user\-\_\-mrsg@{user\-\_\-mrsg}}
+\index{user\-\_\-mrsg@{user\-\_\-mrsg}!common_mrsg.h@{common\-\_\-mrsg.\-h}}
+\subsubsection[{user\-\_\-mrsg}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf user\-\_\-s}  {\bf user\-\_\-mrsg}}}\label{common__mrsg_8h_a3c60775306833ee39965de48b75d9494}
