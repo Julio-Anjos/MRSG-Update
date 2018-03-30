@@ -1,6 +1,0 @@
-<map id="G" name="G">
-<area shape="rect" id="node3" href="$simcore__mrsg_8c.html#a15578dc81b72513cfbc9f4b0e0312eda" title="Initialize the MapReduce configuration." alt="" coords="156,5,295,35"/>
-<area shape="rect" id="node5" href="$simcore__mrsg_8c.html#ae53ac9af0a3cd6da92fe6c08c4079f80" title="run_mrsg_simulation" alt="" coords="344,5,488,35"/>
-<area shape="rect" id="node7" href="$mrsg_8h.html#ad9c5e01ef20705dcc5667aaf1a7ee914" title="MRSG_main" alt="" coords="536,5,635,35"/>
-<area shape="rect" id="node9" href="$hello__mrsg_8c.html#a0ddf1224851353fc92bfbff6f499fa97" title="main" alt="" coords="683,5,733,35"/>
-</map>
