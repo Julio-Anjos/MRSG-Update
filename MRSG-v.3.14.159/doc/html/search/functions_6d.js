@@ -1,0 +1,16 @@
+var searchData=
+[
+  ['main',['main',['../hello__mrsg_8c.html#a0ddf1224851353fc92bfbff6f499fa97',1,'hello_mrsg.c']]],
+  ['map_5foutput_5fsize',['map_output_size',['../common__mrsg_8c.html#a61a91e500b5bc5aa1b1f1fb6712753d9',1,'map_output_size(size_t mid):&#160;common_mrsg.c'],['../common__mrsg_8h.html#a61a91e500b5bc5aa1b1f1fb6712753d9',1,'map_output_size(size_t mid):&#160;common_mrsg.c']]],
+  ['master_5fmrsg',['master_mrsg',['../master__mrsg_8c.html#a44b26dfb2e22cfd31085aba6df13a25b',1,'master_mrsg(int argc, char *argv[]):&#160;master_mrsg.c'],['../simcore__mrsg_8c.html#a44b26dfb2e22cfd31085aba6df13a25b',1,'master_mrsg(int argc, char *argv[]):&#160;master_mrsg.c']]],
+  ['maxval',['maxval',['../common__mrsg_8c.html#a411d5133ab6881d40ef4cb44a7a47428',1,'maxval(int a, int b):&#160;common_mrsg.c'],['../common__mrsg_8h.html#a411d5133ab6881d40ef4cb44a7a47428',1,'maxval(int a, int b):&#160;common_mrsg.c']]],
+  ['message_5fis',['message_is',['../common__mrsg_8c.html#ad37a02c988c597622a346cb5293243fb',1,'message_is(msg_task_t msg, const char *str):&#160;common_mrsg.c'],['../common__mrsg_8h.html#ad37a02c988c597622a346cb5293243fb',1,'message_is(msg_task_t msg, const char *str):&#160;common_mrsg.c']]],
+  ['mrsg_5fheartbeat',['mrsg_heartbeat',['../worker__mrsg_8c.html#ac1e551279c5884a0fc7ca81153deac36',1,'worker_mrsg.c']]],
+  ['mrsg_5finit',['MRSG_init',['../user__mrsg_8c.html#a2689aec4c5d83cc973a3b61bbcbe12dc',1,'MRSG_init(void):&#160;user_mrsg.c'],['../mrsg_8h.html#a2689aec4c5d83cc973a3b61bbcbe12dc',1,'MRSG_init(void):&#160;user_mrsg.c']]],
+  ['mrsg_5fmain',['MRSG_main',['../simcore__mrsg_8c.html#ad9c5e01ef20705dcc5667aaf1a7ee914',1,'MRSG_main(const char *plat, const char *depl, const char *conf):&#160;simcore_mrsg.c'],['../mrsg_8h.html#ad9c5e01ef20705dcc5667aaf1a7ee914',1,'MRSG_main(const char *plat, const char *depl, const char *conf):&#160;simcore_mrsg.c']]],
+  ['mrsg_5fmap_5foutput_5ffunction',['mrsg_map_output_function',['../hello__mrsg_8c.html#af6ea23dc0bdd8a4a608821a0789938b4',1,'hello_mrsg.c']]],
+  ['mrsg_5fset_5fdfs_5ff',['MRSG_set_dfs_f',['../user__mrsg_8c.html#abba96af9fa70347eff51b0de0654c962',1,'MRSG_set_dfs_f(void(*f)(char **dfs_matrix, size_t chunks, size_t workers_mrsg, int replicas)):&#160;user_mrsg.c'],['../mrsg_8h.html#abba96af9fa70347eff51b0de0654c962',1,'MRSG_set_dfs_f(void(*f)(char **dfs_matrix, size_t chunks, size_t workers_mrsg, int replicas)):&#160;user_mrsg.c']]],
+  ['mrsg_5fset_5fmap_5foutput_5ff',['MRSG_set_map_output_f',['../user__mrsg_8c.html#a41c891d42271dc2ee93f6d6d89ca7ed6',1,'MRSG_set_map_output_f(int(*f)(size_t mid, size_t rid)):&#160;user_mrsg.c'],['../mrsg_8h.html#a41c891d42271dc2ee93f6d6d89ca7ed6',1,'MRSG_set_map_output_f(int(*f)(size_t mid, size_t rid)):&#160;user_mrsg.c']]],
+  ['mrsg_5fset_5ftask_5fcost_5ff',['MRSG_set_task_cost_f',['../user__mrsg_8c.html#aa88243a62ee5e506ca37eac8e961270c',1,'MRSG_set_task_cost_f(double(*f)(enum phase_e phase, size_t tid, size_t mrsg_wid)):&#160;user_mrsg.c'],['../mrsg_8h.html#aa88243a62ee5e506ca37eac8e961270c',1,'MRSG_set_task_cost_f(double(*f)(enum phase_e phase, size_t tid, size_t mrsg_wid)):&#160;user_mrsg.c']]],
+  ['mrsg_5ftask_5fcost_5ffunction',['mrsg_task_cost_function',['../hello__mrsg_8c.html#a6d52f5aa659405fadad93694287dc843',1,'hello_mrsg.c']]]
+];

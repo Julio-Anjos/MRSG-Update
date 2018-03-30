@@ -1,0 +1,5 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$worker__mrsg_8c.html#a4b2a3de75932850eb72307f6c18d40c1" title="Get the ID of a worker." alt="" coords="509,26,653,56"/>
+<area shape="rect" id="node5" href="$dfs__mrsg_8c.html#aaecad77ba100be8ed87adfedbb63fe78" title="Choose a random DataNode that owns a specific chunk." alt="" coords="243,24,461,55"/>
+<area shape="rect" id="node7" href="$master__mrsg_8c.html#a39b7b32b8f4f4d2ab770c2fe49b6d12c" title="Send a task to a worker." alt="" coords="292,78,412,108"/>
+</map>

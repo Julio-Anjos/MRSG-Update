@@ -1,0 +1,15 @@
+<?xml version='1.0'?>
+<!DOCTYPE platform SYSTEM "http://simgrid.gforge.inria.fr/simgrid/simgrid.dtd">
+<platform version="4">
+	<process host="MRSG_Host0" function="master_mrsg"/>
+	<process host="MRSG_Host1" function="worker_mrsg"/>
+	<process host="MRSG_Host2" function="worker_mrsg"/>
+	<process host="MRSG_Host3" function="worker_mrsg"/>
+	<process host="MRSG_Host4" function="worker_mrsg"/>
+	<process host="MRSG_Host5" function="worker_mrsg"/>
+	<process host="MRSG_Host6" function="worker_mrsg"/>
+	<process host="MRSG_Host7" function="worker_mrsg"/>
+	<process host="MRSG_Host8" function="worker_mrsg"/>
+	<process host="MRSG_Host9" function="worker_mrsg"/>
+	<process host="MRSG_Host10" function="worker_mrsg"/>
+</platform>
