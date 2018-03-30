@@ -1,0 +1,27 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$worker__mrsg_8c.html#ac1e551279c5884a0fc7ca81153deac36" title="The heartbeat loop." alt="" coords="460,80,575,111"/>
+<area shape="rect" id="node9" href="$common__mrsg_8c.html#ad37a02c988c597622a346cb5293243fb" title="Compare the message from a task with a string." alt="" coords="1395,465,1491,496"/>
+<area shape="rect" id="node11" href="$simcore__mrsg_8c.html#aea3bc3b96c3603289c25ce693b2e830d" title="Main worker function." alt="" coords="208,543,307,573"/>
+<area shape="rect" id="node15" href="$worker__mrsg_8c.html#a4b2a3de75932850eb72307f6c18d40c1" title="Get the ID of a worker." alt="" coords="1089,733,1233,764"/>
+<area shape="rect" id="node17" href="$common__mrsg_8c.html#a6fc60933b9eabe64a880f68eba3131cc" title="Receive a message/task from a mailbox." alt="" coords="1128,309,1195,340"/>
+<area shape="rect" id="node50" href="$master__mrsg_8c.html#a53d4c50f6f7e1f35d489cc05bed43fc8" title="Print the job configuration." alt="" coords="195,1035,320,1065"/>
+<area shape="rect" id="node55" href="$master__mrsg_8c.html#a84abd07226d1639dd58f506c26c37545" title="Checks if a worker is a straggler." alt="" coords="676,849,804,880"/>
+<area shape="rect" id="node58" href="$master__mrsg_8c.html#ae03d61ebcd6b69faaef7540ffc10e4a4" title="Mark the tasks of a straggler as possible speculative tasks." alt="" coords="163,875,352,905"/>
+<area shape="rect" id="node63" href="$master__mrsg_8c.html#a84df5ba7b67178160bfce3ce4c45572d" title="Choose a map task, and send it to a worker." alt="" coords="164,981,351,1012"/>
+<area shape="rect" id="node71" href="$master__mrsg_8c.html#a430c1751a26792d7664d4c2686ba4ff3" title="Choose a reduce task, and send it to a worker." alt="" coords="156,928,359,959"/>
+<area shape="rect" id="node74" href="$master__mrsg_8c.html#a4ba88956cd2e1474bfc22214cff04a96" title="Kill all copies of a task." alt="" coords="163,1088,352,1119"/>
+<area shape="rect" id="node76" href="$master__mrsg_8c.html#a7953ea070463353c3245fded0bc1663b" title="Print job statistics." alt="" coords="199,1141,316,1172"/>
+<area shape="rect" id="node5" href="$common__mrsg_8c.html#ab5a4c02ceb90f40606c62816c672c5dd" title="Send a short message, of size zero." alt="" coords="1101,155,1221,185"/>
+<area shape="rect" id="node7" href="$common__mrsg_8c.html#a385b12669d8faf7b5cdb54c1ae597e1c" title="Send a message/task." alt="" coords="1295,309,1345,340"/>
+<area shape="rect" id="node13" href="$worker__mrsg_8c.html#a46b0dc24dc69ba5194d20436e3e47cf3" title="Process that listens for tasks." alt="" coords="472,465,563,496"/>
+<area shape="rect" id="node38" href="$dfs__mrsg_8c.html#a26a796c33fdf3e7206cffe51d3e0fab6" title="DataNode main function." alt="" coords="679,621,801,652"/>
+<area shape="rect" id="node20" href="$worker__mrsg_8c.html#a3b54f791c11aee0bea6aaca5681dd64b" title="Process that computes a task." alt="" coords="685,413,795,444"/>
+<area shape="rect" id="node22" href="$worker__mrsg_8c.html#a679e1627a238ea931f23b4b02466e82d" title="Get the chunk associated to a map task." alt="" coords="881,309,1001,340"/>
+<area shape="rect" id="node27" href="$worker__mrsg_8c.html#a9b5db3957259c31b6ecf27c82b3272c9" title="Copy the itermediary pairs for a reduce task." alt="" coords="865,413,1017,444"/>
+<area shape="rect" id="node34" href="$worker__mrsg_8c.html#a46865eab4c71002c372812a0993b3da1" title="Update the amount of data produced by a mapper." alt="" coords="855,517,1028,548"/>
+<area shape="rect" id="node30" href="$common__mrsg_8c.html#a468d6fbac86e23eb900382eaa1fd00af" title="Return the input size of a reduce task." alt="" coords="1079,413,1244,444"/>
+<area shape="rect" id="node43" href="$dfs__mrsg_8c.html#a8bec72e7bf4d96ad1645cfca0a12137e" title="send_mrsg_data" alt="" coords="880,824,1003,855"/>
+<area shape="rect" id="node61" href="$master__mrsg_8c.html#adc329f1938e0a9e4f4b44e375ade3387" title="Returns for how long a task is running." alt="" coords="432,925,603,956"/>
+<area shape="rect" id="node66" href="$dfs__mrsg_8c.html#aaecad77ba100be8ed87adfedbb63fe78" title="Choose a random DataNode that owns a specific chunk." alt="" coords="408,1032,627,1063"/>
+<area shape="rect" id="node68" href="$master__mrsg_8c.html#a39b7b32b8f4f4d2ab770c2fe49b6d12c" title="Send a task to a worker." alt="" coords="457,979,577,1009"/>
+</map>

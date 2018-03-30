@@ -1,0 +1,12 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$dfs__mrsg_8h.html#a26a796c33fdf3e7206cffe51d3e0fab6" title="DataNode main function." alt="" coords="324,57,447,87"/>
+<area shape="rect" id="node7" href="$simcore__mrsg_8c.html#a44b26dfb2e22cfd31085aba6df13a25b" title="Main master function." alt="" coords="785,5,884,35"/>
+<area shape="rect" id="node17" href="$worker__mrsg_8c.html#a46b0dc24dc69ba5194d20436e3e47cf3" title="Process that listens for tasks." alt="" coords="496,109,587,139"/>
+<area shape="rect" id="node20" href="$worker__mrsg_8c.html#a679e1627a238ea931f23b4b02466e82d" title="Get the chunk associated to a map task." alt="" coords="137,214,257,245"/>
+<area shape="rect" id="node25" href="$worker__mrsg_8c.html#a9b5db3957259c31b6ecf27c82b3272c9" title="Copy the itermediary pairs for a reduce task." alt="" coords="121,161,273,191"/>
+<area shape="rect" id="node5" href="$worker__mrsg_8c.html#aea3bc3b96c3603289c25ce693b2e830d" title="Main worker function." alt="" coords="636,57,735,87"/>
+<area shape="rect" id="node9" href="$simcore__mrsg_8c.html#ae53ac9af0a3cd6da92fe6c08c4079f80" title="run_mrsg_simulation" alt="" coords="933,31,1077,62"/>
+<area shape="rect" id="node11" href="$mrsg_8h.html#ad9c5e01ef20705dcc5667aaf1a7ee914" title="MRSG_main" alt="" coords="1125,31,1224,62"/>
+<area shape="rect" id="node13" href="$hello__mrsg_8c.html#a0ddf1224851353fc92bfbff6f499fa97" title="main" alt="" coords="1272,31,1323,62"/>
+<area shape="rect" id="node22" href="$worker__mrsg_8c.html#a3b54f791c11aee0bea6aaca5681dd64b" title="Process that computes a task." alt="" coords="331,161,440,191"/>
+</map>

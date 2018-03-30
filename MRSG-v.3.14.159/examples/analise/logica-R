@@ -1,0 +1,77 @@
+conv <-read.csv("tasks-mrsg.csv", header=T, stringsAsFactors=F)
+
+
+
+
+
+
+Converter entrada entre ()  (phase_id,task_id,esp_id) ,mra_phase,worker_id,time,action,shuffle_mra_end
+
+task_id,mrsg_phase,worker_id,time,action,shuffle_end
+
+
+conv <-read.csv("tasks-mrsg.csv", header=T)
+
+conv <-read.csv("tasks-mrsg.csv", header=T, stringsAsFactors=F)
+
+xR = nrow(conv)
+xC = ncol(conv)
+
+
+> str(conv)
+'data.frame':	132 obs. of  8 variables:
+ $ phase_id       : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ task_id        : int  0 8 13 19 1 2 9 14 20 3 ...
+ $ esp_id         : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ mra_phase      : Factor w/ 2 levels "MRA_MAP","MRA_REDUCE": 1 1 1 1 1 1 1 1 1 1 ...
+ $ worker_id      : int  0 1 2 3 4 0 1 2 3 4 ...
+ $ time           : num  0.001 0.004 0.007 0.009 0.012 ...
+ $ action         : Factor w/ 2 levels "END","START": 2 2 2 2 2 2 2 2 2 2 ...
+ $ shuffle_mra_end: num  NA NA NA NA NA NA NA NA NA NA ...
+
+
+
+
+Não tá funcionando (conv$task_id[i] == conv$task_id[j])
+
+m=rep(0,xR)
+hi=rep(0,xR)
+hj=rep(0,xR)
+HM=rep(0,(xR/2))
+HR=rep(0,(xR/2))
+phase=rep(0,xR)
+N=rep(0,xR)
+
+for (i in 1:xR){
+      m[i] <- conv$task_id[i]
+      phase[i] <- conv$mra_phase[i]
+      hi[i] <- conv$time[i]
+      N[i] <- i
+      print (m[i], phase[i], hi[i])
+      for ( j in i+1:xR){
+         if (m[i] == conv$task_id[j]) {
+            hj[j] <- conv$time[j]  
+           }
+          HM[i] <- (hj[j] - hi[i]) 
+      }
+    
+}
+   else (conv$phase_id[i] == 1) {
+         m <-conv$task_id[i]
+      phase[i] <- conv$mra_phase[i];
+      hi <- conv$time[i];
+      for ( j in i+1:xR){
+         if (conv$task_id[i] == conv$task_id[j]) {
+              hj <- conv$time[j];
+            HR[i] <- (hj - hi)          
+           }
+   } 
+   }
+ }
+ 
+ 
+ 
+ 
+ 
+ 
+     

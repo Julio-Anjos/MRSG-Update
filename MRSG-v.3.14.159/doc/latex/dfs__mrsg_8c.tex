@@ -1,0 +1,180 @@
+\hypertarget{dfs__mrsg_8c}{\section{src/dfs\-\_\-mrsg.c \-File \-Reference}
+\label{dfs__mrsg_8c}\index{src/dfs\-\_\-mrsg.\-c@{src/dfs\-\_\-mrsg.\-c}}
+}
+{\ttfamily \#include $<$msg/msg.\-h$>$}\*
+{\ttfamily \#include \char`\"{}common\-\_\-mrsg.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}worker\-\_\-mrsg.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}dfs\-\_\-mrsg.\-h\char`\"{}}\*
+\-Include dependency graph for dfs\-\_\-mrsg.\-c\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{dfs__mrsg_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{dfs__mrsg_8c_a32bd1bae277b9aa336336310547bb693}{\-X\-B\-T\-\_\-\-L\-O\-G\-\_\-\-E\-X\-T\-E\-R\-N\-A\-L\-\_\-\-D\-E\-F\-A\-U\-L\-T\-\_\-\-C\-A\-T\-E\-G\-O\-R\-Y} (msg\-\_\-test)
+\item 
+static void \hyperlink{dfs__mrsg_8c_a8bec72e7bf4d96ad1645cfca0a12137e}{send\-\_\-mrsg\-\_\-data} (msg\-\_\-task\-\_\-t msg)
+\item 
+void \hyperlink{dfs__mrsg_8c_a6071594c683525ac325ef029d0c89b9e}{distribute\-\_\-data\-\_\-mrsg} (void)
+\begin{DoxyCompactList}\small\item\em \-Distribute chunks (and replicas) to \-Data\-Nodes. \end{DoxyCompactList}\item 
+void \hyperlink{dfs__mrsg_8c_a295ab736c8570157fe234ff460757d76}{default\-\_\-mrsg\-\_\-dfs\-\_\-f} (char $\ast$$\ast$dfs\-\_\-matrix, size\-\_\-t chunks, size\-\_\-t workers\-\_\-mrsg, int replicas)
+\begin{DoxyCompactList}\small\item\em \-Default data distribution algorithm. \end{DoxyCompactList}\item 
+size\-\_\-t \hyperlink{dfs__mrsg_8c_aaecad77ba100be8ed87adfedbb63fe78}{find\-\_\-random\-\_\-chunk\-\_\-owner\-\_\-mrsg} (int cid)
+\begin{DoxyCompactList}\small\item\em \-Choose a random \-Data\-Node that owns a specific chunk. \end{DoxyCompactList}\item 
+int \hyperlink{dfs__mrsg_8c_a26a796c33fdf3e7206cffe51d3e0fab6}{data\-\_\-node\-\_\-mrsg} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em \-Data\-Node main function. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{dfs__mrsg_8c_a26a796c33fdf3e7206cffe51d3e0fab6}{\index{dfs\-\_\-mrsg.\-c@{dfs\-\_\-mrsg.\-c}!data\-\_\-node\-\_\-mrsg@{data\-\_\-node\-\_\-mrsg}}
+\index{data\-\_\-node\-\_\-mrsg@{data\-\_\-node\-\_\-mrsg}!dfs_mrsg.c@{dfs\-\_\-mrsg.\-c}}
+\subsubsection[{data\-\_\-node\-\_\-mrsg}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf data\-\_\-node\-\_\-mrsg} (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{dfs__mrsg_8c_a26a796c33fdf3e7206cffe51d3e0fab6}
+
+
+\-Data\-Node main function. 
+
+\-Process that listens for data requests. 
+
+\-Here is the call graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{dfs__mrsg_8c_a26a796c33fdf3e7206cffe51d3e0fab6_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{dfs__mrsg_8c_a26a796c33fdf3e7206cffe51d3e0fab6_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{dfs__mrsg_8c_a295ab736c8570157fe234ff460757d76}{\index{dfs\-\_\-mrsg.\-c@{dfs\-\_\-mrsg.\-c}!default\-\_\-mrsg\-\_\-dfs\-\_\-f@{default\-\_\-mrsg\-\_\-dfs\-\_\-f}}
+\index{default\-\_\-mrsg\-\_\-dfs\-\_\-f@{default\-\_\-mrsg\-\_\-dfs\-\_\-f}!dfs_mrsg.c@{dfs\-\_\-mrsg.\-c}}
+\subsubsection[{default\-\_\-mrsg\-\_\-dfs\-\_\-f}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf default\-\_\-mrsg\-\_\-dfs\-\_\-f} (
+\begin{DoxyParamCaption}
+\item[{char $\ast$$\ast$}]{dfs\-\_\-matrix, }
+\item[{size\-\_\-t}]{chunks, }
+\item[{size\-\_\-t}]{workers\-\_\-mrsg, }
+\item[{int}]{replicas}
+\end{DoxyParamCaption}
+)}}\label{dfs__mrsg_8c_a295ab736c8570157fe234ff460757d76}
+
+
+\-Default data distribution algorithm. 
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{dfs__mrsg_8c_a295ab736c8570157fe234ff460757d76_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{dfs__mrsg_8c_a6071594c683525ac325ef029d0c89b9e}{\index{dfs\-\_\-mrsg.\-c@{dfs\-\_\-mrsg.\-c}!distribute\-\_\-data\-\_\-mrsg@{distribute\-\_\-data\-\_\-mrsg}}
+\index{distribute\-\_\-data\-\_\-mrsg@{distribute\-\_\-data\-\_\-mrsg}!dfs_mrsg.c@{dfs\-\_\-mrsg.\-c}}
+\subsubsection[{distribute\-\_\-data\-\_\-mrsg}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf distribute\-\_\-data\-\_\-mrsg} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{dfs__mrsg_8c_a6071594c683525ac325ef029d0c89b9e}
+
+
+\-Distribute chunks (and replicas) to \-Data\-Nodes. 
+
+
+
+\-Here is the caller graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{dfs__mrsg_8c_a6071594c683525ac325ef029d0c89b9e_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{dfs__mrsg_8c_aaecad77ba100be8ed87adfedbb63fe78}{\index{dfs\-\_\-mrsg.\-c@{dfs\-\_\-mrsg.\-c}!find\-\_\-random\-\_\-chunk\-\_\-owner\-\_\-mrsg@{find\-\_\-random\-\_\-chunk\-\_\-owner\-\_\-mrsg}}
+\index{find\-\_\-random\-\_\-chunk\-\_\-owner\-\_\-mrsg@{find\-\_\-random\-\_\-chunk\-\_\-owner\-\_\-mrsg}!dfs_mrsg.c@{dfs\-\_\-mrsg.\-c}}
+\subsubsection[{find\-\_\-random\-\_\-chunk\-\_\-owner\-\_\-mrsg}]{\setlength{\rightskip}{0pt plus 5cm}size\-\_\-t {\bf find\-\_\-random\-\_\-chunk\-\_\-owner\-\_\-mrsg} (
+\begin{DoxyParamCaption}
+\item[{int}]{cid}
+\end{DoxyParamCaption}
+)}}\label{dfs__mrsg_8c_aaecad77ba100be8ed87adfedbb63fe78}
+
+
+\-Choose a random \-Data\-Node that owns a specific chunk. 
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em cid} & \-The chunk \-I\-D. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-The \-I\-D of the \-Data\-Node. 
+\end{DoxyReturn}
+
+
+\-Here is the caller graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{dfs__mrsg_8c_aaecad77ba100be8ed87adfedbb63fe78_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{dfs__mrsg_8c_a8bec72e7bf4d96ad1645cfca0a12137e}{\index{dfs\-\_\-mrsg.\-c@{dfs\-\_\-mrsg.\-c}!send\-\_\-mrsg\-\_\-data@{send\-\_\-mrsg\-\_\-data}}
+\index{send\-\_\-mrsg\-\_\-data@{send\-\_\-mrsg\-\_\-data}!dfs_mrsg.c@{dfs\-\_\-mrsg.\-c}}
+\subsubsection[{send\-\_\-mrsg\-\_\-data}]{\setlength{\rightskip}{0pt plus 5cm}static void {\bf send\-\_\-mrsg\-\_\-data} (
+\begin{DoxyParamCaption}
+\item[{msg\-\_\-task\-\_\-t}]{msg}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{dfs__mrsg_8c_a8bec72e7bf4d96ad1645cfca0a12137e}
+
+
+\-Here is the call graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=316pt]{dfs__mrsg_8c_a8bec72e7bf4d96ad1645cfca0a12137e_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{dfs__mrsg_8c_a8bec72e7bf4d96ad1645cfca0a12137e_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{dfs__mrsg_8c_a32bd1bae277b9aa336336310547bb693}{\index{dfs\-\_\-mrsg.\-c@{dfs\-\_\-mrsg.\-c}!\-X\-B\-T\-\_\-\-L\-O\-G\-\_\-\-E\-X\-T\-E\-R\-N\-A\-L\-\_\-\-D\-E\-F\-A\-U\-L\-T\-\_\-\-C\-A\-T\-E\-G\-O\-R\-Y@{\-X\-B\-T\-\_\-\-L\-O\-G\-\_\-\-E\-X\-T\-E\-R\-N\-A\-L\-\_\-\-D\-E\-F\-A\-U\-L\-T\-\_\-\-C\-A\-T\-E\-G\-O\-R\-Y}}
+\index{\-X\-B\-T\-\_\-\-L\-O\-G\-\_\-\-E\-X\-T\-E\-R\-N\-A\-L\-\_\-\-D\-E\-F\-A\-U\-L\-T\-\_\-\-C\-A\-T\-E\-G\-O\-R\-Y@{\-X\-B\-T\-\_\-\-L\-O\-G\-\_\-\-E\-X\-T\-E\-R\-N\-A\-L\-\_\-\-D\-E\-F\-A\-U\-L\-T\-\_\-\-C\-A\-T\-E\-G\-O\-R\-Y}!dfs_mrsg.c@{dfs\-\_\-mrsg.\-c}}
+\subsubsection[{\-X\-B\-T\-\_\-\-L\-O\-G\-\_\-\-E\-X\-T\-E\-R\-N\-A\-L\-\_\-\-D\-E\-F\-A\-U\-L\-T\-\_\-\-C\-A\-T\-E\-G\-O\-R\-Y}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-X\-B\-T\-\_\-\-L\-O\-G\-\_\-\-E\-X\-T\-E\-R\-N\-A\-L\-\_\-\-D\-E\-F\-A\-U\-L\-T\-\_\-\-C\-A\-T\-E\-G\-O\-R\-Y} (
+\begin{DoxyParamCaption}
+\item[{msg\-\_\-test}]{}
+\end{DoxyParamCaption}
+)}}\label{dfs__mrsg_8c_a32bd1bae277b9aa336336310547bb693}

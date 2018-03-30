@@ -1,0 +1,16 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$worker__mrsg_8c.html#a46b0dc24dc69ba5194d20436e3e47cf3" title="Process that listens for tasks." alt="" coords="167,198,257,229"/>
+<area shape="rect" id="node5" href="$worker__mrsg_8c.html#a4b2a3de75932850eb72307f6c18d40c1" title="Get the ID of a worker." alt="" coords="727,353,871,383"/>
+<area shape="rect" id="node16" href="$common__mrsg_8c.html#ab5a4c02ceb90f40606c62816c672c5dd" title="Send a short message, of size zero." alt="" coords="739,430,859,461"/>
+<area shape="rect" id="node33" href="$dfs__mrsg_8c.html#a26a796c33fdf3e7206cffe51d3e0fab6" title="DataNode main function." alt="" coords="319,607,441,638"/>
+<area shape="rect" id="node42" href="$worker__mrsg_8c.html#ac1e551279c5884a0fc7ca81153deac36" title="The heartbeat loop." alt="" coords="155,530,269,561"/>
+<area shape="rect" id="node7" href="$common__mrsg_8c.html#a6fc60933b9eabe64a880f68eba3131cc" title="Receive a message/task from a mailbox." alt="" coords="765,223,832,254"/>
+<area shape="rect" id="node9" href="$common__mrsg_8c.html#ad37a02c988c597622a346cb5293243fb" title="Compare the message from a task with a string." alt="" coords="1032,389,1128,419"/>
+<area shape="rect" id="node11" href="$worker__mrsg_8c.html#a3b54f791c11aee0bea6aaca5681dd64b" title="Process that computes a task." alt="" coords="325,146,435,177"/>
+<area shape="rect" id="node13" href="$worker__mrsg_8c.html#a679e1627a238ea931f23b4b02466e82d" title="Get the chunk associated to a map task." alt="" coords="519,301,639,331"/>
+<area shape="rect" id="node18" href="$common__mrsg_8c.html#a385b12669d8faf7b5cdb54c1ae597e1c" title="Send a message/task." alt="" coords="932,294,983,325"/>
+<area shape="rect" id="node22" href="$worker__mrsg_8c.html#a9b5db3957259c31b6ecf27c82b3272c9" title="Copy the itermediary pairs for a reduce task." alt="" coords="503,93,655,123"/>
+<area shape="rect" id="node29" href="$worker__mrsg_8c.html#a46865eab4c71002c372812a0993b3da1" title="Update the amount of data produced by a mapper." alt="" coords="492,146,665,177"/>
+<area shape="rect" id="node25" href="$common__mrsg_8c.html#a468d6fbac86e23eb900382eaa1fd00af" title="Return the input size of a reduce task." alt="" coords="716,93,881,123"/>
+<area shape="rect" id="node38" href="$dfs__mrsg_8c.html#a8bec72e7bf4d96ad1645cfca0a12137e" title="send_mrsg_data" alt="" coords="517,607,640,638"/>
+</map>
