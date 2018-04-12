@@ -1,0 +1,87 @@
+git config --global user.name "YOUR NAME"
+git config --global user.email "YOUR EMAIL ADDRESS"
+
+
+Step 1: Generate a new SSH key
+
+ssh-keygen -t rsa -C "your_email@example.com"
+# Creates a new ssh key, using the provided email as a label
+# Generating public/private rsa key pair.
+# Enter file in which to save the key (/home/you/.ssh/id_rsa):
+
+Next, you'll be asked to enter a passphrase.
+
+Tip: We strongly recommend a very good, secure passphrase. For more information, see Working with SSH key passphrases.
+
+# Enter passphrase (empty for no passphrase): [Type a passphrase]
+# Enter same passphrase again: [Type passphrase again]
+
+Which should give you something like this:
+
+# Your identification has been saved in /home/you/.ssh/id_rsa.
+# Your public key has been saved in /home/you/.ssh/id_rsa.pub.
+# The key fingerprint is:
+# 01:0f:f4:3b:ca:85:d6:17:a1:7d:f0:68:9d:f0:a2:db your_email@example.com
+
+Then add your new key to the ssh-agent:
+
+# start the ssh-agent in the background
+eval "$(ssh-agent -s)"
+# Agent pid 59566
+ssh-add ~/.ssh/id_rsa
+
+Step 2: Add your SSH key to your account
+
+Run the following commands to copy the key to your clipboard. Keep in mind that your key may also be named id_dsa.pub, id_ecdsa.pub or id_ed25519.pub.
+ 
+Step 3: test
+ssh -T git@github.com
+
+Hi Julio-Anjos! You've successfully authenticated, but GitHub does not provide shell access.
+
+
+1. Fazer um clone
+git clone git@github.com:MRSG-MRA/MRA.git
+
+git clone git@github.com:Julio-Anjos/Bighybrid.git
+
+git clone git@github.com:Julio-Anjos/MRSG-Update.git
+
+2. Wroking
+Addicionando
+$ git add nome_arquive ou diretorio
+$ git commit -m "made some changes"
+$ git rm   --> remove
+
+$git status -s
+
+
+$ git push origin master
+
+Update para o Branch
+$ git push origin Work-in-progress
+
+
+3. You can create a new empty branch like this:
+
+$ git checkout --orphan NEWBRANCH
+
+4.Update Git branches from master
+
+Checkout each branch:
+
+git checkout NEWBRANCH
+
+Then merge:
+
+git merge origin/master
+
+Then push:
+
+git push origin NEWBRANCH
+
+Alternatively, you can do a rebase:
+
+git fetch
+git rebase origin/master
+

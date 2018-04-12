@@ -1,0 +1,67 @@
+host list size:33
+actor list size on MRSG_Host0: 1
+ with pid:1
+actor list size on MRSG_Host1: 1
+ with pid:2
+actor list size on MRSG_Host10: 1
+ with pid:11
+actor list size on MRSG_Host11: 1
+ with pid:12
+actor list size on MRSG_Host12: 1
+ with pid:13
+actor list size on MRSG_Host13: 1
+ with pid:14
+actor list size on MRSG_Host14: 1
+ with pid:15
+actor list size on MRSG_Host15: 1
+ with pid:16
+actor list size on MRSG_Host16: 1
+ with pid:17
+actor list size on MRSG_Host17: 1
+ with pid:18
+actor list size on MRSG_Host18: 1
+ with pid:19
+actor list size on MRSG_Host19: 1
+ with pid:20
+actor list size on MRSG_Host2: 1
+ with pid:3
+actor list size on MRSG_Host20: 1
+ with pid:21
+actor list size on MRSG_Host21: 1
+ with pid:22
+actor list size on MRSG_Host22: 1
+ with pid:23
+actor list size on MRSG_Host23: 1
+ with pid:24
+actor list size on MRSG_Host24: 1
+ with pid:25
+actor list size on MRSG_Host25: 1
+ with pid:26
+actor list size on MRSG_Host26: 1
+ with pid:27
+actor list size on MRSG_Host27: 1
+ with pid:28
+actor list size on MRSG_Host28: 1
+ with pid:29
+actor list size on MRSG_Host29: 1
+ with pid:30
+actor list size on MRSG_Host3: 1
+ with pid:4
+actor list size on MRSG_Host30: 1
+ with pid:31
+actor list size on MRSG_Host31: 1
+ with pid:32
+actor list size on MRSG_Host32: 1
+ with pid:33
+actor list size on MRSG_Host4: 1
+ with pid:5
+actor list size on MRSG_Host5: 1
+ with pid:6
+actor list size on MRSG_Host6: 1
+ with pid:7
+actor list size on MRSG_Host7: 1
+ with pid:8
+actor list size on MRSG_Host8: 1
+ with pid:9
+actor list size on MRSG_Host9: 1
+ with pid:10

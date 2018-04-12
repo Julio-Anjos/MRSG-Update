@@ -1,0 +1,2 @@
+./create-mrsg-plat.py platform_file.xml 3000 2 5e9 1e-4 1e9
+
