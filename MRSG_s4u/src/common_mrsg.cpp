@@ -82,6 +82,36 @@ msg_error_t send (const char* str, double cpu, double net, void* data, const cha
     return status;
 }
 
+//NEW
+void alt_send (const char* str, double cpu, double net, void* data, const char* mailbox)
+{
+    Task_MRSG* task;
+    msg_task_t   msg = NULL;
+    mrsg_task_data_capsule_t t_data;
+    TWO_TASKS* two_tasks_ptr = nullptr;
+    
+    t_data = xbt_new (struct mrsg_task_data_capsule_s, 1);
+    t_data->data = data;
+    t_data->sender = MSG_process_self();
+    t_data->source = MSG_host_self();
+    msg = MSG_task_create (str, cpu, net, (void*) t_data);
+
+
+    task = new Task_MRSG(std::string(str), cpu, net, data);
+    task->setSender(MSG_process_self());
+    task->setSource(MSG_host_self());
+    task->setData(data);
+
+    two_tasks_ptr = xbt_new (TWO_TASKS, 1);
+    two_tasks_ptr->old_task = msg;
+    two_tasks_ptr->new_task = task;
+
+    simgrid::s4u::MailboxPtr mailbox_ptr = simgrid::s4u::Mailbox::byName(mailbox);
+    mailbox_ptr->put(two_tasks_ptr, net);
+    
+}
+//NEW
+
 msg_error_t send_mrsg_sms (const char* str, const char* mailbox)
 {
     return send (str, 0.0, 0.0, NULL, mailbox);  
@@ -113,6 +143,22 @@ msg_task_t receive (msg_task_t* msg, const char* mailbox)
     return status;
 */
 }
+
+//NEW
+TWO_TASKS* alt_receive (const char* mailbox)
+{
+    TWO_TASKS* two_tasks_ptr;
+
+    simgrid::s4u::MailboxPtr mailbox_ptr = simgrid::s4u::Mailbox::byName(mailbox);
+
+    two_tasks_ptr = (TWO_TASKS*) mailbox_ptr->get();
+    xbt_assert(two_tasks_ptr != nullptr, "mailbox->get() failed");
+    if(two_tasks_ptr)
+       return two_tasks_ptr;
+    else
+        return NULL;  
+}
+//NEW
 
 int mrsg_message_is (msg_task_t msg, const char* str)
 {

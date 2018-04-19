@@ -25,6 +25,8 @@ along with MRSG.  If not, see <http://www.gnu.org/licenses/>. */
 #include <xbt/asserts.h>
 #include "mrsg.h"
 
+#include "task_mrsg.hpp"
+
 #include <simgrid/s4u.hpp>
 #include <vector>
 
@@ -143,6 +145,13 @@ extern struct mrsg_user_s {
     int (*map_output_f)(size_t mid, size_t rid);
 } user_mrsg;
 
+//NEW
+typedef struct two_tasks{
+    msg_task_t old_task;
+    Task_MRSG* new_task;
+} TWO_TASKS;
+//NEW
+
 /**
  */
 msg_error_t send_async (const char* str, double cpu, double net, void* data, const char* mailbox);
@@ -157,7 +166,9 @@ msg_error_t send_async (const char* str, double cpu, double net, void* data, con
  * @return The MSG status of the operation.
  */
 msg_error_t send (const char* str, double cpu, double net, void* data, const char* mailbox);
-
+//NEW
+void alt_send(const char* str, double cpu, double net, void* data, const char* mailbox);
+//NEW
 /**
  * @brief  Send a short message, of size zero.
  * @param  str      The message.
@@ -173,7 +184,9 @@ msg_error_t send_mrsg_sms (const char* str, const char* mailbox);
  * @return The status of the transfer.
  */
 msg_task_t receive (msg_task_t* msg, const char* mailbox);
-
+//NEW
+TWO_TASKS* alt_receive(const char* mailbox);
+//NEW
 /**
  * @brief  Compare the message from a task with a string.
  * @param  msg  The message/task.

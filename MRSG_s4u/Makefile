@@ -10,7 +10,7 @@ LDADD = -lm -lsimgrid
 
 BIN = libmrsg.a
 OBJ_C = dfs_mrsg.o master_mrsg.o worker_mrsg.o user_mrsg.o
-OBJ_CPP = common_mrsg.o simcore_mrsg.o 
+OBJ_CPP = common_mrsg.o simcore_mrsg.o task_mrsg.o
 
 
 all: $(BIN)

@@ -56,7 +56,7 @@ int worker_mrsg (int argc, char* argv[])
     msg_host_t     me;
 
     me = MSG_host_self ();                                                                //AQUI
-   // XBT_INFO ("WORKER CHECKPOINT 1");
+    XBT_INFO ("WORKER CHECKPOINT 1");
 
     mrsg_task_pid.worker[get_mrsg_worker_id (me)+1] = MSG_process_self_PID();             //AQUI
 
@@ -65,7 +65,7 @@ int worker_mrsg (int argc, char* argv[])
     /* Spawn a process to exchange data with other workers. */
     MSG_process_create ("data-node_mrsg", data_node_mrsg, NULL, me);
     /* Start sending heartbeat signals to the master node. */
-    //XBT_INFO ("WORKER CHECKPOINT 2");
+    XBT_INFO ("WORKER CHECKPOINT 2");
     mrsg_heartbeat ();
    // XBT_INFO ("WORKER CHECKPOINT 3");
     sprintf (mailbox, DATANODE_MRSG_MAILBOX, get_mrsg_worker_id (me));
@@ -109,7 +109,8 @@ static void mrsg_heartbeat (void)
 {
     while (!job_mrsg.finished)
     {
-			send_mrsg_sms (SMS_HEARTBEAT_MRSG, MASTER_MRSG_MAILBOX);
+			//send_mrsg_sms (SMS_HEARTBEAT_MRSG, MASTER_MRSG_MAILBOX);
+            alt_send(SMS_HEARTBEAT_MRSG, 0.0, 0.0, NULL, MASTER_MRSG_MAILBOX);
 			MSG_process_sleep (config_mrsg.mrsg_heartbeat_interval);
     }
 }
@@ -207,8 +208,10 @@ static int compute_mrsg (int argc, char* argv[])
     job_mrsg.mrsg_heartbeats[ti->mrsg_wid].slots_av[ti->mrsg_phase]++;
 
     if (!job_mrsg.finished)
-	send (SMS_TASK_MRSG_DONE, 0.0, 0.0, ti, MASTER_MRSG_MAILBOX);
-
+	//send (SMS_TASK_MRSG_DONE, 0.0, 0.0, ti, MASTER_MRSG_MAILBOX);
+    //NEW
+    alt_send(SMS_TASK_MRSG_DONE, 0.0, 0.0, ti, MASTER_MRSG_MAILBOX);
+    //NEW
     return 0;
 }
 

@@ -77,3 +77,32 @@ Adicionado cabeçalho da função "send_async()".
 Em "send_mrsg_data()", alterado o envio da task de "MSG_task_dsend()" para "send_async()". 
 
 
+#############################13 ABRIL 2018######################################################
+
+@src/task_mrsg.hpp:
+Criada classe "Task_MRSG" com métodos getters e setters + de execução para uso futuro.
+
+@src/task_mrsg.cpp:
+Criada classe "Task_MRSG" com métodos getters e setters + de execução para uso futuro.
+
+#############################19 ABRIL 2018######################################################
+
+@include/common_mrsg.hpp: 
+Criada estrutura temporária "TWO_TASKS" para a manipulação de tasks tanto como tasks do MSG ou 
+"Task_MRSG". Adicinado cabeçalho das funções "alt_send()" e "alt_receive" para envio e 
+recebimento de estruturas "TWO_TASKS". Eventualmente tais mudanças serão desfeitas e trocadas
+pelo uso apenas de "Task_MRSG" assim que estivermos seguros de seu funcionamento.
+
+@src/common_mrsg.cpp: 
+Criadas funções "alt_send()" e "alt_receive" para envio e recebimento de estruturas "TWO_TASKS".
+
+@src/worker_mrsg.hpp:
+Em "mrsg_heartbeat()", trocado o uso de "send_mrsg_sms()" para "alt_send()" com o objetivo de 
+testar o uso da classe Task_MRSG;
+Em "compute_mrsg()", trocado o uso de "send_mrsg_sms()" para "alt_send()"com o objetivo de testar
+o uso da classe Task_MRSG.
+
+@src/master_mrsg:
+Em "master_mrsg()", trocado o uso de "receive()" para "alt_receive()" com o objetivo de testar o 
+uso da classe Task_MRSG. Os dados recebidos e o nodo source agora são obtidos pelo objeto Task_MRSG.
+

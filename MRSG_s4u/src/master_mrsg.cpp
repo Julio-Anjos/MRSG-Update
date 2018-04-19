@@ -53,30 +53,38 @@ int master_mrsg (int argc, char* argv[])
     mrsg_task_info_t  ti;
     mrsg_task_data_capsule_t t_data;
 
+    //NEW
+    Task_MRSG* task_ptr;
+    TWO_TASKS* two_tasks;
+    //NEW
+
     print_mrsg_config ();
 
     XBT_INFO ("JOB BEGIN");
     XBT_INFO (" ");
 
-  //  TRACE_resume ();
+    //TRACE_resume ();
 
-    //tasks_log = fopen ("tasks-mrsg.csv", "w");
-    //fprintf (tasks_log, "task_id,mrsg_phase,worker_id,time,action,shuffle_end\n");
+    tasks_log = fopen ("tasks-mrsg.csv", "w");
+    fprintf (tasks_log, "task_id,mrsg_phase,worker_id,time,action,shuffle_end\n");
 
     while (job_mrsg.tasks_pending[MRSG_MAP] + job_mrsg.tasks_pending[MRSG_REDUCE] > 0)
     {
-        /*msg = NULL;
-        status = receive (&msg, MASTER_MRSG_MAILBOX);
-        if(status ==MSG_OK)
-        */
-        msg = receive (&msg, MASTER_MRSG_MAILBOX);
+        //msg = receive (&msg, MASTER_MRSG_MAILBOX);
+        //NEW
+        two_tasks = alt_receive(MASTER_MRSG_MAILBOX);
+        msg = two_tasks->old_task;
+        task_ptr = two_tasks->new_task;
+        //NEW
+
         //XBT_INFO ("MASTER CHECKPOINT 1");
         if (msg)
         {
             //XBT_INFO ("MASTER CHECKPOINT 2");
             t_data = (mrsg_task_data_capsule_t) MSG_task_get_data (msg);                        //AQUI
 
-            worker_mrsg = t_data->source;
+            worker_mrsg = /*t_data->source*/ task_ptr->getSource();
+            
             mrsg_wid = get_mrsg_worker_id (worker_mrsg);                           
 
             if (mrsg_message_is (msg, SMS_HEARTBEAT_MRSG))
@@ -98,8 +106,11 @@ int master_mrsg (int argc, char* argv[])
             }
             else if (mrsg_message_is (msg, SMS_TASK_MRSG_DONE))
             {
-               // XBT_INFO ("MASTER CHECKPOINT 4");
-                ti = (mrsg_task_info_t) t_data->data;             
+                //XBT_INFO ("MASTER CHECKPOINT 4");
+                //ti = (mrsg_task_info_t) t_data->data;             
+                //NEW
+                ti = (mrsg_task_info_t) task_ptr->getData();
+                //NEW
 
                 if (job_mrsg.task_status[ti->mrsg_phase][ti->mrsg_tid] != T_STATUS_MRSG_DONE)
                 {
@@ -129,7 +140,7 @@ int master_mrsg (int argc, char* argv[])
         }
     }
 
-    //fclose (tasks_log);
+    fclose (tasks_log);
     //XBT_INFO ("MASTER CHECKPOINT 5");
     job_mrsg.finished = 1;
 
@@ -467,7 +478,7 @@ static void send_mrsg_task (enum mrsg_phase_e mrsg_phase, size_t tid, size_t dat
         }
     }
 
-    //fprintf (tasks_log, "%d_%zu_%d,%s,%zu,%.3f,START,\n", mrsg_phase, tid, i, (mrsg_phase==MRSG_MAP?"MRSG_MAP":"MRSG_REDUCE"), mrsg_wid, MSG_get_clock ());
+    fprintf (tasks_log, "%d_%zu_%d,%s,%zu,%.3f,START,\n", mrsg_phase, tid, i, (mrsg_phase==MRSG_MAP?"MRSG_MAP":"MRSG_REDUCE"), mrsg_wid, MSG_get_clock ());
 
 #ifdef VERBOSE
     XBT_INFO ("TX: %s > %s", SMS_TASK_MRSG, MSG_host_get_name (dest));
@@ -499,10 +510,9 @@ static void finish_all_mrsg_task_copies (mrsg_task_info_t ti)
     {
         if (job_mrsg.task_list[mrsg_phase][tid][i] != NULL)
         {
-            //MSG_task_cancel (job_mrsg.task_list[mrsg_phase][tid][i]);
             MSG_task_destroy (job_mrsg.task_list[mrsg_phase][tid][i]);                                     //AQUI
             job_mrsg.task_list[mrsg_phase][tid][i] = NULL;
-            //fprintf (tasks_log, "%d_%zu_%d,%s,%zu,%.3f,END,%.3f\n", ti->mrsg_phase, tid, i, (ti->mrsg_phase==MRSG_MAP?"MRSG_MAP":"MRSG_REDUCE"), ti->mrsg_wid, MSG_get_clock (), ti->shuffle_mrsg_end);//AQUI
+            fprintf (tasks_log, "%d_%zu_%d,%s,%zu,%.3f,END,%.3f\n", ti->mrsg_phase, tid, i, (ti->mrsg_phase==MRSG_MAP?"MRSG_MAP":"MRSG_REDUCE"), ti->mrsg_wid, MSG_get_clock (), ti->shuffle_mrsg_end);//AQUI
         }
     }
 }
