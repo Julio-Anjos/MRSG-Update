@@ -310,9 +310,9 @@ static void init_job_mrsg (void)
     job_mrsg.tasks_pending[MRSG_MAP] = config_mrsg.amount_of_tasks_mrsg[MRSG_MAP];
     job_mrsg.task_status[MRSG_MAP] = xbt_new0 (int, config_mrsg.amount_of_tasks_mrsg[MRSG_MAP]);
     job_mrsg.task_instances[MRSG_MAP] = xbt_new0 (int, config_mrsg.amount_of_tasks_mrsg[MRSG_MAP]);
-    job_mrsg.task_list[MRSG_MAP] = xbt_new0 (msg_task_t*, config_mrsg.amount_of_tasks_mrsg[MRSG_MAP]);
+    job_mrsg.task_list[MRSG_MAP] = xbt_new0 (Task_MRSG**, config_mrsg.amount_of_tasks_mrsg[MRSG_MAP]);
     for (i = 0; i < config_mrsg.amount_of_tasks_mrsg[MRSG_MAP]; i++)
-	job_mrsg.task_list[MRSG_MAP][i] = xbt_new0 (msg_task_t, MAX_SPECULATIVE_COPIES);
+	job_mrsg.task_list[MRSG_MAP][i] = xbt_new0 (Task_MRSG*, MAX_SPECULATIVE_COPIES);
 
     job_mrsg.map_output = xbt_new (size_t*, config_mrsg.mrsg_number_of_workers);
     for (i = 0; i < config_mrsg.mrsg_number_of_workers; i++)
@@ -322,9 +322,9 @@ static void init_job_mrsg (void)
     job_mrsg.tasks_pending[MRSG_REDUCE] = config_mrsg.amount_of_tasks_mrsg[MRSG_REDUCE];
     job_mrsg.task_status[MRSG_REDUCE] = xbt_new0 (int, config_mrsg.amount_of_tasks_mrsg[MRSG_REDUCE]);
     job_mrsg.task_instances[MRSG_REDUCE] = xbt_new0 (int, config_mrsg.amount_of_tasks_mrsg[MRSG_REDUCE]);
-    job_mrsg.task_list[MRSG_REDUCE] = xbt_new0 (msg_task_t*, config_mrsg.amount_of_tasks_mrsg[MRSG_REDUCE]);
+    job_mrsg.task_list[MRSG_REDUCE] = xbt_new0 (Task_MRSG**, config_mrsg.amount_of_tasks_mrsg[MRSG_REDUCE]);
     for (i = 0; i < config_mrsg.amount_of_tasks_mrsg[MRSG_REDUCE]; i++)
-	job_mrsg.task_list[MRSG_REDUCE][i] = xbt_new0 (msg_task_t, MAX_SPECULATIVE_COPIES);
+	job_mrsg.task_list[MRSG_REDUCE][i] = xbt_new0 (Task_MRSG*, MAX_SPECULATIVE_COPIES);
 }
 
 /**

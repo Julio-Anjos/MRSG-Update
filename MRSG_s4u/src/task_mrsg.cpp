@@ -56,6 +56,18 @@ void Task_MRSG::setSource(simgrid::s4u::Host* task_source){
     source = task_source;
 }
 
+double Task_MRSG::getFlopsAmount(){
+    return computation_size;
+}
+
+/*
+*Returns the size of the data attached to a task
+*OBS: Talvez necessário mudar o nome de communication_size
+*/
+double Task_MRSG::getBytesAmount(){
+    return communication_size;
+}
+
 double Task_MRSG::getRemainingRatio(){
     double remaining = 100.0;
 
@@ -77,6 +89,7 @@ double Task_MRSG::getRemainingAmount(){
 
     return remaining;
 }
+
 
 void Task_MRSG::execute(){
     execution = simgrid::s4u::this_actor::exec_init(computation_size);

@@ -98,7 +98,8 @@ extern struct mrsg_job_s {
     int           tasks_pending[2];
     int*          task_instances[2];
     int*          task_status[2];
-    msg_task_t**  task_list[2];
+    //msg_task_t**  task_list[2];
+    /*NEW*/ Task_MRSG*** task_list[2];
     size_t**      map_output;
     mrsg_heartbeat_t   mrsg_heartbeats;
 } job_mrsg;

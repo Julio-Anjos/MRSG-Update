@@ -56,7 +56,7 @@ int worker_mrsg (int argc, char* argv[])
     msg_host_t     me;
 
     me = MSG_host_self ();                                                                //AQUI
-    XBT_INFO ("WORKER CHECKPOINT 1");
+    //XBT_INFO ("WORKER CHECKPOINT 1");
 
     mrsg_task_pid.worker[get_mrsg_worker_id (me)+1] = MSG_process_self_PID();             //AQUI
 
@@ -65,13 +65,13 @@ int worker_mrsg (int argc, char* argv[])
     /* Spawn a process to exchange data with other workers. */
     MSG_process_create ("data-node_mrsg", data_node_mrsg, NULL, me);
     /* Start sending heartbeat signals to the master node. */
-    XBT_INFO ("WORKER CHECKPOINT 2");
+    //XBT_INFO ("WORKER CHECKPOINT 2");
     mrsg_heartbeat ();
    // XBT_INFO ("WORKER CHECKPOINT 3");
     sprintf (mailbox, DATANODE_MRSG_MAILBOX, get_mrsg_worker_id (me));
-    send_mrsg_sms (SMS_FINISH_MRSG, mailbox);
+    alt_send(SMS_FINISH_MRSG, 0.0, 0.0, NULL, mailbox);
     sprintf (mailbox, TASKTRACKER_MRSG_MAILBOX, get_mrsg_worker_id (me));
-    send_mrsg_sms (SMS_FINISH_MRSG, mailbox);
+    alt_send(SMS_FINISH_MRSG, 0.0, 0.0, NULL, mailbox);
 
     mrsg_kill_last_workers();
 //XBT_INFO ("WORKER CHECKPOINT 4");
@@ -109,9 +109,8 @@ static void mrsg_heartbeat (void)
 {
     while (!job_mrsg.finished)
     {
-			//send_mrsg_sms (SMS_HEARTBEAT_MRSG, MASTER_MRSG_MAILBOX);
             alt_send(SMS_HEARTBEAT_MRSG, 0.0, 0.0, NULL, MASTER_MRSG_MAILBOX);
-			MSG_process_sleep (config_mrsg.mrsg_heartbeat_interval);
+            MSG_process_sleep (config_mrsg.mrsg_heartbeat_interval);
     }
 }
 
@@ -124,6 +123,9 @@ static int listen_mrsg (int argc, char* argv[])
     msg_error_t  status;
     msg_host_t   me;
     msg_task_t   msg = NULL;
+    Task_MRSG* task_ptr;
+    TWO_TASKS* two_tasks;
+
 
     me = MSG_host_self ();                                                                         //AQUI
     size_t wid = get_mrsg_worker_id(me) + 1;
@@ -132,16 +134,14 @@ static int listen_mrsg (int argc, char* argv[])
 
     while (!job_mrsg.finished)
     {
-        /*msg = NULL;
-        status = receive (&msg, MASTER_MRSG_MAILBOX);
-        if(status ==MSG_OK)
-        */
-	    msg = receive (&msg, mailbox);
+        two_tasks = alt_receive(mailbox);
+        msg = two_tasks->old_task;
+        task_ptr = two_tasks->new_task;
 
 	if (msg != NULL && mrsg_message_is (msg, SMS_TASK_MRSG))
 	{
-	    MSG_process_create ("woker_mrsg", compute_mrsg, (void*) msg, me);                                  //AQUI
-	}
+        MSG_process_create ("woker_mrsg", compute_mrsg, (void*) two_tasks, me);
+    }
 	else if (mrsg_message_is (msg, SMS_FINISH_MRSG))
 	{
 	    MSG_task_destroy (msg);                                                                     //AQUI
@@ -160,12 +160,14 @@ static int compute_mrsg (int argc, char* argv[])
     msg_error_t  status;
     msg_task_t   mrsg_task;
     mrsg_task_info_t  ti;
-    //mrsg_task_data_capsule_t t_data; //alterar send_mrsg_task se for descomentar
-   // xbt_ex_t     e;
+    Task_MRSG* task_ptr;
+    TWO_TASKS* two_tasks;
 
-    mrsg_task = (msg_task_t) MSG_process_get_data (MSG_process_self ());                             //AQUI
-    //t_data = (mrsg_task_data_capsule_t)  MSG_task_get_data (mrsg_task);                              //AQUI
-    ti = (mrsg_task_info_t) MSG_task_get_data (mrsg_task);                               
+    two_tasks = (TWO_TASKS*) MSG_process_get_data (MSG_process_self ());
+    mrsg_task = two_tasks->old_task;
+    task_ptr = two_tasks->new_task;
+
+    ti = (mrsg_task_info_t) task_ptr->getData();                             
     ti->mrsg_pid = MSG_process_self_PID ();                                                          //AQUI
 
 
@@ -185,9 +187,9 @@ static int compute_mrsg (int argc, char* argv[])
 
     if (job_mrsg.task_status[ti->mrsg_phase][ti->mrsg_tid] != T_STATUS_MRSG_DONE)
     {
-    	    status = MSG_task_execute (mrsg_task);                                                      //AQUI
+            task_ptr->execute();
 
-	    if (ti->mrsg_phase == MRSG_MAP && status == MSG_OK)
+	    if (ti->mrsg_phase == MRSG_MAP)
 		update_mrsg_map_output (MSG_host_self (), ti->mrsg_tid);                                        //AQUI
     /*
 	TRY
@@ -208,10 +210,7 @@ static int compute_mrsg (int argc, char* argv[])
     job_mrsg.mrsg_heartbeats[ti->mrsg_wid].slots_av[ti->mrsg_phase]++;
 
     if (!job_mrsg.finished)
-	//send (SMS_TASK_MRSG_DONE, 0.0, 0.0, ti, MASTER_MRSG_MAILBOX);
-    //NEW
     alt_send(SMS_TASK_MRSG_DONE, 0.0, 0.0, ti, MASTER_MRSG_MAILBOX);
-    //NEW
     return 0;
 }
 
@@ -238,9 +237,11 @@ static void update_mrsg_map_output (msg_host_t worker_mrsg, size_t mid)
 static void get_mrsg_chunk (mrsg_task_info_t ti)
 {
     char         mailbox[MAILBOX_ALIAS_SIZE];
-    msg_error_t  status;
     msg_task_t   data = NULL;
     size_t       my_id;
+    Task_MRSG* task_ptr;
+    TWO_TASKS* two_tasks;
+
 
     my_id = get_mrsg_worker_id (MSG_host_self ());                                                  //AQUI
 
@@ -248,16 +249,17 @@ static void get_mrsg_chunk (mrsg_task_info_t ti)
     if (ti->mrsg_src != my_id)
     {
 	sprintf (mailbox, DATANODE_MRSG_MAILBOX, ti->mrsg_src);
-	status = send_mrsg_sms (SMS_GET_MRSG_CHUNK, mailbox);
-	if (status == MSG_OK)
-	{
+    alt_send(SMS_GET_MRSG_CHUNK, 0.0, 0.0, NULL, mailbox);
+    //if (status == MSG_OK)
+	//{
 	    sprintf (mailbox, TASK_MRSG_MAILBOX, my_id, MSG_process_self_PID ());                        //AQUI
-	    /*status = receive (&data, mailbox);
-	    if (status == MSG_OK)*/
-        data = receive (&data, mailbox); //async receive?
+        two_tasks = alt_receive(mailbox);
+        data = two_tasks->old_task;
+        task_ptr = two_tasks->new_task;
+
         if(data)
 		MSG_task_destroy (data);                                                                      //AQUI
-	}
+	//}
     }
 }
 
@@ -274,6 +276,8 @@ static void get_mrsg_map_output (mrsg_task_info_t ti)
     size_t       my_id;
     size_t       mrsg_wid;
     size_t*      data_copied;
+    Task_MRSG* task_ptr;
+    TWO_TASKS* two_tasks;
 
     my_id = get_mrsg_worker_id (MSG_host_self ());                                                    //AQUI
     data_copied = xbt_new0 (size_t, config_mrsg.mrsg_number_of_workers);
@@ -298,29 +302,28 @@ static void get_mrsg_map_output (mrsg_task_info_t ti)
 	    if (job_mrsg.map_output[mrsg_wid][ti->mrsg_tid] > data_copied[mrsg_wid])
 	    {
 		sprintf (mailbox, DATANODE_MRSG_MAILBOX, mrsg_wid);
-		status = send (SMS_GET_INTER_MRSG_PAIRS, 0.0, 0.0, ti, mailbox);
-		if (status == MSG_OK)
-		{
+        alt_send(SMS_GET_INTER_MRSG_PAIRS, 0.0, 0.0, ti, mailbox);
+        //if (status == MSG_OK)
+		//{
 		    sprintf (mailbox, TASK_MRSG_MAILBOX, my_id, MSG_process_self_PID ());                        //AQUI
-		    /*data = NULL;
 		    //TODO Set a timeout: reduce.copy.backoff
-		    status = receive (&data, mailbox);
-		    if (status == MSG_OK)*/
-            data = receive (&data, mailbox);
-            if(data)
+            two_tasks = alt_receive(mailbox);
+            data = two_tasks->old_task;
+            task_ptr = two_tasks->new_task;
+           
+            if(/*data*/task_ptr)
 		    {
-			data_copied[mrsg_wid] += MSG_task_get_bytes_amount (data);                                    //AQUI
-			total_copied += MSG_task_get_bytes_amount (data);                                             //AQUI
-			//XBT_INFO (" Host %zd Recebeu %zd dados-REDUCE \n", ti->mrsg_wid, reduce_mrsg_input_size (ti->mrsg_tid));
-			MSG_task_destroy (data);                                                                       //AQUI
+                data_copied[mrsg_wid] += task_ptr->getBytesAmount();
+                total_copied += task_ptr->getBytesAmount();               
+			    //XBT_INFO (" Host %zd Recebeu %zd dados-REDUCE \n", ti->mrsg_wid, reduce_mrsg_input_size (ti->mrsg_tid));
+			    MSG_task_destroy (data);                                                                       //AQUI
 		    }
-		}
+		//}
 	    }
 	}
 	/* (Hadoop 0.20.2) mapred/ReduceTask.java:1979 */
 	MSG_process_sleep (3);                                                                                  //AQUI
     }
-
 #ifdef VERBOSE
     XBT_INFO ("INFO: copy finished");
 #endif

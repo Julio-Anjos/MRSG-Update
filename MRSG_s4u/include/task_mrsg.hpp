@@ -37,8 +37,8 @@ class Task_MRSG
     simgrid::s4u::Host* getSource();
     void setSource(simgrid::s4u::Host* task_source);
 
-    //double getComputationSize();
-    //void setComputationSize(double comp_size);
+    double getFlopsAmount();
+    double getBytesAmount();
     double getRemainingRatio();
     double getRemainingAmount();
 
