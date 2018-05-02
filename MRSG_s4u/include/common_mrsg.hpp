@@ -24,6 +24,7 @@ along with MRSG.  If not, see <http://www.gnu.org/licenses/>. */
 #include <xbt/log.h>
 #include <xbt/asserts.h>
 #include "mrsg.h"
+#include <memory.h>
 
 #include "task_mrsg.hpp"
 

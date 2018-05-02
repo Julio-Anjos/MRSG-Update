@@ -101,7 +101,14 @@ void Task_MRSG::execute(){
 }
 
 void Task_MRSG::destroy(){
-    //stop execution in some way
+    if(execution_status == EXECUTING)
+        execution->setRemains(0.0);
+    
+    /**
+     * As soon as this method ends, the unique_ptr gets out of scope and its contents are freed,
+     * this way it won't matter where the class was instantiated
+    **/
+    std::unique_ptr<Task_MRSG> pointer(this);
 }
 
 

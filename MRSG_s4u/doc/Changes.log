@@ -116,7 +116,6 @@ e "receive()" por "alt_receive()" com o objetivo de testar o uso da classe Task_
 Em todas as funções as quais se aplica, trocado o uso de "send_mrsg_sms()" / "send()" por "alt_send()"
 e "receive()" por "alt_receive()" com o objetivo de testar o uso da classe Task_MRSG;
 
-
 @src/dfs_mrsg:
 Em todas as funções as quais se aplica, trocado o uso de "send_mrsg_sms()" / "send()" por "alt_send()"
 e "receive()" por "alt_receive()" com o objetivo de testar o uso da classe Task_MRSG;
@@ -135,3 +134,21 @@ Em "master_mrsg()", trocado o uso da estrutura "mrsg_task_data_capsule_s" pelo u
 Em "task_time_elapsed_mrsg()", trocado o uso da estrutura "mrsg_task_data_capsule_s" e das funções
 "MSG_task_get_bytes_amount()" e "MSG_task_get_flops_amount()", pelo uso dos métodos "getData()", 
 "getFlopsAmount" e "getRemainingRatio()" da classe "Task_MRSG".
+
+#############################02 MAIO 2018######################################################
+
+@src/task_mrsg.cpp;
+Implementado método "destroy()" que interrompe uma task se ela estiver executando, e libera seus
+dados.
+
+@src/worker_mrsg:
+Em todas as funções as quais se aplica, trocado o uso de "MSG_task_destroy()" pelo método "destroy()"
+da classe "Task_MRSG".
+
+@src/master_mrsg:
+Em todas as funções as quais se aplica, trocado o uso de "MSG_task_destroy()" pelo método "destroy()"
+da classe "Task_MRSG".
+
+@src/dfs_mrsg:
+Em todas as funções as quais se aplica, trocado o uso de "MSG_task_destroy()" pelo método "destroy()"
+da classe "Task_MRSG".

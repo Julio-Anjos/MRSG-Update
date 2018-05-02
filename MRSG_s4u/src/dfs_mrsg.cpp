@@ -125,7 +125,7 @@ int data_node_mrsg (int argc, char* argv[])
         {
             if (mrsg_message_is (msg, SMS_FINISH_MRSG))
             {
-                MSG_task_destroy (msg);                                                          //AQUI
+                task_ptr->destroy();
                 break;
             }
             else
@@ -169,7 +169,7 @@ static void send_mrsg_data (msg_task_t msg, Task_MRSG* task)
         //XBT_INFO("POINT 5");
     }
 
-    MSG_task_destroy (msg);                                                                                                       //AQUI
+    task->destroy();
 }
 
 

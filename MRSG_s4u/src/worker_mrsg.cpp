@@ -144,7 +144,7 @@ static int listen_mrsg (int argc, char* argv[])
     }
 	else if (mrsg_message_is (msg, SMS_FINISH_MRSG))
 	{
-	    MSG_task_destroy (msg);                                                                     //AQUI
+	    task_ptr->destroy();
 	    break;
 	}
     }
@@ -257,8 +257,8 @@ static void get_mrsg_chunk (mrsg_task_info_t ti)
         data = two_tasks->old_task;
         task_ptr = two_tasks->new_task;
 
-        if(data)
-		MSG_task_destroy (data);                                                                      //AQUI
+        if(task_ptr)
+		task_ptr->destroy();
 	//}
     }
 }
@@ -311,12 +311,12 @@ static void get_mrsg_map_output (mrsg_task_info_t ti)
             data = two_tasks->old_task;
             task_ptr = two_tasks->new_task;
            
-            if(/*data*/task_ptr)
+            if(task_ptr)
 		    {
                 data_copied[mrsg_wid] += task_ptr->getBytesAmount();
                 total_copied += task_ptr->getBytesAmount();               
 			    //XBT_INFO (" Host %zd Recebeu %zd dados-REDUCE \n", ti->mrsg_wid, reduce_mrsg_input_size (ti->mrsg_tid));
-			    MSG_task_destroy (data);                                                                       //AQUI
+			    task_ptr->destroy();
 		    }
 		//}
 	    }
