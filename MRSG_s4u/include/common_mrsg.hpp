@@ -55,7 +55,7 @@ along with MRSG.  If not, see <http://www.gnu.org/licenses/>. */
 #define MASTER_MRSG_MAILBOX "MASTER"
 #define DATANODE_MRSG_MAILBOX "%zu:DN"
 #define TASKTRACKER_MRSG_MAILBOX "%zu:TT"
-#define TASK_MRSG_MAILBOX "%zu:%d"
+#define TASK_MRSG_MAILBOX "%zu:%ld"
 
 
 /** @brief  Possible task status. */
@@ -94,13 +94,17 @@ extern struct mrsg_config_s {
     simgrid::s4u::Host** workers_mrsg;
 } config_mrsg;
 
+
+typedef Task_MRSG* mrsg_task_t;
+
+
 extern struct mrsg_job_s {
     int           finished;
     int           tasks_pending[2];
     int*          task_instances[2];
     int*          task_status[2];
-    //msg_task_t**  task_list[2];
-    /*NEW*/ Task_MRSG*** task_list[2];
+    /*OLD msg_task_t**  task_list[2];*/
+    mrsg_task_t** task_list[2];
     size_t**      map_output;
     mrsg_heartbeat_t   mrsg_heartbeats;
 } job_mrsg;
@@ -112,7 +116,8 @@ struct mrsg_task_info_s {
     size_t        mrsg_src;
     size_t        mrsg_wid;
     int           mrsg_pid;
-    msg_task_t    mrsg_task;
+    /*OLD mrg_task_t    mrsg_task; */
+    Task_MRSG*    mrsg_task;
     size_t*       map_output_copied;
     double        shuffle_mrsg_end;
     int           mrsg_size_data_proc;
@@ -147,16 +152,9 @@ extern struct mrsg_user_s {
     int (*map_output_f)(size_t mid, size_t rid);
 } user_mrsg;
 
-//NEW
-typedef struct two_tasks{
-    msg_task_t old_task;
-    Task_MRSG* new_task;
-} TWO_TASKS;
-//NEW
-
-/**
- */
+/* KEEP? 
 msg_error_t send_async (const char* str, double cpu, double net, void* data, const char* mailbox);
+*/
 
 /**
  * @brief  Send a message/task.
@@ -165,19 +163,16 @@ msg_error_t send_async (const char* str, double cpu, double net, void* data, con
  * @param  net      The message size in bytes.
  * @param  data     Any data to attatch to the message.
  * @param  mailbox  The destination mailbox alias.
- * @return The MSG status of the operation.
  */
-msg_error_t send (const char* str, double cpu, double net, void* data, const char* mailbox);
-//NEW
-void alt_send(const char* str, double cpu, double net, void* data, const char* mailbox);
-//NEW
+void send (const char* str, double cpu, double net, void* data, const char* mailbox);
+
+
 /**
  * @brief  Send a short message, of size zero.
  * @param  str      The message.
  * @param  mailbox  The destination mailbox alias.
- * @return The MSG status of the operation.
  */
-msg_error_t send_mrsg_sms (const char* str, const char* mailbox);
+void send_mrsg_sms (const char* str, const char* mailbox);
 
 /**
  * @brief  Receive a message/task from a mailbox.
@@ -185,17 +180,18 @@ msg_error_t send_mrsg_sms (const char* str, const char* mailbox);
  * @param  mailbox  The mailbox alias.
  * @return The status of the transfer.
  */
-msg_task_t receive (msg_task_t* msg, const char* mailbox);
-//NEW
-TWO_TASKS* alt_receive(const char* mailbox);
-//NEW
+mrsg_task_t receive (const char* mailbox);
+
+
+
 /**
  * @brief  Compare the message from a task with a string.
  * @param  msg  The message/task.
  * @param  str  The string to compare with.
  * @return A positive value if matches, zero if doesn't.
  */
-int mrsg_message_is (msg_task_t msg, const char* str);
+int mrsg_message_is (mrsg_task_t msg, const char* str);
+
 
 int mrsg_map_output_function (size_t mid, size_t rid);
 
@@ -209,15 +205,5 @@ int mrsg_maxval (int a, int b);
 size_t map_mrsg_output_size (size_t mid);
 
 size_t reduce_mrsg_input_size (size_t rid);
-
-//NEW
-struct mrsg_task_data_capsule_s {
-    void* data;
-    msg_process_t sender = nullptr; 
-    msg_process_t receiver = nullptr; 
-    msg_host_t source = nullptr;
-};
-
-typedef struct mrsg_task_data_capsule_s* mrsg_task_data_capsule_t;
 
 #endif /* !MRSG_COMMON_H */

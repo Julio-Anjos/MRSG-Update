@@ -45,5 +45,6 @@ set(CMAKE_MAKEFILE_PRODUCTS
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
-  "CMakeFiles/MRSG_s4u.dir/DependInfo.cmake"
+  "CMakeFiles/hello_mrsg.dir/DependInfo.cmake"
+  "CMakeFiles/mrsg.dir/DependInfo.cmake"
   )

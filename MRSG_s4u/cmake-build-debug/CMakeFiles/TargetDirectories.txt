@@ -1,3 +1,4 @@
 /home/gabriel/Desktop/Work-in-progess/MRSG-Update/MRSG_s4u/cmake-build-debug/CMakeFiles/rebuild_cache.dir
 /home/gabriel/Desktop/Work-in-progess/MRSG-Update/MRSG_s4u/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/gabriel/Desktop/Work-in-progess/MRSG-Update/MRSG_s4u/cmake-build-debug/CMakeFiles/MRSG_s4u.dir
+/home/gabriel/Desktop/Work-in-progess/MRSG-Update/MRSG_s4u/cmake-build-debug/CMakeFiles/hello_mrsg.dir
+/home/gabriel/Desktop/Work-in-progess/MRSG-Update/MRSG_s4u/cmake-build-debug/CMakeFiles/mrsg.dir

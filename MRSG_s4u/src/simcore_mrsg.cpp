@@ -84,19 +84,19 @@ static void check_config_mrsg (void)
  */
 static void run_mrsg_simulation (const char* platform_file, const char* deploy_file, const char* mr_config_file)
 {
-    simgrid::s4u::Engine* e = simgrid::s4u::Engine::getInstance();
+    simgrid::s4u::Engine* e = simgrid::s4u::Engine::get_instance();
 
     read_mrsg_config_file (mr_config_file);
 
-    e->loadPlatform(platform_file);
+    e->load_platform(platform_file);
 
     // for tracing purposes..
   //  TRACE_category_with_color ("MRSG_MAP", "1 0 0");
   //  TRACE_category_with_color ("MRSG_REDUCE", "0 0 1");
 
-    e->registerFunction("master_mrsg", master_mrsg);
-    e->registerFunction("worker_mrsg", worker_mrsg);
-    e->loadDeployment(deploy_file);
+    e->register_function("master_mrsg", master_mrsg);
+    e->register_function("worker_mrsg", worker_mrsg);
+    e->load_deployment(deploy_file);
 
     init_mr_mrsg_config (mr_config_file);
 
@@ -216,10 +216,10 @@ static void init_mrsg_config (void)
     size_t         mrsg_wid;
     w_mrsg_info_t       wi;
 
-    simgrid::s4u::Engine* e = simgrid::s4u::Engine::getInstance();  
-    std::vector<simgrid::s4u::Host*> *host_list = new std::vector<simgrid::s4u::Host*>;
+    simgrid::s4u::Engine* e = simgrid::s4u::Engine::get_instance();  
+    std::vector<simgrid::s4u::Host*> host_list;
     simgrid::s4u::Host* host;
-    std::vector<simgrid::s4u::ActorPtr> *actor_list;
+    std::vector<simgrid::s4u::ActorPtr> actor_list;
     simgrid::s4u::ActorPtr actor;
 
     /* Initialize hosts information. */
@@ -227,17 +227,16 @@ static void init_mrsg_config (void)
     config_mrsg.mrsg_number_of_workers = 0;
 
     
-    e->getHostList(host_list);
+    host_list= e->get_all_hosts();
     
 
-    for(unsigned int i = 0; i < host_list->size(); i++){
-        host = host_list->at(i);
-        actor_list = new std::vector<simgrid::s4u::ActorPtr>;
-        host->actorList(actor_list);
+    for(unsigned int i = 0; i < host_list.size(); i++){
+        host = host_list.at(i);
+        actor_list = host->get_all_actors();
     
-        for(unsigned int j = 0; j < actor_list->size(); j++){
-            actor = actor_list->at(j);
-            if( strcmp (actor->getCname(), "worker_mrsg") == 0 )
+        for(unsigned int j = 0; j < actor_list.size(); j++){
+            actor = actor_list.at(j);
+            if( strcmp (actor->get_cname(), "worker_mrsg") == 0 )
                 config_mrsg.mrsg_number_of_workers++;  
             
         }
@@ -248,13 +247,12 @@ static void init_mrsg_config (void)
     mrsg_wid = 0;
     config_mrsg.grid_cpu_power = 0.0;
 
-    for(unsigned int i = 0; i < host_list->size(); i++){
-        host = host_list->at(i);
-        actor_list = new std::vector<simgrid::s4u::ActorPtr>;
-        host->actorList(actor_list);
-        for(unsigned int j = 0; j < actor_list->size(); j++){
-            actor = actor_list->at(j);
-            if( strcmp (actor->getCname(), "worker_mrsg") == 0 ){
+    for(unsigned int i = 0; i < host_list.size(); i++){
+        host = host_list.at(i);
+        actor_list = host->get_all_actors();
+        for(unsigned int j = 0; j < actor_list.size(); j++){
+            actor = actor_list.at(j);
+            if( strcmp (actor->get_cname(), "worker_mrsg") == 0 ){
                 //CHANGE: passar um o pid de um ator ao inves de um host
                 config_mrsg.workers_mrsg[mrsg_wid] = host;
                 
@@ -265,7 +263,7 @@ static void init_mrsg_config (void)
                 MSG_host_set_data (host, (void*)wi); 
                 
                 /* Add the worker's cpu power to the grid total. */
-                config_mrsg.grid_cpu_power += host->getSpeed();
+                config_mrsg.grid_cpu_power += host->get_speed();
                 mrsg_wid++;
             }
         }
@@ -310,9 +308,9 @@ static void init_job_mrsg (void)
     job_mrsg.tasks_pending[MRSG_MAP] = config_mrsg.amount_of_tasks_mrsg[MRSG_MAP];
     job_mrsg.task_status[MRSG_MAP] = xbt_new0 (int, config_mrsg.amount_of_tasks_mrsg[MRSG_MAP]);
     job_mrsg.task_instances[MRSG_MAP] = xbt_new0 (int, config_mrsg.amount_of_tasks_mrsg[MRSG_MAP]);
-    job_mrsg.task_list[MRSG_MAP] = xbt_new0 (Task_MRSG**, config_mrsg.amount_of_tasks_mrsg[MRSG_MAP]);
+    /*CHANGED*/job_mrsg.task_list[MRSG_MAP] = xbt_new0 (mrsg_task_t*, config_mrsg.amount_of_tasks_mrsg[MRSG_MAP]);
     for (i = 0; i < config_mrsg.amount_of_tasks_mrsg[MRSG_MAP]; i++)
-	job_mrsg.task_list[MRSG_MAP][i] = xbt_new0 (Task_MRSG*, MAX_SPECULATIVE_COPIES);
+	    /*CHANGED*/job_mrsg.task_list[MRSG_MAP][i] = xbt_new0 (mrsg_task_t, MAX_SPECULATIVE_COPIES);        
 
     job_mrsg.map_output = xbt_new (size_t*, config_mrsg.mrsg_number_of_workers);
     for (i = 0; i < config_mrsg.mrsg_number_of_workers; i++)
@@ -322,9 +320,9 @@ static void init_job_mrsg (void)
     job_mrsg.tasks_pending[MRSG_REDUCE] = config_mrsg.amount_of_tasks_mrsg[MRSG_REDUCE];
     job_mrsg.task_status[MRSG_REDUCE] = xbt_new0 (int, config_mrsg.amount_of_tasks_mrsg[MRSG_REDUCE]);
     job_mrsg.task_instances[MRSG_REDUCE] = xbt_new0 (int, config_mrsg.amount_of_tasks_mrsg[MRSG_REDUCE]);
-    job_mrsg.task_list[MRSG_REDUCE] = xbt_new0 (Task_MRSG**, config_mrsg.amount_of_tasks_mrsg[MRSG_REDUCE]);
+    /*CHANGED*/job_mrsg.task_list[MRSG_REDUCE] = xbt_new0 (mrsg_task_t*, config_mrsg.amount_of_tasks_mrsg[MRSG_REDUCE]);
     for (i = 0; i < config_mrsg.amount_of_tasks_mrsg[MRSG_REDUCE]; i++)
-	job_mrsg.task_list[MRSG_REDUCE][i] = xbt_new0 (Task_MRSG*, MAX_SPECULATIVE_COPIES);
+	    /*CHANGED*/job_mrsg.task_list[MRSG_REDUCE][i] = xbt_new0 (mrsg_task_t, MAX_SPECULATIVE_COPIES);
 }
 
 /**

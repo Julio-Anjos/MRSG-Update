@@ -29,6 +29,7 @@ task_pid mrsg_task_pid;
 struct mrsg_stats_s stats_mrsg;
 struct mrsg_user_s user_mrsg;
 
+/* KEEP?
 msg_error_t send_async (const char* str, double cpu, double net, void* data, const char* mailbox)
 {
     msg_error_t  status;
@@ -42,130 +43,83 @@ msg_error_t send_async (const char* str, double cpu, double net, void* data, con
 
     msg = MSG_task_create (str, cpu, net, (void*) t_data);   
 
-    simgrid::s4u::MailboxPtr mailbox_ptr = simgrid::s4u::Mailbox::byName(mailbox);
+    simgrid::s4u::MailboxPtr mailbox_ptr = simgrid::s4u::Mailbox::by_name(mailbox);
     simgrid::s4u::CommPtr comm = mailbox_ptr->put_async(msg, net);
     comm->wait(1); //wait?
     status = MSG_OK;
 
     return status;
 }
+*/
 
-
-msg_error_t send (const char* str, double cpu, double net, void* data, const char* mailbox)
+void send (const char* str, double cpu, double net, void* data, const char* mailbox)
 {
-    msg_error_t  status;
-    msg_task_t   msg = NULL;
-    mrsg_task_data_capsule_t t_data;
-    
-    t_data = xbt_new (struct mrsg_task_data_capsule_s, 1);
-    t_data->data = data;
-    t_data->sender = MSG_process_self();
-    t_data->source = MSG_host_self();
-
-    msg = MSG_task_create (str, cpu, net, (void*) t_data);                                                            //AQUI
-
-/*#ifdef VERBOSE
-    if (!mrsg_message_is (msg, SMS_HEARTBEAT_MRSG))
-	    XBT_INFO ("TX (%s): %s", mailbox, str);
-#endif*/
-
-    simgrid::s4u::MailboxPtr mailbox_ptr = simgrid::s4u::Mailbox::byName(mailbox);
-    mailbox_ptr->put(msg, net);
-    status = MSG_OK;
-    //status = MSG_task_send (msg, mailbox);
-
-/*#ifdef VERBOSE
-    if (status != MSG_OK)
-	XBT_INFO ("ERROR %d MRSG_SENDING MESSAGE: %s", status, str);
-#endif*/
-
-    return status;
-}
-
-//NEW
-void alt_send (const char* str, double cpu, double net, void* data, const char* mailbox)
-{
-    Task_MRSG* task;
-    msg_task_t   msg = NULL;
-    mrsg_task_data_capsule_t t_data;
-    TWO_TASKS* two_tasks_ptr = nullptr;
-    
-    t_data = xbt_new (struct mrsg_task_data_capsule_s, 1);
-    t_data->data = data;
-    t_data->sender = MSG_process_self();
-    t_data->source = MSG_host_self();
-    msg = MSG_task_create (str, cpu, net, (void*) t_data);
-
-
-    task = new Task_MRSG(std::string(str), cpu, net, data);
+    Task_MRSG* task = new Task_MRSG(std::string(str), cpu, net, data);
     task->setSender(MSG_process_self());
     task->setSource(MSG_host_self());
     task->setData(data);
 
-    two_tasks_ptr = xbt_new (TWO_TASKS, 1);
-    two_tasks_ptr->old_task = msg;
-    two_tasks_ptr->new_task = task;
+    simgrid::s4u::MailboxPtr mailbox_ptr = simgrid::s4u::Mailbox::by_name(mailbox);
 
-    simgrid::s4u::MailboxPtr mailbox_ptr = simgrid::s4u::Mailbox::byName(mailbox);
-    mailbox_ptr->put(two_tasks_ptr, net);
-    
+    mailbox_ptr->put(task, net);
+/* OLD 
+
+    #ifdef VERBOSE
+        if (!mrsg_message_is (msg, SMS_HEARTBEAT_MRSG))
+            XBT_INFO ("TX (%s): %s", mailbox, str);
+    #endif
+
+        //msg = MSG_task_create (str, cpu, net, (void*) data); 
+        //status = MSG_task_send (msg, mailbox);
+
+    #ifdef VERBOSE
+        if (status != MSG_OK)
+        XBT_INFO ("ERROR %d MRSG_SENDING MESSAGE: %s", status, str);
+    #endif
+
+OLD */
+
 }
-//NEW
 
-msg_error_t send_mrsg_sms (const char* str, const char* mailbox)
+void send_mrsg_sms (const char* str, const char* mailbox)
 {
-    return send (str, 0.0, 0.0, NULL, mailbox);  
+    send (str, 0.0, 0.0, NULL, mailbox);  
 }
 
-msg_task_t receive (msg_task_t* msg, const char* mailbox)
-{
-    msg_error_t  status;
-    
-    msg_task_t task;
 
-    simgrid::s4u::MailboxPtr mailbox_ptr = simgrid::s4u::Mailbox::byName(mailbox);
+mrsg_task_t receive (const char* mailbox)
+{ 
+    simgrid::s4u::MailboxPtr mailbox_ptr = simgrid::s4u::Mailbox::by_name(mailbox);
     
-    task = (msg_task_t) mailbox_ptr->get();
-    xbt_assert(task != nullptr, "mailbox->get() failed");
-    if(task)
-       return task;
-    else
-        return NULL;
+    mrsg_task_t task_ptr = (Task_MRSG*) mailbox_ptr->get();
+    xbt_assert(task_ptr, "mailbox->get() failed");  
+    return task_ptr;
 
-/* 
+/* OLD
     status = MSG_task_receive (msg, mailbox);
 
-#ifdef VERBOSE
-    if (status != MSG_OK)
-	XBT_INFO ("ERROR %d MRSG_RECEIVING MESSAGE", status);
-#endif
+    #ifdef VERBOSE
+        if (status != MSG_OK)
+        XBT_INFO ("ERROR %d MRSG_RECEIVING MESSAGE", status);
+    #endif
 
     return status;
-*/
+OLD */
 }
 
-//NEW
-TWO_TASKS* alt_receive (const char* mailbox)
+
+
+int mrsg_message_is (mrsg_task_t msg, const char* str)
 {
-    TWO_TASKS* two_tasks_ptr;
+    /*OLD
+    if (strcmp (MSG_task_get_name (msg), str) == 0)  
+    OLD*/
+    std::string aux_str (str);
 
-    simgrid::s4u::MailboxPtr mailbox_ptr = simgrid::s4u::Mailbox::byName(mailbox);
-
-    two_tasks_ptr = (TWO_TASKS*) mailbox_ptr->get();
-    xbt_assert(two_tasks_ptr != nullptr, "mailbox->get() failed");
-    if(two_tasks_ptr)
-       return two_tasks_ptr;
+    if (aux_str.compare(msg->getName()) == 0)                                          
+	    return 1;
     else
-        return NULL;  
-}
-//NEW
-
-int mrsg_message_is (msg_task_t msg, const char* str)
-{
-    if (strcmp (MSG_task_get_name (msg), str) == 0)                                                 //AQUI
-	return 1;
-
-    return 0;
+        return 0;
 }
 
 int mrsg_maxval (int a, int b)

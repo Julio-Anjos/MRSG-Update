@@ -72,7 +72,7 @@ double Task_MRSG::getRemainingRatio(){
     double remaining = 100.0;
 
     if(execution_status == EXECUTING)
-      remaining = execution->getRemainingRatio();  
+      remaining = execution->get_remaining_ratio();  
     else if(execution_status == FINISHED)
         remaining = 0.0;
 
@@ -83,7 +83,7 @@ double Task_MRSG::getRemainingAmount(){
     double remaining = computation_size;
 
     if(execution_status == EXECUTING)
-      remaining = execution->getRemains();  
+      remaining = execution->get_remaining();  
     else if(execution_status == FINISHED)
         remaining = 0.0;
 
@@ -101,8 +101,8 @@ void Task_MRSG::execute(){
 }
 
 void Task_MRSG::destroy(){
-    if(execution_status == EXECUTING)
-        execution->setRemains(0.0);
+    //if(execution_status == EXECUTING)
+        //execution->cancel();
     
     /**
      * As soon as this method ends, the unique_ptr gets out of scope and its contents are freed,

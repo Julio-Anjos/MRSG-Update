@@ -37,14 +37,15 @@
 					<DistClean command="/usr/bin/make -j4 -f &quot;/home/gabriel/Desktop/Work-in-progess/MRSG-Update/MRSG_s4u/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
-			<Target title="MRSG_s4u">
-				<Option output="/home/gabriel/Desktop/Work-in-progess/MRSG-Update/MRSG_s4u/cmake-build-debug/MRSG_s4u" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/gabriel/Desktop/Work-in-progess/MRSG-Update/MRSG_s4u/cmake-build-debug"/>
+			<Target title="hello_mrsg">
+				<Option output="/home/gabriel/Desktop/Work-in-progess/MRSG-Update/MRSG_s4u/cmake-build-debug/hello_mrsg" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir=""/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
 					<Add directory="/home/gabriel/Desktop/Work-in-progess/MRSG-Update/MRSG_s4u/include"/>
+					<Add directory="/home/gabriel/simgrid/include"/>
 					<Add directory="/usr/include/c++/5"/>
 					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
 					<Add directory="/usr/include/c++/5/backward"/>
@@ -55,20 +56,21 @@
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/home/gabriel/Desktop/Work-in-progess/MRSG-Update/MRSG_s4u/cmake-build-debug/Makefile&quot;  VERBOSE=1 MRSG_s4u"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/gabriel/Desktop/Work-in-progess/MRSG-Update/MRSG_s4u/cmake-build-debug/Makefile&quot;  VERBOSE=1 hello_mrsg"/>
 					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/gabriel/Desktop/Work-in-progess/MRSG-Update/MRSG_s4u/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
 					<Clean command="/usr/bin/make -j4 -f &quot;/home/gabriel/Desktop/Work-in-progess/MRSG-Update/MRSG_s4u/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 					<DistClean command="/usr/bin/make -j4 -f &quot;/home/gabriel/Desktop/Work-in-progess/MRSG-Update/MRSG_s4u/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
-			<Target title="MRSG_s4u/fast">
-				<Option output="/home/gabriel/Desktop/Work-in-progess/MRSG-Update/MRSG_s4u/cmake-build-debug/MRSG_s4u" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/gabriel/Desktop/Work-in-progess/MRSG-Update/MRSG_s4u/cmake-build-debug"/>
+			<Target title="hello_mrsg/fast">
+				<Option output="/home/gabriel/Desktop/Work-in-progess/MRSG-Update/MRSG_s4u/cmake-build-debug/hello_mrsg" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir=""/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
 					<Add directory="/home/gabriel/Desktop/Work-in-progess/MRSG-Update/MRSG_s4u/include"/>
+					<Add directory="/home/gabriel/simgrid/include"/>
 					<Add directory="/usr/include/c++/5"/>
 					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
 					<Add directory="/usr/include/c++/5/backward"/>
@@ -79,7 +81,57 @@
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/home/gabriel/Desktop/Work-in-progess/MRSG-Update/MRSG_s4u/cmake-build-debug/Makefile&quot;  VERBOSE=1 MRSG_s4u/fast"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/gabriel/Desktop/Work-in-progess/MRSG-Update/MRSG_s4u/cmake-build-debug/Makefile&quot;  VERBOSE=1 hello_mrsg/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/gabriel/Desktop/Work-in-progess/MRSG-Update/MRSG_s4u/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/gabriel/Desktop/Work-in-progess/MRSG-Update/MRSG_s4u/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/gabriel/Desktop/Work-in-progess/MRSG-Update/MRSG_s4u/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="mrsg">
+				<Option output="/home/gabriel/Desktop/Work-in-progess/MRSG-Update/MRSG_s4u/cmake-build-debug/libmrsg.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/gabriel/Desktop/Work-in-progess/MRSG-Update/MRSG_s4u/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/gabriel/Desktop/Work-in-progess/MRSG-Update/MRSG_s4u/include"/>
+					<Add directory="/home/gabriel/simgrid/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/gabriel/Desktop/Work-in-progess/MRSG-Update/MRSG_s4u/cmake-build-debug/Makefile&quot;  VERBOSE=1 mrsg"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/gabriel/Desktop/Work-in-progess/MRSG-Update/MRSG_s4u/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/gabriel/Desktop/Work-in-progess/MRSG-Update/MRSG_s4u/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/gabriel/Desktop/Work-in-progess/MRSG-Update/MRSG_s4u/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="mrsg/fast">
+				<Option output="/home/gabriel/Desktop/Work-in-progess/MRSG-Update/MRSG_s4u/cmake-build-debug/libmrsg.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/gabriel/Desktop/Work-in-progess/MRSG-Update/MRSG_s4u/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/gabriel/Desktop/Work-in-progess/MRSG-Update/MRSG_s4u/include"/>
+					<Add directory="/home/gabriel/simgrid/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/gabriel/Desktop/Work-in-progess/MRSG-Update/MRSG_s4u/cmake-build-debug/Makefile&quot;  VERBOSE=1 mrsg/fast"/>
 					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/gabriel/Desktop/Work-in-progess/MRSG-Update/MRSG_s4u/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
 					<Clean command="/usr/bin/make -j4 -f &quot;/home/gabriel/Desktop/Work-in-progess/MRSG-Update/MRSG_s4u/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 					<DistClean command="/usr/bin/make -j4 -f &quot;/home/gabriel/Desktop/Work-in-progess/MRSG-Update/MRSG_s4u/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
@@ -87,43 +139,43 @@
 			</Target>
 		</Build>
 		<Unit filename="/home/gabriel/Desktop/Work-in-progess/MRSG-Update/MRSG_s4u/examples/hello_mrsg.cpp">
-			<Option target="MRSG_s4u"/>
+			<Option target="hello_mrsg"/>
 		</Unit>
 		<Unit filename="/home/gabriel/Desktop/Work-in-progess/MRSG-Update/MRSG_s4u/include/common_mrsg.hpp">
-			<Option target="MRSG_s4u"/>
+			<Option target="mrsg"/>
 		</Unit>
 		<Unit filename="/home/gabriel/Desktop/Work-in-progess/MRSG-Update/MRSG_s4u/include/dfs_mrsg.h">
-			<Option target="MRSG_s4u"/>
+			<Option target="mrsg"/>
 		</Unit>
 		<Unit filename="/home/gabriel/Desktop/Work-in-progess/MRSG-Update/MRSG_s4u/include/mrsg.h">
-			<Option target="MRSG_s4u"/>
+			<Option target="mrsg"/>
 		</Unit>
 		<Unit filename="/home/gabriel/Desktop/Work-in-progess/MRSG-Update/MRSG_s4u/include/task_mrsg.hpp">
-			<Option target="MRSG_s4u"/>
+			<Option target="mrsg"/>
 		</Unit>
 		<Unit filename="/home/gabriel/Desktop/Work-in-progess/MRSG-Update/MRSG_s4u/include/worker_mrsg.h">
-			<Option target="MRSG_s4u"/>
+			<Option target="mrsg"/>
 		</Unit>
 		<Unit filename="/home/gabriel/Desktop/Work-in-progess/MRSG-Update/MRSG_s4u/src/common_mrsg.cpp">
-			<Option target="MRSG_s4u"/>
+			<Option target="mrsg"/>
 		</Unit>
 		<Unit filename="/home/gabriel/Desktop/Work-in-progess/MRSG-Update/MRSG_s4u/src/dfs_mrsg.cpp">
-			<Option target="MRSG_s4u"/>
+			<Option target="mrsg"/>
 		</Unit>
 		<Unit filename="/home/gabriel/Desktop/Work-in-progess/MRSG-Update/MRSG_s4u/src/master_mrsg.cpp">
-			<Option target="MRSG_s4u"/>
+			<Option target="mrsg"/>
 		</Unit>
 		<Unit filename="/home/gabriel/Desktop/Work-in-progess/MRSG-Update/MRSG_s4u/src/simcore_mrsg.cpp">
-			<Option target="MRSG_s4u"/>
+			<Option target="mrsg"/>
 		</Unit>
 		<Unit filename="/home/gabriel/Desktop/Work-in-progess/MRSG-Update/MRSG_s4u/src/task_mrsg.cpp">
-			<Option target="MRSG_s4u"/>
+			<Option target="mrsg"/>
 		</Unit>
 		<Unit filename="/home/gabriel/Desktop/Work-in-progess/MRSG-Update/MRSG_s4u/src/user_mrsg.cpp">
-			<Option target="MRSG_s4u"/>
+			<Option target="mrsg"/>
 		</Unit>
 		<Unit filename="/home/gabriel/Desktop/Work-in-progess/MRSG-Update/MRSG_s4u/src/worker_mrsg.cpp">
-			<Option target="MRSG_s4u"/>
+			<Option target="mrsg"/>
 		</Unit>
 		<Unit filename="/home/gabriel/Desktop/Work-in-progess/MRSG-Update/MRSG_s4u/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>

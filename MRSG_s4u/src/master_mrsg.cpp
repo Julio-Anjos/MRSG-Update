@@ -35,7 +35,7 @@ static FILE*       tasks_log;
 static void print_mrsg_config (void);
 static void print_mrsg_stats (void);
 static int is_straggler_mrsg (msg_host_t worker_mrsg);
-static int task_time_elapsed_mrsg (/*msg_task_t mrsg_task*/Task_MRSG* task);
+static int task_time_elapsed_mrsg (mrsg_task_t task);
 static void set_mrsg_speculative_tasks (msg_host_t worker_mrsg);
 static void send_map_to_mrsg_worker (msg_host_t dest);
 static void send_reduce_to_mrsg_worker (msg_host_t dest);
@@ -46,14 +46,13 @@ static void finish_all_mrsg_task_copies (mrsg_task_info_t ti);
 int master_mrsg (int argc, char* argv[])
 {
     mrsg_heartbeat_t  mrsg_heartbeat;
-    msg_error_t  status;
+    /*OLD msg_error_t  status; */
     msg_host_t   worker_mrsg;
-    msg_task_t   msg = NULL;
+    /*OLD msg_task_t   msg = NULL; */
     size_t       mrsg_wid;
     mrsg_task_info_t  ti;
-    mrsg_task_data_capsule_t t_data;
-    Task_MRSG* task_ptr;
-    TWO_TASKS* two_tasks;
+    mrsg_task_t msg;
+
 
 
     print_mrsg_config ();
@@ -67,24 +66,17 @@ int master_mrsg (int argc, char* argv[])
     fprintf (tasks_log, "task_id,mrsg_phase,worker_id,time,action,shuffle_end\n");
 
     while (job_mrsg.tasks_pending[MRSG_MAP] + job_mrsg.tasks_pending[MRSG_REDUCE] > 0)
-    {
-        two_tasks = alt_receive(MASTER_MRSG_MAILBOX);
-        msg = two_tasks->old_task;
-        task_ptr = two_tasks->new_task;
+    {        //XBT_INFO ("MASTER CHECKPOINT 1");
+        msg = receive(MASTER_MRSG_MAILBOX);
 
-        //XBT_INFO ("MASTER CHECKPOINT 1");
         if (msg)
         {
-            //XBT_INFO ("MASTER CHECKPOINT 2");
-            t_data = (mrsg_task_data_capsule_t) MSG_task_get_data (msg);                        //AQUI
-
-            worker_mrsg = task_ptr->getSource();
+            worker_mrsg = msg->getSource();
             
             mrsg_wid = get_mrsg_worker_id (worker_mrsg);                           
 
             if (mrsg_message_is (msg, SMS_HEARTBEAT_MRSG))
             {
-                //XBT_INFO ("MASTER CHECKPOINT 3");
                 mrsg_heartbeat = &job_mrsg.mrsg_heartbeats[mrsg_wid];
                 if (is_straggler_mrsg (worker_mrsg))
                 {
@@ -101,8 +93,7 @@ int master_mrsg (int argc, char* argv[])
             }
             else if (mrsg_message_is (msg, SMS_TASK_MRSG_DONE))
             {
-                //XBT_INFO ("MASTER CHECKPOINT 4");
-                ti = (mrsg_task_info_t) task_ptr->getData();
+                ti = (mrsg_task_info_t) msg->getData();
 
                 if (job_mrsg.task_status[ti->mrsg_phase][ti->mrsg_tid] != T_STATUS_MRSG_DONE)
                 {
@@ -115,25 +106,22 @@ int master_mrsg (int argc, char* argv[])
                             if(ti->mrsg_phase==MRSG_MAP)
                             {
                                 stats_mrsg.map_time=MSG_get_clock ();
-                                XBT_INFO ("MRSG_MAP PHASE DONE");
                                 XBT_INFO (" ");
                             }
                             else
                             {
                                 stats_mrsg.reduce_time = MSG_get_clock () - stats_mrsg.map_time;
-                                XBT_INFO ("MRSG_REDUCE PHASE DONE");
                                 XBT_INFO (" ");
                             }
                     }
                 }
                 xbt_free_ref (&ti);
             }
-            task_ptr->destroy();
+            msg->destroy();
         }
     }
 
     fclose (tasks_log);
-    //XBT_INFO ("MASTER CHECKPOINT 5");
     job_mrsg.finished = 1;
 
     print_mrsg_config ();
@@ -200,21 +188,24 @@ static int is_straggler_mrsg (msg_host_t worker_mrsg)
 }
 
 /**
+ * FIXME: correct equation for homegeneous cluster
+**/
+/**
  * @brief  Returns for how long a task is running.
  * @param  mrsg_task  The task to be probed.
  * @return The amount of seconds since the beginning of the computation.
  */
-static int task_time_elapsed_mrsg (/*msg_task_t mrsg_task*/ Task_MRSG* task)
+static int task_time_elapsed_mrsg (/*OLD msg_task_t mrsg_task*/ mrsg_task_t task)
 {
     mrsg_task_info_t  ti;
-    mrsg_task_data_capsule_t t_data;
 
     ti = (mrsg_task_info_t) task->getData();
-    double total = task->getFlopsAmount();
-    double remaining = task->getRemainingAmount();
-    double ratio = task->getRemainingRatio();
+    //double total = task->getFlopsAmount();
+    //double remaining = task->getRemainingAmount();
+    //double ratio = task->getRemainingRatio();
+
     return (task->getFlopsAmount()*(1 - task->getRemainingRatio())) 
-           / config_mrsg.workers_mrsg[ti->mrsg_wid]->getSpeed();
+           / config_mrsg.workers_mrsg[ti->mrsg_wid]->get_speed();
 
     //return (MSG_task_get_bytes_amount (mrsg_task) - MSG_task_get_flops_amount (mrsg_task))      //ICI AQUI
     //       / config_mrsg.workers_mrsg[ti->mrsg_wid]->getSpeed(); 
@@ -231,7 +222,6 @@ static void set_mrsg_speculative_tasks (msg_host_t worker_mrsg)
     size_t       tid;
     size_t       mrsg_wid;
     mrsg_task_info_t  ti;
-    mrsg_task_data_capsule_t t_data;
 
     mrsg_wid = get_mrsg_worker_id (worker_mrsg);
 
@@ -239,7 +229,8 @@ static void set_mrsg_speculative_tasks (msg_host_t worker_mrsg)
     {
         for (tid = 0; tid < config_mrsg.amount_of_tasks_mrsg[MRSG_MAP]; tid++)
         {
-            if (job_mrsg.task_list[MRSG_MAP][tid][0] != NULL)
+            /*OLD if (job_mrsg.task_list[MRSG_MAP][tid][0] != NULL)*/
+            if (job_mrsg.task_list[MRSG_MAP][tid][0]) 
             {                
                 ti = (mrsg_task_info_t) job_mrsg.task_list[MRSG_MAP][tid][0]->getData();
                 if (ti->mrsg_wid == mrsg_wid && task_time_elapsed_mrsg (job_mrsg.task_list[MRSG_MAP][tid][0]) > 60)
@@ -254,7 +245,8 @@ static void set_mrsg_speculative_tasks (msg_host_t worker_mrsg)
     {
         for (tid = 0; tid < config_mrsg.amount_of_tasks_mrsg[MRSG_REDUCE]; tid++)
         {
-            if (job_mrsg.task_list[MRSG_REDUCE][tid][0] != NULL)
+            /*OLD if (job_mrsg.task_list[MRSG_REDUCE][tid][0] != NULL)*/
+            if (job_mrsg.task_list[MRSG_REDUCE][tid][0])
             {
                 ti = (mrsg_task_info_t) job_mrsg.task_list[MRSG_REDUCE][tid][0]->getData();                   
                 if (ti->mrsg_wid == mrsg_wid && task_time_elapsed_mrsg (job_mrsg.task_list[MRSG_REDUCE][tid][0]) > 60)
@@ -427,25 +419,26 @@ static void send_mrsg_task (enum mrsg_phase_e mrsg_phase, size_t tid, size_t dat
     char         mailbox[MAILBOX_ALIAS_SIZE];
     int          i;
     double       cpu_required = 0.0;
-    msg_task_t   mrsg_task = NULL;
+    /*OLD msg_task_t   mrsg_task = NULL; */
+    mrsg_task_t mrsg_task = nullptr;
     mrsg_task_info_t  task_info;
     size_t       mrsg_wid;
-    Task_MRSG* task;
-    TWO_TASKS* two_tasks_ptr = nullptr;
  
     mrsg_wid = get_mrsg_worker_id (dest);
 
     cpu_required = user_mrsg.task_cost_f (mrsg_phase, tid, mrsg_wid);
 
-		if ( mrsg_phase == MRSG_REDUCE )
-		{
-		  cpu_required *= config_mrsg.mrsg_chunk_count;
-		}
+	if ( mrsg_phase == MRSG_REDUCE )
+	{
+	  cpu_required *= config_mrsg.mrsg_chunk_count;
+	}
 
 
     task_info = xbt_new (struct mrsg_task_info_s, 1);
     //mudar task_info para t_data se necessario
-    mrsg_task = MSG_task_create (SMS_TASK_MRSG, cpu_required, 0.0, (void*) task_info);                //AQUI
+    /*OLD mrsg_task = MSG_task_create (SMS_TASK_MRSG, cpu_required, 0.0, (void*) task_info); */
+
+    mrsg_task = new Task_MRSG(SMS_TASK_MRSG, cpu_required, 0.0, (void*) task_info);
 
     task_info->mrsg_phase = mrsg_phase;
     task_info->mrsg_tid = tid;
@@ -455,19 +448,12 @@ static void send_mrsg_task (enum mrsg_phase_e mrsg_phase, size_t tid, size_t dat
     task_info->mrsg_size_data_proc=config_mrsg.mrsg_chunk_size;
     task_info->shuffle_mrsg_end = 0.0;
 
-
-    task = new Task_MRSG(std::string(SMS_TASK_MRSG), cpu_required, 0.0, task_info);
-    task->setSender(MSG_process_self());
-    task->setSource(MSG_host_self());
-    task->setData(task_info);
-
-    two_tasks_ptr = xbt_new (TWO_TASKS, 1);
-    two_tasks_ptr->old_task = mrsg_task;
-    two_tasks_ptr->new_task = task;
-
+    mrsg_task->setSender(MSG_process_self());
+    mrsg_task->setSource(MSG_host_self());
+    mrsg_task->setData(task_info);
 
     // for tracing purposes...
-    MSG_task_set_category (mrsg_task, (mrsg_phase==MRSG_MAP?"MRSG_MAP":"MRSG_REDUCE"));                  //AQUI
+    /*OLD MSG_task_set_category (mrsg_task, (mrsg_phase==MRSG_MAP?"MRSG_MAP":"MRSG_REDUCE")); */                 //AQUI
 
     if (job_mrsg.task_status[mrsg_phase][tid] != T_STATUS_MRSG_TIP_SLOW)
         job_mrsg.task_status[mrsg_phase][tid] = T_STATUS_MRSG_TIP;
@@ -475,12 +461,14 @@ static void send_mrsg_task (enum mrsg_phase_e mrsg_phase, size_t tid, size_t dat
     job_mrsg.mrsg_heartbeats[mrsg_wid].slots_av[mrsg_phase]--;
     for (i = 0; i < MAX_SPECULATIVE_COPIES; i++)
     {
-        if (job_mrsg.task_list[mrsg_phase][tid][i] == NULL)
+        /*OLD if (job_mrsg.task_list[mrsg_phase][tid][i] == NULL)*/
+        if (! job_mrsg.task_list[mrsg_phase][tid][i])
         {
-            job_mrsg.task_list[mrsg_phase][tid][i] = task;
+            job_mrsg.task_list[mrsg_phase][tid][i] = mrsg_task;
             break;
         }
     }
+
 
     fprintf (tasks_log, "%d_%zu_%d,%s,%zu,%.3f,START,\n", mrsg_phase, tid, i, (mrsg_phase==MRSG_MAP?"MRSG_MAP":"MRSG_REDUCE"), mrsg_wid, MSG_get_clock ());
 
@@ -489,15 +477,12 @@ static void send_mrsg_task (enum mrsg_phase_e mrsg_phase, size_t tid, size_t dat
 #endif
 
     sprintf (mailbox, TASKTRACKER_MRSG_MAILBOX, mrsg_wid);
-    
-    simgrid::s4u::MailboxPtr mailbox_ptr = simgrid::s4u::Mailbox::byName(mailbox);    
-    mailbox_ptr->put(two_tasks_ptr, 0.0);       
+
+    simgrid::s4u::MailboxPtr mailbox_ptr = simgrid::s4u::Mailbox::by_name(mailbox);    
+    mailbox_ptr->put(mrsg_task, 0.0);       
 
     job_mrsg.task_instances[mrsg_phase][tid]++;
 }
-
-
-
 
 
 /**
@@ -512,10 +497,12 @@ static void finish_all_mrsg_task_copies (mrsg_task_info_t ti)
 
     for (i = 0; i < MAX_SPECULATIVE_COPIES; i++)
     {
-        if (job_mrsg.task_list[mrsg_phase][tid][i] != NULL)
+        /*OLD if (job_mrsg.task_list[mrsg_phase][tid][i] != NULL)*/
+        if (job_mrsg.task_list[mrsg_phase][tid][i])
         {
             job_mrsg.task_list[mrsg_phase][tid][i]->destroy();
-            job_mrsg.task_list[mrsg_phase][tid][i] = NULL;
+            /*OLD job_mrsg.task_list[mrsg_phase][tid][i] = NULL;*/
+            job_mrsg.task_list[mrsg_phase][tid][i] = nullptr;
             fprintf (tasks_log, "%d_%zu_%d,%s,%zu,%.3f,END,%.3f\n", ti->mrsg_phase, tid, i, (ti->mrsg_phase==MRSG_MAP?"MRSG_MAP":"MRSG_REDUCE"), ti->mrsg_wid, MSG_get_clock (), ti->shuffle_mrsg_end);//AQUI
         }
     }

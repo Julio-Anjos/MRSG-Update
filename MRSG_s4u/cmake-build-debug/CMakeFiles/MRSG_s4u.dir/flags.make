@@ -6,5 +6,5 @@ CXX_FLAGS = -g   -std=gnu++11
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/gabriel/Desktop/Work-in-progess/MRSG-Update/MRSG_s4u/include 
+CXX_INCLUDES = -I/home/gabriel/Desktop/Work-in-progess/MRSG-Update/MRSG_s4u/include -I/home/gabriel/simgrid/include -I/home/gabriel/Desktop/Work-in-progess/MRSG-Update/MRSG_s4u/, -I/home/gabriel/simgrid/src 
 

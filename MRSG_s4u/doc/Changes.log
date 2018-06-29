@@ -102,7 +102,7 @@ testar o uso da classe Task_MRSG;
 Em "compute_mrsg()", trocado o uso de "send_mrsg_sms()" para "alt_send()"com o objetivo de testar
 o uso da classe Task_MRSG.
 
-@src/master_mrsg:
+@src/master_mrsg.cpp:
 Em "master_mrsg()", trocado o uso de "receive()" para "alt_receive()" com o objetivo de testar o 
 uso da classe Task_MRSG. Os dados recebidos e o nodo source agora são obtidos pelo objeto Task_MRSG.
 
@@ -112,23 +112,23 @@ uso da classe Task_MRSG. Os dados recebidos e o nodo source agora são obtidos p
 Em todas as funções as quais se aplica, trocado o uso de "send_mrsg_sms()" / "send()" por "alt_send()"
 e "receive()" por "alt_receive()" com o objetivo de testar o uso da classe Task_MRSG;
 
-@src/master_mrsg:
+@src/master_mrsg.cpp:
 Em todas as funções as quais se aplica, trocado o uso de "send_mrsg_sms()" / "send()" por "alt_send()"
 e "receive()" por "alt_receive()" com o objetivo de testar o uso da classe Task_MRSG;
 
-@src/dfs_mrsg:
+@src/dfs_mrsg.cpp:
 Em todas as funções as quais se aplica, trocado o uso de "send_mrsg_sms()" / "send()" por "alt_send()"
 e "receive()" por "alt_receive()" com o objetivo de testar o uso da classe Task_MRSG;
 
 #############################29 ABRIL 2018######################################################
 
-@src/worker_mrsg:
+@src/worker_mrsg.cpp:
 Em "compute_mrsg()", execução de uma task é feito pelo método "execute()" da classe "Task_MRSG()"
 ao invés da função "MSG_task_execute()";
 Em "get_mrsg_map_output()", trocado o uso das funções "MSG_task_get_bytes_amount()" pelo método
 "getBytesAmount()" da classe "Task_MRSG".
 
-@src/master_mrsg:
+@src/master_mrsg.cpp:
 Em "master_mrsg()", trocado o uso da estrutura "mrsg_task_data_capsule_s" pelo uso dos métodos
 "getData()" e "getSource()" da classe "Task_MRSG";
 Em "task_time_elapsed_mrsg()", trocado o uso da estrutura "mrsg_task_data_capsule_s" e das funções
@@ -137,18 +137,54 @@ Em "task_time_elapsed_mrsg()", trocado o uso da estrutura "mrsg_task_data_capsul
 
 #############################02 MAIO 2018######################################################
 
-@src/task_mrsg.cpp;
+@src/task_mrsg.cpp:
 Implementado método "destroy()" que interrompe uma task se ela estiver executando, e libera seus
 dados.
 
-@src/worker_mrsg:
+@src/worker_mrsg.cpp:
 Em todas as funções as quais se aplica, trocado o uso de "MSG_task_destroy()" pelo método "destroy()"
 da classe "Task_MRSG".
 
-@src/master_mrsg:
+@src/master_mrsg.cpp:
 Em todas as funções as quais se aplica, trocado o uso de "MSG_task_destroy()" pelo método "destroy()"
 da classe "Task_MRSG".
 
-@src/dfs_mrsg:
+@src/dfs_mrsg.cpp:
 Em todas as funções as quais se aplica, trocado o uso de "MSG_task_destroy()" pelo método "destroy()"
 da classe "Task_MRSG".
+
+#############################15 MAIO 2018######################################################
+
+@src/master_mrsg.cpp:
+Removido qualquer uso de "msg_task_t" e "mrsg_task_data_capsule_s", sendo trocadas pelo uso de 
+"mrsg_task_t" que representa "Task_MRSG *".
+Em todas as funções as quais se aplica, trocado o uso de "alt_send()" por "send_mrsg_sms()" / "send()"
+e "alt_receive()" por "receive()".
+
+@src/worker_mrsg.cpp;
+Removido qualquer uso de "msg_task_t" e "mrsg_task_data_capsule_s", sendo trocadas pelo uso de 
+"mrsg_task_t" que representa "Task_MRSG *".
+Em todas as funções as quais se aplica, trocado o uso de "alt_send()" por "send_mrsg_sms()" / "send()"
+e "alt_receive()" por "receive()".
+
+@src/dfs_mrsg.cpp:
+Removido qualquer uso de "msg_task_t" e "mrsg_task_data_capsule_s", sendo trocadas pelo uso de 
+"mrsg_task_t" que representa "Task_MRSG *".
+Em todas as funções as quais se aplica, trocado o uso de "alt_send()" por "send_mrsg_sms()" / "send()"
+e "alt_receive()" por "receive()".
+
+@include/common_mrsg.hpp:
+Removido qualquer uso de "msg_task_t" e "mrsg_task_data_capsule_s", sendo trocadas pelo uso de 
+"mrsg_task_t" que representa "Task_MRSG *".
+
+@src/commom_mrsg.cpp:
+Removido qualquer uso de "msg_task_t" e "mrsg_task_data_capsule_s", sendo trocadas pelo uso de 
+"mrsg_task_t" que representa "Task_MRSG *".
+Em "mrsg_message_is", trocado "MSG_task_get_name()" pelo método "getName()" da classe "Task_MRSG"
+
+
+#############################26 JUNHO 2018######################################################
+
+@include/commom_mrsg.hpp:
+Trocado typedef "mrsg_task_t" de "shared_ptr<Task_MRSG>" para "Task_MRSG*" devido as falhas de
+segmentação gerados.

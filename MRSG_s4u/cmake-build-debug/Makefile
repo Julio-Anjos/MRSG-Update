@@ -111,17 +111,30 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named MRSG_s4u
+# Target rules for targets named hello_mrsg
 
 # Build rule for target.
-MRSG_s4u: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 MRSG_s4u
-.PHONY : MRSG_s4u
+hello_mrsg: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 hello_mrsg
+.PHONY : hello_mrsg
 
 # fast build rule for target.
-MRSG_s4u/fast:
-	$(MAKE) -f CMakeFiles/MRSG_s4u.dir/build.make CMakeFiles/MRSG_s4u.dir/build
-.PHONY : MRSG_s4u/fast
+hello_mrsg/fast:
+	$(MAKE) -f CMakeFiles/hello_mrsg.dir/build.make CMakeFiles/hello_mrsg.dir/build
+.PHONY : hello_mrsg/fast
+
+#=============================================================================
+# Target rules for targets named mrsg
+
+# Build rule for target.
+mrsg: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 mrsg
+.PHONY : mrsg
+
+# fast build rule for target.
+mrsg/fast:
+	$(MAKE) -f CMakeFiles/mrsg.dir/build.make CMakeFiles/mrsg.dir/build
+.PHONY : mrsg/fast
 
 examples/hello_mrsg.o: examples/hello_mrsg.cpp.o
 
@@ -129,7 +142,7 @@ examples/hello_mrsg.o: examples/hello_mrsg.cpp.o
 
 # target to build an object file
 examples/hello_mrsg.cpp.o:
-	$(MAKE) -f CMakeFiles/MRSG_s4u.dir/build.make CMakeFiles/MRSG_s4u.dir/examples/hello_mrsg.cpp.o
+	$(MAKE) -f CMakeFiles/hello_mrsg.dir/build.make CMakeFiles/hello_mrsg.dir/examples/hello_mrsg.cpp.o
 .PHONY : examples/hello_mrsg.cpp.o
 
 examples/hello_mrsg.i: examples/hello_mrsg.cpp.i
@@ -138,7 +151,7 @@ examples/hello_mrsg.i: examples/hello_mrsg.cpp.i
 
 # target to preprocess a source file
 examples/hello_mrsg.cpp.i:
-	$(MAKE) -f CMakeFiles/MRSG_s4u.dir/build.make CMakeFiles/MRSG_s4u.dir/examples/hello_mrsg.cpp.i
+	$(MAKE) -f CMakeFiles/hello_mrsg.dir/build.make CMakeFiles/hello_mrsg.dir/examples/hello_mrsg.cpp.i
 .PHONY : examples/hello_mrsg.cpp.i
 
 examples/hello_mrsg.s: examples/hello_mrsg.cpp.s
@@ -147,7 +160,7 @@ examples/hello_mrsg.s: examples/hello_mrsg.cpp.s
 
 # target to generate assembly for a file
 examples/hello_mrsg.cpp.s:
-	$(MAKE) -f CMakeFiles/MRSG_s4u.dir/build.make CMakeFiles/MRSG_s4u.dir/examples/hello_mrsg.cpp.s
+	$(MAKE) -f CMakeFiles/hello_mrsg.dir/build.make CMakeFiles/hello_mrsg.dir/examples/hello_mrsg.cpp.s
 .PHONY : examples/hello_mrsg.cpp.s
 
 src/common_mrsg.o: src/common_mrsg.cpp.o
@@ -156,7 +169,7 @@ src/common_mrsg.o: src/common_mrsg.cpp.o
 
 # target to build an object file
 src/common_mrsg.cpp.o:
-	$(MAKE) -f CMakeFiles/MRSG_s4u.dir/build.make CMakeFiles/MRSG_s4u.dir/src/common_mrsg.cpp.o
+	$(MAKE) -f CMakeFiles/mrsg.dir/build.make CMakeFiles/mrsg.dir/src/common_mrsg.cpp.o
 .PHONY : src/common_mrsg.cpp.o
 
 src/common_mrsg.i: src/common_mrsg.cpp.i
@@ -165,7 +178,7 @@ src/common_mrsg.i: src/common_mrsg.cpp.i
 
 # target to preprocess a source file
 src/common_mrsg.cpp.i:
-	$(MAKE) -f CMakeFiles/MRSG_s4u.dir/build.make CMakeFiles/MRSG_s4u.dir/src/common_mrsg.cpp.i
+	$(MAKE) -f CMakeFiles/mrsg.dir/build.make CMakeFiles/mrsg.dir/src/common_mrsg.cpp.i
 .PHONY : src/common_mrsg.cpp.i
 
 src/common_mrsg.s: src/common_mrsg.cpp.s
@@ -174,7 +187,7 @@ src/common_mrsg.s: src/common_mrsg.cpp.s
 
 # target to generate assembly for a file
 src/common_mrsg.cpp.s:
-	$(MAKE) -f CMakeFiles/MRSG_s4u.dir/build.make CMakeFiles/MRSG_s4u.dir/src/common_mrsg.cpp.s
+	$(MAKE) -f CMakeFiles/mrsg.dir/build.make CMakeFiles/mrsg.dir/src/common_mrsg.cpp.s
 .PHONY : src/common_mrsg.cpp.s
 
 src/dfs_mrsg.o: src/dfs_mrsg.cpp.o
@@ -183,7 +196,7 @@ src/dfs_mrsg.o: src/dfs_mrsg.cpp.o
 
 # target to build an object file
 src/dfs_mrsg.cpp.o:
-	$(MAKE) -f CMakeFiles/MRSG_s4u.dir/build.make CMakeFiles/MRSG_s4u.dir/src/dfs_mrsg.cpp.o
+	$(MAKE) -f CMakeFiles/mrsg.dir/build.make CMakeFiles/mrsg.dir/src/dfs_mrsg.cpp.o
 .PHONY : src/dfs_mrsg.cpp.o
 
 src/dfs_mrsg.i: src/dfs_mrsg.cpp.i
@@ -192,7 +205,7 @@ src/dfs_mrsg.i: src/dfs_mrsg.cpp.i
 
 # target to preprocess a source file
 src/dfs_mrsg.cpp.i:
-	$(MAKE) -f CMakeFiles/MRSG_s4u.dir/build.make CMakeFiles/MRSG_s4u.dir/src/dfs_mrsg.cpp.i
+	$(MAKE) -f CMakeFiles/mrsg.dir/build.make CMakeFiles/mrsg.dir/src/dfs_mrsg.cpp.i
 .PHONY : src/dfs_mrsg.cpp.i
 
 src/dfs_mrsg.s: src/dfs_mrsg.cpp.s
@@ -201,7 +214,7 @@ src/dfs_mrsg.s: src/dfs_mrsg.cpp.s
 
 # target to generate assembly for a file
 src/dfs_mrsg.cpp.s:
-	$(MAKE) -f CMakeFiles/MRSG_s4u.dir/build.make CMakeFiles/MRSG_s4u.dir/src/dfs_mrsg.cpp.s
+	$(MAKE) -f CMakeFiles/mrsg.dir/build.make CMakeFiles/mrsg.dir/src/dfs_mrsg.cpp.s
 .PHONY : src/dfs_mrsg.cpp.s
 
 src/master_mrsg.o: src/master_mrsg.cpp.o
@@ -210,7 +223,7 @@ src/master_mrsg.o: src/master_mrsg.cpp.o
 
 # target to build an object file
 src/master_mrsg.cpp.o:
-	$(MAKE) -f CMakeFiles/MRSG_s4u.dir/build.make CMakeFiles/MRSG_s4u.dir/src/master_mrsg.cpp.o
+	$(MAKE) -f CMakeFiles/mrsg.dir/build.make CMakeFiles/mrsg.dir/src/master_mrsg.cpp.o
 .PHONY : src/master_mrsg.cpp.o
 
 src/master_mrsg.i: src/master_mrsg.cpp.i
@@ -219,7 +232,7 @@ src/master_mrsg.i: src/master_mrsg.cpp.i
 
 # target to preprocess a source file
 src/master_mrsg.cpp.i:
-	$(MAKE) -f CMakeFiles/MRSG_s4u.dir/build.make CMakeFiles/MRSG_s4u.dir/src/master_mrsg.cpp.i
+	$(MAKE) -f CMakeFiles/mrsg.dir/build.make CMakeFiles/mrsg.dir/src/master_mrsg.cpp.i
 .PHONY : src/master_mrsg.cpp.i
 
 src/master_mrsg.s: src/master_mrsg.cpp.s
@@ -228,7 +241,7 @@ src/master_mrsg.s: src/master_mrsg.cpp.s
 
 # target to generate assembly for a file
 src/master_mrsg.cpp.s:
-	$(MAKE) -f CMakeFiles/MRSG_s4u.dir/build.make CMakeFiles/MRSG_s4u.dir/src/master_mrsg.cpp.s
+	$(MAKE) -f CMakeFiles/mrsg.dir/build.make CMakeFiles/mrsg.dir/src/master_mrsg.cpp.s
 .PHONY : src/master_mrsg.cpp.s
 
 src/simcore_mrsg.o: src/simcore_mrsg.cpp.o
@@ -237,7 +250,7 @@ src/simcore_mrsg.o: src/simcore_mrsg.cpp.o
 
 # target to build an object file
 src/simcore_mrsg.cpp.o:
-	$(MAKE) -f CMakeFiles/MRSG_s4u.dir/build.make CMakeFiles/MRSG_s4u.dir/src/simcore_mrsg.cpp.o
+	$(MAKE) -f CMakeFiles/mrsg.dir/build.make CMakeFiles/mrsg.dir/src/simcore_mrsg.cpp.o
 .PHONY : src/simcore_mrsg.cpp.o
 
 src/simcore_mrsg.i: src/simcore_mrsg.cpp.i
@@ -246,7 +259,7 @@ src/simcore_mrsg.i: src/simcore_mrsg.cpp.i
 
 # target to preprocess a source file
 src/simcore_mrsg.cpp.i:
-	$(MAKE) -f CMakeFiles/MRSG_s4u.dir/build.make CMakeFiles/MRSG_s4u.dir/src/simcore_mrsg.cpp.i
+	$(MAKE) -f CMakeFiles/mrsg.dir/build.make CMakeFiles/mrsg.dir/src/simcore_mrsg.cpp.i
 .PHONY : src/simcore_mrsg.cpp.i
 
 src/simcore_mrsg.s: src/simcore_mrsg.cpp.s
@@ -255,7 +268,7 @@ src/simcore_mrsg.s: src/simcore_mrsg.cpp.s
 
 # target to generate assembly for a file
 src/simcore_mrsg.cpp.s:
-	$(MAKE) -f CMakeFiles/MRSG_s4u.dir/build.make CMakeFiles/MRSG_s4u.dir/src/simcore_mrsg.cpp.s
+	$(MAKE) -f CMakeFiles/mrsg.dir/build.make CMakeFiles/mrsg.dir/src/simcore_mrsg.cpp.s
 .PHONY : src/simcore_mrsg.cpp.s
 
 src/task_mrsg.o: src/task_mrsg.cpp.o
@@ -264,7 +277,7 @@ src/task_mrsg.o: src/task_mrsg.cpp.o
 
 # target to build an object file
 src/task_mrsg.cpp.o:
-	$(MAKE) -f CMakeFiles/MRSG_s4u.dir/build.make CMakeFiles/MRSG_s4u.dir/src/task_mrsg.cpp.o
+	$(MAKE) -f CMakeFiles/mrsg.dir/build.make CMakeFiles/mrsg.dir/src/task_mrsg.cpp.o
 .PHONY : src/task_mrsg.cpp.o
 
 src/task_mrsg.i: src/task_mrsg.cpp.i
@@ -273,7 +286,7 @@ src/task_mrsg.i: src/task_mrsg.cpp.i
 
 # target to preprocess a source file
 src/task_mrsg.cpp.i:
-	$(MAKE) -f CMakeFiles/MRSG_s4u.dir/build.make CMakeFiles/MRSG_s4u.dir/src/task_mrsg.cpp.i
+	$(MAKE) -f CMakeFiles/mrsg.dir/build.make CMakeFiles/mrsg.dir/src/task_mrsg.cpp.i
 .PHONY : src/task_mrsg.cpp.i
 
 src/task_mrsg.s: src/task_mrsg.cpp.s
@@ -282,7 +295,7 @@ src/task_mrsg.s: src/task_mrsg.cpp.s
 
 # target to generate assembly for a file
 src/task_mrsg.cpp.s:
-	$(MAKE) -f CMakeFiles/MRSG_s4u.dir/build.make CMakeFiles/MRSG_s4u.dir/src/task_mrsg.cpp.s
+	$(MAKE) -f CMakeFiles/mrsg.dir/build.make CMakeFiles/mrsg.dir/src/task_mrsg.cpp.s
 .PHONY : src/task_mrsg.cpp.s
 
 src/user_mrsg.o: src/user_mrsg.cpp.o
@@ -291,7 +304,7 @@ src/user_mrsg.o: src/user_mrsg.cpp.o
 
 # target to build an object file
 src/user_mrsg.cpp.o:
-	$(MAKE) -f CMakeFiles/MRSG_s4u.dir/build.make CMakeFiles/MRSG_s4u.dir/src/user_mrsg.cpp.o
+	$(MAKE) -f CMakeFiles/mrsg.dir/build.make CMakeFiles/mrsg.dir/src/user_mrsg.cpp.o
 .PHONY : src/user_mrsg.cpp.o
 
 src/user_mrsg.i: src/user_mrsg.cpp.i
@@ -300,7 +313,7 @@ src/user_mrsg.i: src/user_mrsg.cpp.i
 
 # target to preprocess a source file
 src/user_mrsg.cpp.i:
-	$(MAKE) -f CMakeFiles/MRSG_s4u.dir/build.make CMakeFiles/MRSG_s4u.dir/src/user_mrsg.cpp.i
+	$(MAKE) -f CMakeFiles/mrsg.dir/build.make CMakeFiles/mrsg.dir/src/user_mrsg.cpp.i
 .PHONY : src/user_mrsg.cpp.i
 
 src/user_mrsg.s: src/user_mrsg.cpp.s
@@ -309,7 +322,7 @@ src/user_mrsg.s: src/user_mrsg.cpp.s
 
 # target to generate assembly for a file
 src/user_mrsg.cpp.s:
-	$(MAKE) -f CMakeFiles/MRSG_s4u.dir/build.make CMakeFiles/MRSG_s4u.dir/src/user_mrsg.cpp.s
+	$(MAKE) -f CMakeFiles/mrsg.dir/build.make CMakeFiles/mrsg.dir/src/user_mrsg.cpp.s
 .PHONY : src/user_mrsg.cpp.s
 
 src/worker_mrsg.o: src/worker_mrsg.cpp.o
@@ -318,7 +331,7 @@ src/worker_mrsg.o: src/worker_mrsg.cpp.o
 
 # target to build an object file
 src/worker_mrsg.cpp.o:
-	$(MAKE) -f CMakeFiles/MRSG_s4u.dir/build.make CMakeFiles/MRSG_s4u.dir/src/worker_mrsg.cpp.o
+	$(MAKE) -f CMakeFiles/mrsg.dir/build.make CMakeFiles/mrsg.dir/src/worker_mrsg.cpp.o
 .PHONY : src/worker_mrsg.cpp.o
 
 src/worker_mrsg.i: src/worker_mrsg.cpp.i
@@ -327,7 +340,7 @@ src/worker_mrsg.i: src/worker_mrsg.cpp.i
 
 # target to preprocess a source file
 src/worker_mrsg.cpp.i:
-	$(MAKE) -f CMakeFiles/MRSG_s4u.dir/build.make CMakeFiles/MRSG_s4u.dir/src/worker_mrsg.cpp.i
+	$(MAKE) -f CMakeFiles/mrsg.dir/build.make CMakeFiles/mrsg.dir/src/worker_mrsg.cpp.i
 .PHONY : src/worker_mrsg.cpp.i
 
 src/worker_mrsg.s: src/worker_mrsg.cpp.s
@@ -336,7 +349,7 @@ src/worker_mrsg.s: src/worker_mrsg.cpp.s
 
 # target to generate assembly for a file
 src/worker_mrsg.cpp.s:
-	$(MAKE) -f CMakeFiles/MRSG_s4u.dir/build.make CMakeFiles/MRSG_s4u.dir/src/worker_mrsg.cpp.s
+	$(MAKE) -f CMakeFiles/mrsg.dir/build.make CMakeFiles/mrsg.dir/src/worker_mrsg.cpp.s
 .PHONY : src/worker_mrsg.cpp.s
 
 # Help Target
@@ -347,7 +360,8 @@ help:
 	@echo "... depend"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
-	@echo "... MRSG_s4u"
+	@echo "... hello_mrsg"
+	@echo "... mrsg"
 	@echo "... examples/hello_mrsg.o"
 	@echo "... examples/hello_mrsg.i"
 	@echo "... examples/hello_mrsg.s"

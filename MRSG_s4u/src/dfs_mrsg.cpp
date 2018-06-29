@@ -26,7 +26,7 @@ XBT_LOG_EXTERNAL_DEFAULT_CATEGORY (msg_test);
 
 char**  chunk_owner_mrsg;
 
-static void send_mrsg_data (msg_task_t msg, Task_MRSG* task);
+static void send_mrsg_data (mrsg_task_t msg);
 
 void distribute_data_mrsg (void)
 {
@@ -52,28 +52,28 @@ void default_mrsg_dfs_f (char** dfs_matrix, size_t chunks, size_t workers_mrsg, 
     if (config_mrsg.mrsg_chunk_replicas >= config_mrsg.mrsg_number_of_workers)
     {
 	/* All workers own every chunk. */
-	for (chunk = 0; chunk < config_mrsg.mrsg_chunk_count; chunk++)
-	{
-	    for (owner = 0; owner < config_mrsg.mrsg_number_of_workers; owner++)
-	    {
-		chunk_owner_mrsg[chunk][owner] = 1;
-	    }
-	}
+        for (chunk = 0; chunk < config_mrsg.mrsg_chunk_count; chunk++)
+        {
+            for (owner = 0; owner < config_mrsg.mrsg_number_of_workers; owner++)
+            {
+            chunk_owner_mrsg[chunk][owner] = 1;
+            }
+        }
     }
     else
     {
 	/* Ok, it's a typical distribution. */
-	for (chunk = 0; chunk < config_mrsg.mrsg_chunk_count; chunk++)
-	{
-	    for (r = 0; r < config_mrsg.mrsg_chunk_replicas; r++)
-	    {
-		owner = ((chunk % config_mrsg.mrsg_number_of_workers)
-			+ ((config_mrsg.mrsg_number_of_workers / config_mrsg.mrsg_chunk_replicas) * r)
-			) % config_mrsg.mrsg_number_of_workers;
+        for (chunk = 0; chunk < config_mrsg.mrsg_chunk_count; chunk++)
+        {
+            for (r = 0; r < config_mrsg.mrsg_chunk_replicas; r++)
+            {
+            owner = ((chunk % config_mrsg.mrsg_number_of_workers)
+                + ((config_mrsg.mrsg_number_of_workers / config_mrsg.mrsg_chunk_replicas) * r)
+                ) % config_mrsg.mrsg_number_of_workers;
 
-		chunk_owner_mrsg[chunk][owner] = 1;
-	    }
-	}
+            chunk_owner_mrsg[chunk][owner] = 1;
+            }
+        }
     }
 }
 
@@ -106,10 +106,12 @@ size_t find_random_chunk_owner_mrsg (int cid)
 int data_node_mrsg (int argc, char* argv[])
 {
     char         mailbox[MAILBOX_ALIAS_SIZE];
+    /*OLD
     msg_error_t  status;
     msg_task_t   msg = NULL;
-    Task_MRSG* task_ptr;
-    TWO_TASKS* two_tasks;
+    OLD*/
+
+    mrsg_task_t msg;
 
     sprintf (mailbox, DATANODE_MRSG_MAILBOX, get_mrsg_worker_id (MSG_host_self ()));            //AQUI
     size_t wid =get_mrsg_worker_id (MSG_host_self ())+1 ;                                       //AQUI
@@ -117,20 +119,18 @@ int data_node_mrsg (int argc, char* argv[])
 
     while (!job_mrsg.finished)
     {
-        two_tasks = alt_receive(mailbox);
-        msg = two_tasks->old_task;
-        task_ptr = two_tasks->new_task;
+        msg = receive(mailbox);
 
         if (msg)
         {
             if (mrsg_message_is (msg, SMS_FINISH_MRSG))
             {
-                task_ptr->destroy();
+                msg->destroy();
                 break;
             }
             else
             {
-                send_mrsg_data (msg, task_ptr);
+                send_mrsg_data (msg);
             }
         }
     }
@@ -138,38 +138,37 @@ int data_node_mrsg (int argc, char* argv[])
     return 0;
 }
 
-static void send_mrsg_data (msg_task_t msg, Task_MRSG* task)
+static void send_mrsg_data (mrsg_task_t msg)
 {
     char         mailbox[MAILBOX_ALIAS_SIZE];
     double       data_size;
     size_t       my_id;
     mrsg_task_info_t  ti;
-    mrsg_task_data_capsule_t t_data;
     
     //XBT_INFO("POINT 1");
-    my_id = get_mrsg_worker_id (MSG_host_self ());                                                                              //AQUI
+    my_id = get_mrsg_worker_id (MSG_host_self ());                               //AQUI
 
     sprintf (mailbox, TASK_MRSG_MAILBOX,
-	    get_mrsg_worker_id (task->getSource()),                                                                         //AQUI
-	    task->getSender()->getPid());                                                                       //AQUI
+	    get_mrsg_worker_id (msg->getSource()),
+	    msg->getSender()->get_pid());
 
 
     if (mrsg_message_is (msg, SMS_GET_MRSG_CHUNK))
     {
         //XBT_INFO("POINT 2");
-        alt_send("DATA-C", 0.0, config_mrsg.mrsg_chunk_size, NULL, mailbox); //async send?
+        send("DATA-C", 0.0, config_mrsg.mrsg_chunk_size, NULL, mailbox); //async send?
         //XBT_INFO("POINT 3");
     }
     else if (mrsg_message_is (msg, SMS_GET_INTER_MRSG_PAIRS))
     {
         //XBT_INFO("POINT 4");
-        ti = (mrsg_task_info_t) task->getData();                    
+        ti = (mrsg_task_info_t) msg->getData();                    
 	    data_size = job_mrsg.map_output[my_id][ti->mrsg_tid] - ti->map_output_copied[my_id];
-        alt_send("DATA-IP", 0.0, data_size, NULL, mailbox); //async send?
+        send("DATA-IP", 0.0, data_size, NULL, mailbox); //async send?
         //XBT_INFO("POINT 5");
     }
 
-    task->destroy();
+    msg->destroy();
 }
 
 
