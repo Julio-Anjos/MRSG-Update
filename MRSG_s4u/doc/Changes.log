@@ -228,3 +228,13 @@ Em todas as funções as quais se aplica, trocado uso de "msg_host_t" por "simgr
 de "MSG_get_clock()" por "simgrid::s4u::Engine::get_clock()";
 Em "data_note_mrsg()", trocado uso da função "MSG_process_self_PID()" pelo método "get_pid()" da
 classe "this_actor".
+
+#############################04 JULHO 2018######################################################
+
+@include/task_mrsg.hpp:
+Adicionado atributo "exec_actor_pid" que representa o PID do processo responsável por executar a
+tarefa.
+
+@src/task_mrsg.cpp:
+Em "execute()", adicionado atribuição do PID do processo atual à "exec_actor_pid";
+Em "destroy()", se a tarefa ainda estiver em execução, o processo responsável também é morto.

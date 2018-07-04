@@ -92,6 +92,7 @@ double Task_MRSG::getRemainingAmount(){
 
 
 void Task_MRSG::execute(){
+    exec_actor_pid = simgrid::s4u::this_actor::get_pid();
     execution = simgrid::s4u::this_actor::exec_init(computation_size);
     execution->start();
 
@@ -101,8 +102,11 @@ void Task_MRSG::execute(){
 }
 
 void Task_MRSG::destroy(){
-    //if(execution_status == EXECUTING)
+    if(execution_status == EXECUTING) {
         //execution->cancel();
+        simgrid::s4u::ActorPtr exec_actor = simgrid::s4u::Actor::by_pid(exec_actor_pid);
+        exec_actor->kill();
+    }
     
     /**
      * As soon as this method ends, the unique_ptr gets out of scope and its contents are freed,

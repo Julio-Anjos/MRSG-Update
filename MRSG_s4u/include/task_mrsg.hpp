@@ -18,6 +18,8 @@ class Task_MRSG
     simgrid::s4u::Host* source;
     simgrid::s4u::ExecPtr execution;
     unsigned int execution_status;
+    aid_t exec_actor_pid;
+
 
     public:
     Task_MRSG(std::string task_name, double comp_size, double comm_size, void* task_data);
@@ -44,8 +46,6 @@ class Task_MRSG
 
     void execute(); 
     void destroy();
-
-
 };
 
 #endif 

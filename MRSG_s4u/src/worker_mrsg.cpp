@@ -186,11 +186,10 @@ static void compute_mrsg (/*int argc, char* argv[]*/ mrsg_task_t mrsg_task)
     /*OLD
     msg_error_t  status;
     msg_task_t   mrsg_task;
+    mrsg_task_t mrsg_task;
+    mrsg_task = (mrsg_task_t) MSG_process_get_data (MSG_process_self ());
     OLD*/
     mrsg_task_info_t  ti;
-
-    //mrsg_task_t mrsg_task;
-    //mrsg_task = (mrsg_task_t) MSG_process_get_data (MSG_process_self ());
 
     ti = (mrsg_task_info_t) mrsg_task->getData();                             
     //OLD ti->mrsg_pid = MSG_process_self_PID ();
