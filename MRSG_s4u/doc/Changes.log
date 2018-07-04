@@ -188,3 +188,43 @@ Em "mrsg_message_is", trocado "MSG_task_get_name()" pelo método "getName()" da 
 @include/commom_mrsg.hpp:
 Trocado typedef "mrsg_task_t" de "shared_ptr<Task_MRSG>" para "Task_MRSG*" devido as falhas de
 segmentação gerados.
+
+#############################29 JUNHO 2018######################################################
+
+@src/master_mrsg.cpp:
+Em todas as funções as quais se aplica, trocado uso de "msg_host_t" por "simgrid::s4u::Host*" e
+de "MSG_get_clock()" por "simgrid::s4u::Engine::get_clock()".
+
+#############################03 JULHO 2018######################################################
+
+@src/worker_mrsg.cpp:
+Em todas as funções as quais se aplica, trocado uso de "msg_host_t" por "simgrid::s4u::Host*" e
+de "MSG_get_clock()" por "simgrid::s4u::Engine::get_clock()";
+Em "worker_mrsg()", trocado uso da função "MSG_process_self_PID()" pelo método "get_pid()" da
+classe "this_actor". Também foi trocada a chamada da função "MSG_process_create()" pelo método 
+"create()" da classe "Actor";
+Em "mrsg_kill_last_workers()", subtituídas as funções "MSG_process_from_PID()" e "MSG_process_kill()"
+pelos métodos "by_pid()" e "kill()" da classe "Actor";
+Em "listen_mrsg()", trocado uso das função "MSG_process_self_PID()"  e "MSG_process_create()" pelos
+método "get_pid()" da classe "this_actor" e "create()" da classe "Actor";
+Em "compute_mrsg()", trocado uso da função "MSG_process_self_PID()" pelo método "get_pid()" da
+classe "this_actor". Também foi alterado como é recebido a tarefa, ao invés de ser obtida através
+de "MSG_process_get_data()", agora é passada como parâmetro;
+Em "get_mrsg_worker_id()", a obtenção do WID agora é através do método "get_property()" da classe
+"Host", ao invés de "MSG_host_get_data()".
+
+@include/worker_mrsg.hpp:
+Descontinuado o uso da estrutura "w_mrsg_info_t".
+
+@src/simcore_mrsg.cpp:
+Em todas as funções as quais se aplica, trocado uso de "msg_host_t" por "simgrid::s4u::Host*" e
+de "MSG_get_clock()" por "simgrid::s4u::Engine::get_clock()";
+Em "init_mrsg_config()", foi alterado o modo de passar o WID ao seu respectivo host, ao invés de
+se utilizar "MSG_host_set_data()", agora é utilizado o método "set_property()" da classe "Host",
+onde na propriedade "WID" é salvo o valor de WID em forma de strig.
+
+@src/dfs_mrsg.cpp:
+Em todas as funções as quais se aplica, trocado uso de "msg_host_t" por "simgrid::s4u::Host*" e
+de "MSG_get_clock()" por "simgrid::s4u::Engine::get_clock()";
+Em "data_note_mrsg()", trocado uso da função "MSG_process_self_PID()" pelo método "get_pid()" da
+classe "this_actor".

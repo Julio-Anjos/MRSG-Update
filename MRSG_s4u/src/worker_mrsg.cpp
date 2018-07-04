@@ -22,6 +22,7 @@ along with MRSG.  If not, see <http://www.gnu.org/licenses/>. */
 #include "common_mrsg.hpp"
 #include "dfs_mrsg.h"
 #include "worker_mrsg.h"
+#include <sstream>
 
 
 
@@ -29,19 +30,28 @@ XBT_LOG_EXTERNAL_DEFAULT_CATEGORY (msg_test);
 
 
 static void mrsg_heartbeat (void);
-static int listen_mrsg (int argc, char* argv[]);
-static int compute_mrsg (int argc, char* argv[]);
-static void update_mrsg_map_output (msg_host_t worker_mrsg, size_t mid);
+/*OLD static int listen_mrsg (int argc, char* argv[]);*/
+static void listen_mrsg();
+/*OLD static int compute_mrsg (int argc, char* argv[]);*/
+static void compute_mrsg (mrsg_task_t mrsg_task);
+static void update_mrsg_map_output (/*msg_host_t worker_mrsg*/ simgrid::s4u::Host* worker_mrsg, size_t mid);
 static void get_mrsg_chunk (mrsg_task_info_t ti);
 static void get_mrsg_map_output (mrsg_task_info_t ti);
 void mrsg_kill_last_workers();
 
-size_t get_mrsg_worker_id (msg_host_t worker_mrsg)
+
+size_t get_mrsg_worker_id (/*OLD msg_host_t*/ simgrid::s4u::Host* worker_mrsg)
 {
+    const char* wid = worker_mrsg->get_property("WID");
+    size_t value = std::stoi(wid);
+    return value;    
+
+    /*OLD
     w_mrsg_info_t  wi;
 
-    wi = (w_mrsg_info_t) MSG_host_get_data (worker_mrsg);                                 //AQUI
+    wi = (w_mrsg_info_t) MSG_host_get_data (worker_mrsg);
     return wi->mrsg_wid;
+    OLD*/
 }
 
 /**
@@ -53,16 +63,21 @@ size_t get_mrsg_worker_id (msg_host_t worker_mrsg)
 int worker_mrsg (int argc, char* argv[])
 {
     char           mailbox[MAILBOX_ALIAS_SIZE];
-    msg_host_t     me;
+    //OLD msg_host_t     me;
+    simgrid::s4u::Host* me;
 
-    me = MSG_host_self ();                                                                //AQUI
+    //OLD me = MSG_host_self ();
+    me = simgrid::s4u::Host::current();
 
-    mrsg_task_pid.worker[get_mrsg_worker_id (me)+1] = MSG_process_self_PID();             //AQUI
+    //OLD mrsg_task_pid.worker[get_mrsg_worker_id (me)+1] = MSG_process_self_PID(); 
+    mrsg_task_pid.worker[get_mrsg_worker_id (me)+1] = simgrid::s4u::this_actor::get_pid();
 
     /* Spawn a process that listens for tasks. */
-    MSG_process_create ("listen_mrsg", listen_mrsg, NULL, me);                             //AQUI
+    //OLD MSG_process_create ("listen_mrsg", listen_mrsg, NULL, me);
+    simgrid::s4u::Actor::create("listen_mrsg", me, listen_mrsg);
     /* Spawn a process to exchange data with other workers. */
-    MSG_process_create ("data-node_mrsg", data_node_mrsg, NULL, me);
+    //OLD MSG_process_create ("data-node_mrsg", data_node_mrsg, NULL, me);
+    simgrid::s4u::Actor::create("data-node_mrsg", me, data_node_mrsg);
     /* Start sending heartbeat signals to the master node. */
     mrsg_heartbeat ();
 
@@ -81,23 +96,31 @@ int worker_mrsg (int argc, char* argv[])
 
 void mrsg_kill_last_workers()
 {
-  msg_process_t process_to_kill;
-  for (size_t wid = 1; wid < config_mrsg.mrsg_number_of_workers+1; wid++) {
-    if(mrsg_task_pid.status[wid]==ON && wid!=(get_mrsg_worker_id (MSG_host_self())+1))       //AQUI
-    {
-         process_to_kill = MSG_process_from_PID(mrsg_task_pid.worker[wid]);                  //AQUI
-        if(process_to_kill!=NULL)
-          MSG_process_kill(process_to_kill);                                                 //AQUI
+  //OLD msg_process_t process_to_kill;
+  simgrid::s4u::ActorPtr process_to_kill;
+    for (size_t wid = 1; wid < config_mrsg.mrsg_number_of_workers+1; wid++) {
+        //OLD if(mrsg_task_pid.status[wid]==ON && wid!=(get_mrsg_worker_id (MSG_host_self())+1))
+        if(mrsg_task_pid.status[wid]==ON && wid!=(get_mrsg_worker_id(simgrid::s4u::Host::current())+1))
+        {
+            //OLD process_to_kill = MSG_process_from_PID(mrsg_task_pid.worker[wid]);
+            process_to_kill = simgrid::s4u::Actor::by_pid(mrsg_task_pid.worker[wid]);
+            if(process_to_kill!=NULL)
+                process_to_kill->kill();
+            //OLD MSG_process_kill(process_to_kill);  
 
-        process_to_kill = MSG_process_from_PID(mrsg_task_pid.listen[wid]);                   //AQUI
-        if(process_to_kill!=NULL)
-          MSG_process_kill(process_to_kill);                                                  //AQUI
+            //OLD process_to_kill = MSG_process_from_PID(mrsg_task_pid.listen[wid]);
+            process_to_kill = simgrid::s4u::Actor::by_pid(mrsg_task_pid.listen[wid]);
+            if(process_to_kill!=NULL)
+                process_to_kill->kill();
+            //OLD MSG_process_kill(process_to_kill);
 
-        process_to_kill = MSG_process_from_PID(mrsg_task_pid.data_node[wid]);                 //AQUI
-        if(process_to_kill!=NULL)
-          MSG_process_kill(process_to_kill);                                                  //AQUI
+            //OLD process_to_kill = MSG_process_from_PID(mrsg_task_pid.data_node[wid]);
+            process_to_kill = simgrid::s4u::Actor::by_pid(mrsg_task_pid.data_node[wid]);
+            if(process_to_kill!=NULL)
+            process_to_kill->kill();
+            //OLD MSG_process_kill(process_to_kill);
+        }
     }
-      }
 }
 
 /**
@@ -108,24 +131,30 @@ static void mrsg_heartbeat (void)
     while (!job_mrsg.finished)
     {
         send_mrsg_sms(SMS_HEARTBEAT_MRSG, MASTER_MRSG_MAILBOX);
-        MSG_process_sleep (config_mrsg.mrsg_heartbeat_interval);                    //AQUI
+        //OLD MSG_process_sleep (config_mrsg.mrsg_heartbeat_interval);
+        simgrid::s4u::this_actor::sleep_for(config_mrsg.mrsg_heartbeat_interval);
     }
 }
 
 /**
  * @brief  Process that listens for tasks.
  */
-static int listen_mrsg (int argc, char* argv[])
+//OLD int
+static void listen_mrsg (/*int argc, char* argv[]*/)
 {
     char         mailbox[MAILBOX_ALIAS_SIZE];
     /*OLD msg_error_t  status;*/
-    msg_host_t   me;
+    /*OLD msg_host_t   me;*/
     /*OLD msg_task_t   msg = NULL;*/
+    simgrid::s4u::Host* me;
     mrsg_task_t msg;
 
-    me = MSG_host_self ();                                                                         //AQUI
+    //OLD me = MSG_host_self (); 
+    me = simgrid::s4u::Host::current();
+
     size_t wid = get_mrsg_worker_id(me) + 1;
-    mrsg_task_pid.listen[wid] = MSG_process_self_PID ();                                           //AQUI
+    //OLD mrsg_task_pid.listen[wid] = MSG_process_self_PID ();
+    mrsg_task_pid.listen[wid] = simgrid::s4u::this_actor::get_pid();
     sprintf (mailbox, TASKTRACKER_MRSG_MAILBOX, get_mrsg_worker_id (me));
 
     while (!job_mrsg.finished)
@@ -135,7 +164,8 @@ static int listen_mrsg (int argc, char* argv[])
 	    /*OLD if (msg != NULL && mrsg_message_is (msg, SMS_TASK_MRSG))*/
         if (msg && mrsg_message_is (msg, SMS_TASK_MRSG))
         {
-            MSG_process_create ("worker_mrsg", compute_mrsg, (void*) msg, me);
+            //OLD MSG_process_create ("worker_mrsg", compute_mrsg, (void*) msg, me);
+            simgrid::s4u::Actor::create("worker_mrsg", me, compute_mrsg, msg);
         }
         else if (mrsg_message_is (msg, SMS_FINISH_MRSG))
         {
@@ -144,25 +174,27 @@ static int listen_mrsg (int argc, char* argv[])
         }
     }
 
-    return 0;
+    //OLD return 0;
 }
 
 /**
  * @brief  Process that computes a task.
  */
-static int compute_mrsg (int argc, char* argv[])
+//OLD int
+static void compute_mrsg (/*int argc, char* argv[]*/ mrsg_task_t mrsg_task)
 {
     /*OLD
     msg_error_t  status;
     msg_task_t   mrsg_task;
     OLD*/
     mrsg_task_info_t  ti;
-    mrsg_task_t mrsg_task;
 
-    mrsg_task = (mrsg_task_t) MSG_process_get_data (MSG_process_self ());
+    //mrsg_task_t mrsg_task;
+    //mrsg_task = (mrsg_task_t) MSG_process_get_data (MSG_process_self ());
 
     ti = (mrsg_task_info_t) mrsg_task->getData();                             
-    ti->mrsg_pid = MSG_process_self_PID ();                                                          //AQUI
+    //OLD ti->mrsg_pid = MSG_process_self_PID ();
+    ti->mrsg_pid = simgrid::s4u::this_actor::get_pid();
  
     //XBT_INFO (" Host %zd Recebeu  %d dados-MAP \n", ti->mrsg_wid, ti->mrsg_size_data_proc);
 
@@ -182,7 +214,8 @@ static int compute_mrsg (int argc, char* argv[])
             mrsg_task->execute();
     
 	    if (ti->mrsg_phase == MRSG_MAP)
-		    update_mrsg_map_output (MSG_host_self (), ti->mrsg_tid);                                    //AQUI
+		    update_mrsg_map_output (simgrid::s4u::Host::current(), ti->mrsg_tid);
+            //OLD update_mrsg_map_output (MSG_host_self (), ti->mrsg_tid);
     /*
 	TRY
 	{
@@ -204,7 +237,7 @@ static int compute_mrsg (int argc, char* argv[])
     if (!job_mrsg.finished)
         send(SMS_TASK_MRSG_DONE, 0.0, 0.0, ti, MASTER_MRSG_MAILBOX);
 
-    return 0;
+    //OLD return 0;
 }
 
 /**
@@ -212,7 +245,7 @@ static int compute_mrsg (int argc, char* argv[])
  * @param  worker_mrsg  The worker that finished a map task.
  * @param  mid     The ID of map task.
  */
-static void update_mrsg_map_output (msg_host_t worker_mrsg, size_t mid)
+static void update_mrsg_map_output (/*msg_host_t worker_mrsg*/ simgrid::s4u::Host* worker_mrsg, size_t mid)
 {
     size_t  rid;
     size_t  mrsg_wid;
@@ -237,7 +270,8 @@ static void get_mrsg_chunk (mrsg_task_info_t ti)
     size_t       my_id;
     mrsg_task_t data;
 
-    my_id = get_mrsg_worker_id (MSG_host_self ());                                                  //AQUI
+    //OLD my_id = get_mrsg_worker_id (MSG_host_self ());
+    my_id = get_mrsg_worker_id (simgrid::s4u::Host::current());
 
     /* Request the chunk to the source node. */
     if (ti->mrsg_src != my_id)
@@ -275,7 +309,8 @@ static void get_mrsg_map_output (mrsg_task_info_t ti)
     size_t*      data_copied;
     mrsg_task_t data;
 
-    my_id = get_mrsg_worker_id (MSG_host_self ());                                                    //AQUI
+    //OLD my_id = get_mrsg_worker_id (MSG_host_self ());
+    my_id = get_mrsg_worker_id(simgrid::s4u::Host::current());
     data_copied = xbt_new0 (size_t, config_mrsg.mrsg_number_of_workers);
     ti->map_output_copied = data_copied;
     total_copied = 0;
@@ -319,12 +354,14 @@ static void get_mrsg_map_output (mrsg_task_info_t ti)
 	    }
 	}
 	/* (Hadoop 0.20.2) mapred/ReduceTask.java:1979 */
-	MSG_process_sleep (3);                                                                                  //AQUI
+	//OLD MSG_process_sleep (3);
+    simgrid::s4u::this_actor::sleep_for(3);
     }
 #ifdef VERBOSE
     XBT_INFO ("INFO: copy finished");
 #endif
-    ti->shuffle_mrsg_end = MSG_get_clock ();    //AQUI
+    //OLD ti->shuffle_mrsg_end = MSG_get_clock ();
+    ti->shuffle_mrsg_end = simgrid::s4u::Engine::get_clock();
 
     xbt_free_ref (&data_copied);
 }

@@ -43,6 +43,7 @@ size_t find_random_chunk_owner_mrsg (int cid);
  *
  * Process that listens for data requests.
  */
-int data_node_mrsg (int argc, char *argv[]);
+//OLD int data_node_mrsg (int argc, char *argv[]);
+void data_node_mrsg ();
 
 #endif /* !DFS_MRSG_H */

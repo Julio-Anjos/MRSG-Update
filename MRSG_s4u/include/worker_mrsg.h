@@ -22,15 +22,18 @@ along with MRSG.  If not, see <http://www.gnu.org/licenses/>. */
 /* hadoop-config: mapred.max.tracker.failures */
 #define MAXIMUM_WORKER_FAILURES 4
 
+/*OLD
 typedef struct mrsg_w_info_s {
 	size_t  mrsg_wid;
 }* w_mrsg_info_t;
+OLD*/
+
 
 /**
  * @brief  Get the ID of a worker.
  * @param  worker_mrsg  The worker node.
  * @return The worker's ID number.
  */
-size_t get_mrsg_worker_id (msg_host_t worker_mrsg);
+size_t get_mrsg_worker_id (/*msg_host_t*/ simgrid::s4u::Host* worker_mrsg);
 
 #endif /* !WORKER_MRSG_H */

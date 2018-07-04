@@ -123,6 +123,7 @@ struct mrsg_task_info_s {
     int           mrsg_size_data_proc;
 };
 
+
 typedef struct mrsg_task_info_s* mrsg_task_info_t;
 
 typedef struct {

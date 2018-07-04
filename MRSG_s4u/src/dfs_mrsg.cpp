@@ -103,7 +103,8 @@ size_t find_random_chunk_owner_mrsg (int cid)
     return owner;
 }
 
-int data_node_mrsg (int argc, char* argv[])
+//OLD int
+void data_node_mrsg (/*int argc, char* argv[]*/)
 {
     char         mailbox[MAILBOX_ALIAS_SIZE];
     /*OLD
@@ -113,9 +114,15 @@ int data_node_mrsg (int argc, char* argv[])
 
     mrsg_task_t msg;
 
-    sprintf (mailbox, DATANODE_MRSG_MAILBOX, get_mrsg_worker_id (MSG_host_self ()));            //AQUI
-    size_t wid =get_mrsg_worker_id (MSG_host_self ())+1 ;                                       //AQUI
-    mrsg_task_pid.data_node[wid] = MSG_process_self_PID ();                                     //AQUI
+    /*OLD
+    sprintf (mailbox, DATANODE_MRSG_MAILBOX, get_mrsg_worker_id (MSG_host_self ()));
+    size_t wid =get_mrsg_worker_id (MSG_host_self ())+1 ;
+    mrsg_task_pid.data_node[wid] = MSG_process_self_PID (); 
+    OLD*/
+
+    sprintf (mailbox, DATANODE_MRSG_MAILBOX, get_mrsg_worker_id (simgrid::s4u::Host::current()));
+    size_t wid =get_mrsg_worker_id (simgrid::s4u::Host::current())+1;
+    mrsg_task_pid.data_node[wid] = simgrid::s4u::this_actor::get_pid();
 
     while (!job_mrsg.finished)
     {
@@ -135,7 +142,7 @@ int data_node_mrsg (int argc, char* argv[])
         }
     }
 
-    return 0;
+    //OLD return 0;
 }
 
 static void send_mrsg_data (mrsg_task_t msg)
@@ -145,8 +152,8 @@ static void send_mrsg_data (mrsg_task_t msg)
     size_t       my_id;
     mrsg_task_info_t  ti;
     
-    //XBT_INFO("POINT 1");
-    my_id = get_mrsg_worker_id (MSG_host_self ());                               //AQUI
+    //OLD my_id = get_mrsg_worker_id (MSG_host_self ()); 
+    my_id = get_mrsg_worker_id (simgrid::s4u::Host::current());
 
     sprintf (mailbox, TASK_MRSG_MAILBOX,
 	    get_mrsg_worker_id (msg->getSource()),
@@ -155,17 +162,13 @@ static void send_mrsg_data (mrsg_task_t msg)
 
     if (mrsg_message_is (msg, SMS_GET_MRSG_CHUNK))
     {
-        //XBT_INFO("POINT 2");
         send("DATA-C", 0.0, config_mrsg.mrsg_chunk_size, NULL, mailbox); //async send?
-        //XBT_INFO("POINT 3");
     }
     else if (mrsg_message_is (msg, SMS_GET_INTER_MRSG_PAIRS))
     {
-        //XBT_INFO("POINT 4");
         ti = (mrsg_task_info_t) msg->getData();                    
 	    data_size = job_mrsg.map_output[my_id][ti->mrsg_tid] - ti->map_output_copied[my_id];
         send("DATA-IP", 0.0, data_size, NULL, mailbox); //async send?
-        //XBT_INFO("POINT 5");
     }
 
     msg->destroy();

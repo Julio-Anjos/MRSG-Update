@@ -34,21 +34,22 @@ static FILE*       tasks_log;
 
 static void print_mrsg_config (void);
 static void print_mrsg_stats (void);
-static int is_straggler_mrsg (msg_host_t worker_mrsg);
+static int is_straggler_mrsg (/*OLD msg_host_t*/simgrid::s4u::Host* worker_mrsg);
 static int task_time_elapsed_mrsg (mrsg_task_t task);
-static void set_mrsg_speculative_tasks (msg_host_t worker_mrsg);
-static void send_map_to_mrsg_worker (msg_host_t dest);
-static void send_reduce_to_mrsg_worker (msg_host_t dest);
-static void send_mrsg_task (enum mrsg_phase_e mrsg_phase, size_t tid, size_t data_src, msg_host_t dest);
+static void set_mrsg_speculative_tasks (/*OLD msg_host_t*/simgrid::s4u::Host* worker_mrsg);
+static void send_map_to_mrsg_worker (/*OLD msg_host_t*/simgrid::s4u::Host* dest);
+static void send_reduce_to_mrsg_worker (/*OLD msg_host_t*/simgrid::s4u::Host* dest);
+static void send_mrsg_task (enum mrsg_phase_e mrsg_phase, size_t tid, size_t data_src, /*OLD msg_host_t*/simgrid::s4u::Host* dest);
 static void finish_all_mrsg_task_copies (mrsg_task_info_t ti);
 
 /** @brief  Main master function. */
 int master_mrsg (int argc, char* argv[])
 {
-    mrsg_heartbeat_t  mrsg_heartbeat;
     /*OLD msg_error_t  status; */
-    msg_host_t   worker_mrsg;
+    /*OLD msg_host_t   worker_mrsg;*/
     /*OLD msg_task_t   msg = NULL; */
+    mrsg_heartbeat_t  mrsg_heartbeat;
+    simgrid::s4u::Host* worker_mrsg;
     size_t       mrsg_wid;
     mrsg_task_info_t  ti;
     mrsg_task_t msg;
@@ -66,14 +67,14 @@ int master_mrsg (int argc, char* argv[])
     fprintf (tasks_log, "task_id,mrsg_phase,worker_id,time,action,shuffle_end\n");
 
     while (job_mrsg.tasks_pending[MRSG_MAP] + job_mrsg.tasks_pending[MRSG_REDUCE] > 0)
-    {        //XBT_INFO ("MASTER CHECKPOINT 1");
+    {
         msg = receive(MASTER_MRSG_MAILBOX);
 
         if (msg)
         {
             worker_mrsg = msg->getSource();
             
-            mrsg_wid = get_mrsg_worker_id (worker_mrsg);                           
+            mrsg_wid = get_mrsg_worker_id (worker_mrsg);
 
             if (mrsg_message_is (msg, SMS_HEARTBEAT_MRSG))
             {
@@ -105,12 +106,14 @@ int master_mrsg (int argc, char* argv[])
                             XBT_INFO (" ");
                             if(ti->mrsg_phase==MRSG_MAP)
                             {
-                                stats_mrsg.map_time=MSG_get_clock ();
+                                //OLD stats_mrsg.map_time=MSG_get_clock ();
+                                stats_mrsg.map_time = simgrid::s4u::Engine::get_clock();
                                 XBT_INFO (" ");
                             }
                             else
                             {
-                                stats_mrsg.reduce_time = MSG_get_clock () - stats_mrsg.map_time;
+                                //OLD stats_mrsg.reduce_time = MSG_get_clock () - stats_mrsg.map_time;
+                                stats_mrsg.reduce_time = simgrid::s4u::Engine::get_clock() - stats_mrsg.map_time;
                                 XBT_INFO (" ");
                             }
                     }
@@ -172,7 +175,7 @@ static void print_mrsg_stats (void)
  * @param  worker_mrsg  The worker to be probed.
  * @return 1 if true, 0 if false.
  */
-static int is_straggler_mrsg (msg_host_t worker_mrsg)
+static int is_straggler_mrsg (/*OLD msg_host_t*/simgrid::s4u::Host* worker_mrsg)
 {
     int     task_count;
     size_t  mrsg_wid;
@@ -181,7 +184,8 @@ static int is_straggler_mrsg (msg_host_t worker_mrsg)
 
     task_count = (config_mrsg.mrsg_slots[MRSG_MAP] + config_mrsg.mrsg_slots[MRSG_REDUCE]) - (job_mrsg.mrsg_heartbeats[mrsg_wid].slots_av[MRSG_MAP] + job_mrsg.mrsg_heartbeats[mrsg_wid].slots_av[MRSG_REDUCE]);
 
-    if (MSG_host_get_speed (worker_mrsg) < config_mrsg.grid_average_speed && task_count > 0)        //AQUI
+    //OLD if (MSG_host_get_speed (worker_mrsg) < config_mrsg.grid_average_speed && task_count > 0)
+    if (worker_mrsg->get_speed() < config_mrsg.grid_average_speed && task_count > 0)
         return 1;
 
     return 0;
@@ -207,7 +211,7 @@ static int task_time_elapsed_mrsg (/*OLD msg_task_t mrsg_task*/ mrsg_task_t task
     return (task->getFlopsAmount()*(1 - task->getRemainingRatio())) 
            / config_mrsg.workers_mrsg[ti->mrsg_wid]->get_speed();
 
-    //return (MSG_task_get_bytes_amount (mrsg_task) - MSG_task_get_flops_amount (mrsg_task))      //ICI AQUI
+    //return (MSG_task_get_bytes_amount (mrsg_task) - MSG_task_get_flops_amount (mrsg_task))
     //       / config_mrsg.workers_mrsg[ti->mrsg_wid]->getSpeed(); 
     //return (MSG_task_get_compute_duration (mrsg_task) - MSG_task_get_remaining_computation (mrsg_task))
       //     / MSG_get_host_speed (config_mrsg.workers_mrsg[ti->mrsg_wid]);
@@ -217,7 +221,7 @@ static int task_time_elapsed_mrsg (/*OLD msg_task_t mrsg_task*/ mrsg_task_t task
  * @brief  Mark the tasks of a straggler as possible speculative tasks.
  * @param  worker_mrsg  The straggler worker.
  */
-static void set_mrsg_speculative_tasks (msg_host_t worker_mrsg)
+static void set_mrsg_speculative_tasks (/*OLD msg_host_t*/simgrid::s4u::Host* worker_mrsg)
 {
     size_t       tid;
     size_t       mrsg_wid;
@@ -262,7 +266,7 @@ static void set_mrsg_speculative_tasks (msg_host_t worker_mrsg)
  * @brief  Choose a map task, and send it to a worker.
  * @param  dest  The destination worker.
  */
-static void send_map_to_mrsg_worker (msg_host_t dest)
+static void send_map_to_mrsg_worker (/*OLD msg_host_t*/simgrid::s4u::Host* dest)
 {
     const char*   flags;
     int     task_type;
@@ -343,7 +347,8 @@ static void send_map_to_mrsg_worker (msg_host_t dest)
         return;
     }
 
-    XBT_INFO ("map %zu assigned to %s %s", tid, MSG_host_get_name (dest), flags);                   //AQUI
+    //OLD XBT_INFO ("map %zu assigned to %s %s", tid, MSG_host_get_name (dest), flags);
+    XBT_INFO ("map %zu assigned to %s %s", tid, dest->get_cname(), flags);
 
     send_mrsg_task (MRSG_MAP, tid, sid, dest);
 }
@@ -352,7 +357,7 @@ static void send_map_to_mrsg_worker (msg_host_t dest)
  * @brief  Choose a reduce task, and send it to a worker.
  * @param  dest  The destination worker.
  */
-static void send_reduce_to_mrsg_worker (msg_host_t dest)
+static void send_reduce_to_mrsg_worker (/*OLD msg_host_t*/simgrid::s4u::Host* dest)
 {
     const char*   flags;
     int     task_type;
@@ -401,7 +406,8 @@ static void send_reduce_to_mrsg_worker (msg_host_t dest)
         return;
     }
 
-    XBT_INFO ("reduce %zu assigned to %s %s", tid, MSG_host_get_name (dest), flags);                            //AQUI
+    //OLD XBT_INFO ("reduce %zu assigned to %s %s", tid, MSG_host_get_name (dest), flags);
+    XBT_INFO ("reduce %zu assigned to %s %s", tid, dest->get_cname(), flags);
 
     send_mrsg_task (MRSG_REDUCE, tid, NONE, dest);
 
@@ -414,7 +420,7 @@ static void send_reduce_to_mrsg_worker (msg_host_t dest)
  * @param  data_src  The ID of the DataNode that owns the task data.
  * @param  dest      The destination worker.
  */
-static void send_mrsg_task (enum mrsg_phase_e mrsg_phase, size_t tid, size_t data_src, msg_host_t dest)
+static void send_mrsg_task (enum mrsg_phase_e mrsg_phase, size_t tid, size_t data_src, /*OLD msg_host_t*/simgrid::s4u::Host* dest)
 {
     char         mailbox[MAILBOX_ALIAS_SIZE];
     int          i;
@@ -448,12 +454,12 @@ static void send_mrsg_task (enum mrsg_phase_e mrsg_phase, size_t tid, size_t dat
     task_info->mrsg_size_data_proc=config_mrsg.mrsg_chunk_size;
     task_info->shuffle_mrsg_end = 0.0;
 
-    mrsg_task->setSender(MSG_process_self());
-    mrsg_task->setSource(MSG_host_self());
+    mrsg_task->setSender(/*MSG_process_self()*/ simgrid::s4u::Actor::self());
+    mrsg_task->setSource(/*MSG_host_self()*/ simgrid::s4u::Host::current());
     mrsg_task->setData(task_info);
 
     // for tracing purposes...
-    /*OLD MSG_task_set_category (mrsg_task, (mrsg_phase==MRSG_MAP?"MRSG_MAP":"MRSG_REDUCE")); */                 //AQUI
+    /*OLD MSG_task_set_category (mrsg_task, (mrsg_phase==MRSG_MAP?"MRSG_MAP":"MRSG_REDUCE")); */
 
     if (job_mrsg.task_status[mrsg_phase][tid] != T_STATUS_MRSG_TIP_SLOW)
         job_mrsg.task_status[mrsg_phase][tid] = T_STATUS_MRSG_TIP;
@@ -469,11 +475,12 @@ static void send_mrsg_task (enum mrsg_phase_e mrsg_phase, size_t tid, size_t dat
         }
     }
 
-
-    fprintf (tasks_log, "%d_%zu_%d,%s,%zu,%.3f,START,\n", mrsg_phase, tid, i, (mrsg_phase==MRSG_MAP?"MRSG_MAP":"MRSG_REDUCE"), mrsg_wid, MSG_get_clock ());
+    //OLD fprintf (tasks_log, "%d_%zu_%d,%s,%zu,%.3f,START,\n", mrsg_phase, tid, i, (mrsg_phase==MRSG_MAP?"MRSG_MAP":"MRSG_REDUCE"), mrsg_wid, MSG_get_clock ());
+    fprintf (tasks_log, "%d_%zu_%d,%s,%zu,%.3f,START,\n", mrsg_phase, tid, i, (mrsg_phase==MRSG_MAP?"MRSG_MAP":"MRSG_REDUCE"), mrsg_wid, simgrid::s4u::Engine::get_clock());
 
 #ifdef VERBOSE
-    XBT_INFO ("TX: %s > %s", SMS_TASK_MRSG, MSG_host_get_name (dest));
+    //OLD XBT_INFO ("TX: %s > %s", SMS_TASK_MRSG, MSG_host_get_name (dest));
+    XBT_INFO ("TX: %s > %s", SMS_TASK_MRSG, dest->get_cname());
 #endif
 
     sprintf (mailbox, TASKTRACKER_MRSG_MAILBOX, mrsg_wid);
@@ -503,7 +510,8 @@ static void finish_all_mrsg_task_copies (mrsg_task_info_t ti)
             job_mrsg.task_list[mrsg_phase][tid][i]->destroy();
             /*OLD job_mrsg.task_list[mrsg_phase][tid][i] = NULL;*/
             job_mrsg.task_list[mrsg_phase][tid][i] = nullptr;
-            fprintf (tasks_log, "%d_%zu_%d,%s,%zu,%.3f,END,%.3f\n", ti->mrsg_phase, tid, i, (ti->mrsg_phase==MRSG_MAP?"MRSG_MAP":"MRSG_REDUCE"), ti->mrsg_wid, MSG_get_clock (), ti->shuffle_mrsg_end);//AQUI
+            //OLD fprintf (tasks_log, "%d_%zu_%d,%s,%zu,%.3f,END,%.3f\n", ti->mrsg_phase, tid, i, (ti->mrsg_phase==MRSG_MAP?"MRSG_MAP":"MRSG_REDUCE"), ti->mrsg_wid, MSG_get_clock (), ti->shuffle_mrsg_end);
+            fprintf (tasks_log, "%d_%zu_%d,%s,%zu,%.3f,END,%.3f\n", ti->mrsg_phase, tid, i, (ti->mrsg_phase==MRSG_MAP?"MRSG_MAP":"MRSG_REDUCE"), ti->mrsg_wid, simgrid::s4u::Engine::get_clock(), ti->shuffle_mrsg_end);
         }
     }
 }

@@ -35,6 +35,10 @@
         "type_traits": "cpp",
         "typeinfo": "cpp",
         "utility": "cpp",
-        "codecvt": "cpp"
+        "codecvt": "cpp",
+        "strstream": "cpp",
+        "cinttypes": "cpp",
+        "future": "cpp",
+        "typeindex": "cpp"
     }
 }
