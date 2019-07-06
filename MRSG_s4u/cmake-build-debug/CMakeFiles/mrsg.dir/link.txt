@@ -1,2 +1,0 @@
-/usr/bin/ar qc libmrsg.a  CMakeFiles/mrsg.dir/src/common_mrsg.cpp.o CMakeFiles/mrsg.dir/src/dfs_mrsg.cpp.o CMakeFiles/mrsg.dir/src/master_mrsg.cpp.o CMakeFiles/mrsg.dir/src/simcore_mrsg.cpp.o CMakeFiles/mrsg.dir/src/task_mrsg.cpp.o CMakeFiles/mrsg.dir/src/user_mrsg.cpp.o CMakeFiles/mrsg.dir/src/worker_mrsg.cpp.o
-/usr/bin/ranlib libmrsg.a

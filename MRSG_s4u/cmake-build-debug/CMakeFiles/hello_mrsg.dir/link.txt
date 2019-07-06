@@ -1,1 +1,0 @@
-/usr/bin/c++  -g  -Wall -g3 CMakeFiles/hello_mrsg.dir/examples/hello_mrsg.cpp.o  -o hello_mrsg libmrsg.a -lsimgrid 
