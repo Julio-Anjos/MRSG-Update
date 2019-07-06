@@ -3,7 +3,7 @@ CC = g++ -std=c++11
 CFLAGS = -Wall -g3 
 #-O3
 
-INSTALL_PATH = $$HOME/simgrid
+INSTALL_PATH = $$HOME/Simgrid-3.22
 INCLUDES = -Iinclude -I$(INSTALL_PATH)/include
 DEFS = -L$(INSTALL_PATH)/lib
 LDADD = -lm -lsimgrid

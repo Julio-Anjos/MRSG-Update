@@ -485,7 +485,7 @@ static void send_mrsg_task (enum mrsg_phase_e mrsg_phase, size_t tid, size_t dat
 
     sprintf (mailbox, TASKTRACKER_MRSG_MAILBOX, mrsg_wid);
 
-    simgrid::s4u::MailboxPtr mailbox_ptr = simgrid::s4u::Mailbox::by_name(mailbox);    
+    simgrid::s4u::Mailbox *mailbox_ptr = simgrid::s4u::Mailbox::by_name(mailbox);    
     mailbox_ptr->put(mrsg_task, 0.0);       
 
     job_mrsg.task_instances[mrsg_phase][tid]++;

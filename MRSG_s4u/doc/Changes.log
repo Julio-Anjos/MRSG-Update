@@ -238,3 +238,13 @@ tarefa.
 @src/task_mrsg.cpp:
 Em "execute()", adicionado atribuição do PID do processo atual à "exec_actor_pid";
 Em "destroy()", se a tarefa ainda estiver em execução, o processo responsável também é morto.
+
+#############################06 JULHO 2018######################################################
+
+@src/master_mrsg.cpp:
+Em "send_mrsg_task()" alterado "simgrid::s4u::MailboxPtr" para "simgrid::s4u::Mailbox *" devido
+as mudanças da atualização 3.22 do Simgrid. 
+
+@src/commom_mrsg:
+Em "receive()" e "send()" foi alterado "simgrid::s4u::MailboxPtr" para "simgrid::s4u::Mailbox *" devido
+as mudanças da atualização 3.22 do Simgrid.

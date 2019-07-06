@@ -59,7 +59,7 @@ void send (const char* str, double cpu, double net, void* data, const char* mail
     task->setSource(MSG_host_self());
     task->setData(data);
 
-    simgrid::s4u::MailboxPtr mailbox_ptr = simgrid::s4u::Mailbox::by_name(mailbox);
+    simgrid::s4u::Mailbox *mailbox_ptr = simgrid::s4u::Mailbox::by_name(mailbox);
 
     mailbox_ptr->put(task, net);
 /* OLD 
@@ -89,7 +89,7 @@ void send_mrsg_sms (const char* str, const char* mailbox)
 
 mrsg_task_t receive (const char* mailbox)
 { 
-    simgrid::s4u::MailboxPtr mailbox_ptr = simgrid::s4u::Mailbox::by_name(mailbox);
+    simgrid::s4u::Mailbox *mailbox_ptr = simgrid::s4u::Mailbox::by_name(mailbox);
     
     mrsg_task_t task_ptr = (Task_MRSG*) mailbox_ptr->get();
     xbt_assert(task_ptr, "mailbox->get() failed");  

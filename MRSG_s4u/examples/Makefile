@@ -3,7 +3,7 @@ CFLAGS = -Wall -g3
 
 #-lpthread -g3 -O3
 
-INSTALL_PATH = $$HOME/simgrid
+INSTALL_PATH = $$HOME/Simgrid-3.22
 INCLUDES = -I../include -I$(INSTALL_PATH)/include 
 DEFS = -L$(INSTALL_PATH)/lib
 LDADD = -lm -lsimgrid
