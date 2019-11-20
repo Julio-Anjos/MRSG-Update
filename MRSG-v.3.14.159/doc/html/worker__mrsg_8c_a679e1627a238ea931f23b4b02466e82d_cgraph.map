@@ -1,7 +1,0 @@
-<map id="G" name="G">
-<area shape="rect" id="node3" href="$worker__mrsg_8c.html#a4b2a3de75932850eb72307f6c18d40c1" title="Get the ID of a worker." alt="" coords="173,5,317,35"/>
-<area shape="rect" id="node5" href="$common__mrsg_8c.html#ab5a4c02ceb90f40606c62816c672c5dd" title="Send a short message, of size zero." alt="" coords="185,58,305,89"/>
-<area shape="rect" id="node11" href="$common__mrsg_8c.html#a6fc60933b9eabe64a880f68eba3131cc" title="Receive a message/task from a mailbox." alt="" coords="212,111,279,142"/>
-<area shape="rect" id="node7" href="$common__mrsg_8c.html#a385b12669d8faf7b5cdb54c1ae597e1c" title="Send a message/task." alt="" coords="367,58,417,89"/>
-<area shape="rect" id="node9" href="$common__mrsg_8c.html#ad37a02c988c597622a346cb5293243fb" title="Compare the message from a task with a string." alt="" coords="467,58,563,89"/>
-</map>

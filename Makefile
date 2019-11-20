@@ -1,23 +1,27 @@
-CC = gcc
+#!/bin/sh
+CC = g++ -std=c++11
 CFLAGS = -Wall -g3 
 #-O3
 
-INSTALL_PATH = $$HOME/simgrid-3.14.159
+INSTALL_PATH = $$HOME/SimGrid-3.23.2
 INCLUDES = -Iinclude -I$(INSTALL_PATH)/include
 DEFS = -L$(INSTALL_PATH)/lib
 LDADD = -lm -lsimgrid
 
 BIN = libmrsg.a
-OBJ = common_mrsg.o simcore_mrsg.o dfs_mrsg.o master_mrsg.o worker_mrsg.o user_mrsg.o
+
+OBJ_CPP = dfs_mrsg.o master_mrsg.o worker_mrsg.o user_mrsg.o common_mrsg.o simcore_mrsg.o task_mrsg.o
+
 
 all: $(BIN)
 
-$(BIN): $(OBJ)
-	ar rcs $(BIN) $(OBJ)
+$(BIN):  $(OBJ_CPP)
+	ar rcs $(BIN) $(OBJ_CPP)
 #	$(CC) $(INCLUDES) $(DEFS) $(CFLAGS) $(LDADD) -o $@ $^
 
-%.o: src/%.c include/*.h
+%.o: src/%.cpp  include/*.hpp
 	$(CC) $(INCLUDES) $(DEFS) $(CFLAGS) -c -o $@ $<
+
 
 verbose: clean
 	$(eval CFLAGS += -DVERBOSE)

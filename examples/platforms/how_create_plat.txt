@@ -1,0 +1,26 @@
+To make your own platforms, we recommend using the python scripts we provide.
+
+------------------------------------------------------------------------------------------------------------------------ 
+The first script is create-mrsg-play.py, it will create the main platform.
+
+Syntax: name_file.xml num_workers cores_per_node_min[:numCores_max] cpu_min[:cpu_max] latency_min[:latency_max] bw_min[:bw_max]'
+
+Examples:
+
+	Homogeneous:
+
+	./create-mrsg-plat.py platform_file.xml 10 2 5e9 1e-4 1e9
+
+	Heterogeneous:
+
+	./create-mrsg-plat.py platform_file.xml 10 2 4e9:7e9 1e-4 1.25e8
+	./create-mrsg-plat.py platform_file.xml 10 2 7e9 1e-4 1.25e6:1.25e8
+	./create-mrsg-plat.py platform_file.xml 10 2 7e9 1e-4:1e-2 1.25e8
+	./create-mrsg-plat.py platform_file.xml 10 2 7e9 1e-4:1e-2 1.25e6:1.25e8
+	./create-mrsg-plat.py platform_file.xml 10 2 4e9:7e9 1e-4:1e-2 1.25e6:1.25e8
+
+----------------------------------------------------------------------------------------------------------------
+After creating a platform file, we need to create a deploy file.
+
+The second script is create-mrsg-deploy.py, it only receives the name of the platform you wish to create a deploy for.
+	./create-mrsg-deploy platform_file.xml 

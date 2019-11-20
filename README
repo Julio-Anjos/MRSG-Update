@@ -1,6 +1,6 @@
 To run the example, follow these steps:
 
-1) Make sure you have installed SimGrid (3.14.159).
+1) Make sure you have installed SimGrid (3.22 or higher).
    (http://simgrid.gforge.inria.fr/)
 
 2) Inside MRSG's root and examples directories, edit the Makefiles and change
@@ -8,13 +8,16 @@ To run the example, follow these steps:
    (e.g. /usr).
 
 3) Compile MRSG with 'make' in the command line, and then do the same for the example.
+You can use the script found in 'examples'
 
-4)  Into examples folder has platform samples. Install behind the python to run
+4)  The examples folder has a platform folder, there you can find python scripts to help you create your own platform,
+along with some platform examples:
 
 	Syntax: platform_file.xml num_workers cores_per_node_min[:numCores_max] cpu_min[:cpu_max] latency_min[:latency_max] bw_min[:bw_max]'
 	
 	./create-mrsg-plat.py platform_file.xml 5 2 1e9 1e-4 1.25e8'
 	
+
 	Or: ./create-mrsg-plat.py platform_file.xml 10 2 4e9:7e9 1e-4 1.25e8
 	Or: ./create-mrsg-plat.py platform_file.xml 10 2 7e9 1e-4 1.25e6:1.25e8
 	Or: ./create-mrsg-plat.py platform_file.xml 10 2 7e9 1e-4:1e-2 1.25e8
@@ -23,10 +26,12 @@ To run the example, follow these steps:
 
  After ./create-mrsg-depoly.py platform_file.xml
    
- Change user functions on hello_mrsg.c
+5) You can change the functions for map_task_cost, reduce_task_cost or map_output inside the hello_mrsg code, or
+specify the final cost on the config file.
 
-5) Execute the example (./run.sh).
+6) Execute the example (./compile_run.sh platforms/mrsg_32.xml platforms/d-mrsg_32.xml exampleconfig.conf).
 
+7) More explanation can be found on the how_to_use.txt and how_create_plat.txt files
 
 
 
