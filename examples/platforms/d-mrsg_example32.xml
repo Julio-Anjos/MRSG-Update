@@ -1,0 +1,37 @@
+<?xml version='1.0'?>
+<!DOCTYPE platform SYSTEM "http://simgrid.gforge.inria.fr/simgrid/simgrid.dtd">
+<platform version="4.1">
+	<process host="MRSG_Host0" function="master_mrsg"/>
+	<process host="MRSG_Host1" function="worker_mrsg"/>
+	<process host="MRSG_Host2" function="worker_mrsg"/>
+	<process host="MRSG_Host3" function="worker_mrsg"/>
+	<process host="MRSG_Host4" function="worker_mrsg"/>
+	<process host="MRSG_Host5" function="worker_mrsg"/>
+	<process host="MRSG_Host6" function="worker_mrsg"/>
+	<process host="MRSG_Host7" function="worker_mrsg"/>
+	<process host="MRSG_Host8" function="worker_mrsg"/>
+	<process host="MRSG_Host9" function="worker_mrsg"/>
+	<process host="MRSG_Host10" function="worker_mrsg"/>
+	<process host="MRSG_Host11" function="worker_mrsg"/>
+	<process host="MRSG_Host12" function="worker_mrsg"/>
+	<process host="MRSG_Host13" function="worker_mrsg"/>
+	<process host="MRSG_Host14" function="worker_mrsg"/>
+	<process host="MRSG_Host15" function="worker_mrsg"/>
+	<process host="MRSG_Host16" function="worker_mrsg"/>
+	<process host="MRSG_Host17" function="worker_mrsg"/>
+	<process host="MRSG_Host18" function="worker_mrsg"/>
+	<process host="MRSG_Host19" function="worker_mrsg"/>
+	<process host="MRSG_Host20" function="worker_mrsg"/>
+	<process host="MRSG_Host21" function="worker_mrsg"/>
+	<process host="MRSG_Host22" function="worker_mrsg"/>
+	<process host="MRSG_Host23" function="worker_mrsg"/>
+	<process host="MRSG_Host24" function="worker_mrsg"/>
+	<process host="MRSG_Host25" function="worker_mrsg"/>
+	<process host="MRSG_Host26" function="worker_mrsg"/>
+	<process host="MRSG_Host27" function="worker_mrsg"/>
+	<process host="MRSG_Host28" function="worker_mrsg"/>
+	<process host="MRSG_Host29" function="worker_mrsg"/>
+	<process host="MRSG_Host30" function="worker_mrsg"/>
+	<process host="MRSG_Host31" function="worker_mrsg"/>
+	<process host="MRSG_Host32" function="worker_mrsg"/>
+</platform>

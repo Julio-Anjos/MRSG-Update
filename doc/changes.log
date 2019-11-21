@@ -1,0 +1,250 @@
+#############################13 MARÇO 2018######################################################
+
+@src/simcore_mrsg.cpp: 
+Em "run_mrsg_simulation()", alteração das funções de começar a simulação e realizar a leitura 
+dos arquivos de plataforma e deploy, do MSG para o S4U;
+Em "init_mrsg_config()", troca do uso das estruturas de "msg_host_t" e "msg_process_t" para o 
+uso de classes "simgrid::s4u::Host*", "simgrid::s4u::ActorPtr" e seus métodos. Alteração no uso 
+de uma lista única de processos para múltiplas listas de actors em cada host mais uma lista 
+única de hosts.
+
+
+#############################15 MARÇO 2018######################################################
+
+@src/common_mrsg.cpp:
+Em "send()", alterado também o envio da task por "MSG_task_send()" para o uso de "simgrid::s4u::MailboxPtr"
+e o método "put()". Como "put()" não retorna um "msg_error_t", a função "send()" está retornando
+MSG_OK artificialmente, será necessário mudar isso eventualmente; 
+Em "receive()", alterado o recebimento de uma task através de "MSG_task_receive()" para o uso 
+de "simgrid::s4u::MailboxPtr" e o método "get()".  Como "get()" não retorna um "msg_error_t", a
+função "receive()" está retornando uma "msg_task_t" caso houve sucesso na comunicação, ou NULL
+caso contrário. Isso pode ser necessário mudar eventualmente.
+
+@src/master_mrsg.cpp:
+Em "master_mrsg()", trocada a verificação se a task foi recebida corretamente de (status == MSG_OK)
+para (task_recebida != NULL) devido as alterações em "receive()".
+Em "send_mrsg_task()", alterado também o envio da task por "MSG_task_send()" para o uso de 
+"simgrid::s4u::MailboxPtr" e o método "put()".
+
+@src/worker_mrsg.cpp:
+Em "listen_mrsg()", trocada a verificação se a task foi recebida corretamente de (status == MSG_OK)
+para (task_recebida != NULL) devido as alterações em "receive()";
+Em "get_mrsg_chunk()", trocada a verificação se a task foi recebida corretamente de (status == MSG_OK)
+para (task_recebida != NULL);
+Em "get_mrsg_map_output()", trocada a verificação se a task foi recebida corretamente de (status == MSG_OK)
+para (task_recebida != NULL).
+
+@src/dfs_mrsg.cpp:
+Em "data_note_mrsg()", trocada a verificação se a task foi recebida corretamente de (status == MSG_OK)
+para (task_recebida != NULL).
+
+
+#############################27 MARÇO 2018######################################################
+
+@include/commom_mrsg.hpp: 
+Criada estrutura temporária "mrsg_task_data_capsule_s" para obter acesso as informações de
+envio de uma task como o processo que enviou, o processo que recebeu, o host de origem e os
+dados enviados.
+
+@src/common_mrsg.cpp:
+Em "send()", adicionado uso da estrutura "mrsg_task_data_capsule_s" para encapsular os dados a 
+serem enviados com informações do host e proceso de origem.
+
+@src/master_mrsg.cpp:
+Em "master_mrsg()", adicionado uso  da estrutura "mrsg_task_data_capsule_s" para obter o host de
+origem e os dados enviados com a task;
+Em "task_time_elapsed_mrsg()", adicionado uso  da estrutura "mrsg_task_data_capsule_s" para obter
+os dados enviados com a task;
+Em "set_mrsg_speculative_tasks()", adicionado uso  da estrutura "mrsg_task_data_capsule_s" para obter
+os dados enviados com a task.
+
+@src/dfs_mrsg.cpp:
+Em "send_mrsg_data()", adicionado uso  da estrutura "mrsg_task_data_capsule_s" para obter
+os dados enviados com a task.
+
+
+#############################29 MARÇO 2018######################################################
+
+@src/common_mrsg.cpp:
+Criada função "send_async()" que funciona como "send()", porém é não bloqueante. Na implementação
+corrente ela ainda bloqueia, talvez seja preciso achar uma alternativa que seja realmente não
+bloqueante, ou esperar a disponibilização de uma pelo SimGrid.
+
+@include/commom_mrsg.hpp: 
+Adicionado cabeçalho da função "send_async()".
+
+@src/dfs_mrsg.cpp:
+Em "send_mrsg_data()", alterado o envio da task de "MSG_task_dsend()" para "send_async()". 
+
+
+#############################13 ABRIL 2018######################################################
+
+@src/task_mrsg.hpp:
+Criada classe "Task_MRSG" com métodos getters e setters + de execução para uso futuro.
+
+@src/task_mrsg.cpp:
+Criada classe "Task_MRSG" com métodos getters e setters + de execução para uso futuro.
+
+#############################19 ABRIL 2018######################################################
+
+@include/common_mrsg.hpp: 
+Criada estrutura temporária "TWO_TASKS" para a manipulação de tasks tanto como tasks do MSG ou 
+"Task_MRSG". Adicinado cabeçalho das funções "alt_send()" e "alt_receive" para envio e 
+recebimento de estruturas "TWO_TASKS". Eventualmente tais mudanças serão desfeitas e trocadas
+pelo uso apenas de "Task_MRSG" assim que estivermos seguros de seu funcionamento.
+
+@src/common_mrsg.cpp: 
+Criadas funções "alt_send()" e "alt_receive" para envio e recebimento de estruturas "TWO_TASKS".
+
+@src/worker_mrsg.hpp:
+Em "mrsg_heartbeat()", trocado o uso de "send_mrsg_sms()" para "alt_send()" com o objetivo de 
+testar o uso da classe Task_MRSG;
+Em "compute_mrsg()", trocado o uso de "send_mrsg_sms()" para "alt_send()"com o objetivo de testar
+o uso da classe Task_MRSG.
+
+@src/master_mrsg.cpp:
+Em "master_mrsg()", trocado o uso de "receive()" para "alt_receive()" com o objetivo de testar o 
+uso da classe Task_MRSG. Os dados recebidos e o nodo source agora são obtidos pelo objeto Task_MRSG.
+
+#############################24 ABRIL 2018######################################################
+
+@src/worker_mrsg.hpp:
+Em todas as funções as quais se aplica, trocado o uso de "send_mrsg_sms()" / "send()" por "alt_send()"
+e "receive()" por "alt_receive()" com o objetivo de testar o uso da classe Task_MRSG;
+
+@src/master_mrsg.cpp:
+Em todas as funções as quais se aplica, trocado o uso de "send_mrsg_sms()" / "send()" por "alt_send()"
+e "receive()" por "alt_receive()" com o objetivo de testar o uso da classe Task_MRSG;
+
+@src/dfs_mrsg.cpp:
+Em todas as funções as quais se aplica, trocado o uso de "send_mrsg_sms()" / "send()" por "alt_send()"
+e "receive()" por "alt_receive()" com o objetivo de testar o uso da classe Task_MRSG;
+
+#############################29 ABRIL 2018######################################################
+
+@src/worker_mrsg.cpp:
+Em "compute_mrsg()", execução de uma task é feito pelo método "execute()" da classe "Task_MRSG()"
+ao invés da função "MSG_task_execute()";
+Em "get_mrsg_map_output()", trocado o uso das funções "MSG_task_get_bytes_amount()" pelo método
+"getBytesAmount()" da classe "Task_MRSG".
+
+@src/master_mrsg.cpp:
+Em "master_mrsg()", trocado o uso da estrutura "mrsg_task_data_capsule_s" pelo uso dos métodos
+"getData()" e "getSource()" da classe "Task_MRSG";
+Em "task_time_elapsed_mrsg()", trocado o uso da estrutura "mrsg_task_data_capsule_s" e das funções
+"MSG_task_get_bytes_amount()" e "MSG_task_get_flops_amount()", pelo uso dos métodos "getData()", 
+"getFlopsAmount" e "getRemainingRatio()" da classe "Task_MRSG".
+
+#############################02 MAIO 2018######################################################
+
+@src/task_mrsg.cpp:
+Implementado método "destroy()" que interrompe uma task se ela estiver executando, e libera seus
+dados.
+
+@src/worker_mrsg.cpp:
+Em todas as funções as quais se aplica, trocado o uso de "MSG_task_destroy()" pelo método "destroy()"
+da classe "Task_MRSG".
+
+@src/master_mrsg.cpp:
+Em todas as funções as quais se aplica, trocado o uso de "MSG_task_destroy()" pelo método "destroy()"
+da classe "Task_MRSG".
+
+@src/dfs_mrsg.cpp:
+Em todas as funções as quais se aplica, trocado o uso de "MSG_task_destroy()" pelo método "destroy()"
+da classe "Task_MRSG".
+
+#############################15 MAIO 2018######################################################
+
+@src/master_mrsg.cpp:
+Removido qualquer uso de "msg_task_t" e "mrsg_task_data_capsule_s", sendo trocadas pelo uso de 
+"mrsg_task_t" que representa "Task_MRSG *".
+Em todas as funções as quais se aplica, trocado o uso de "alt_send()" por "send_mrsg_sms()" / "send()"
+e "alt_receive()" por "receive()".
+
+@src/worker_mrsg.cpp;
+Removido qualquer uso de "msg_task_t" e "mrsg_task_data_capsule_s", sendo trocadas pelo uso de 
+"mrsg_task_t" que representa "Task_MRSG *".
+Em todas as funções as quais se aplica, trocado o uso de "alt_send()" por "send_mrsg_sms()" / "send()"
+e "alt_receive()" por "receive()".
+
+@src/dfs_mrsg.cpp:
+Removido qualquer uso de "msg_task_t" e "mrsg_task_data_capsule_s", sendo trocadas pelo uso de 
+"mrsg_task_t" que representa "Task_MRSG *".
+Em todas as funções as quais se aplica, trocado o uso de "alt_send()" por "send_mrsg_sms()" / "send()"
+e "alt_receive()" por "receive()".
+
+@include/common_mrsg.hpp:
+Removido qualquer uso de "msg_task_t" e "mrsg_task_data_capsule_s", sendo trocadas pelo uso de 
+"mrsg_task_t" que representa "Task_MRSG *".
+
+@src/commom_mrsg.cpp:
+Removido qualquer uso de "msg_task_t" e "mrsg_task_data_capsule_s", sendo trocadas pelo uso de 
+"mrsg_task_t" que representa "Task_MRSG *".
+Em "mrsg_message_is", trocado "MSG_task_get_name()" pelo método "getName()" da classe "Task_MRSG"
+
+
+#############################26 JUNHO 2018######################################################
+
+@include/commom_mrsg.hpp:
+Trocado typedef "mrsg_task_t" de "shared_ptr<Task_MRSG>" para "Task_MRSG*" devido as falhas de
+segmentação gerados.
+
+#############################29 JUNHO 2018######################################################
+
+@src/master_mrsg.cpp:
+Em todas as funções as quais se aplica, trocado uso de "msg_host_t" por "simgrid::s4u::Host*" e
+de "MSG_get_clock()" por "simgrid::s4u::Engine::get_clock()".
+
+#############################03 JULHO 2018######################################################
+
+@src/worker_mrsg.cpp:
+Em todas as funções as quais se aplica, trocado uso de "msg_host_t" por "simgrid::s4u::Host*" e
+de "MSG_get_clock()" por "simgrid::s4u::Engine::get_clock()";
+Em "worker_mrsg()", trocado uso da função "MSG_process_self_PID()" pelo método "get_pid()" da
+classe "this_actor". Também foi trocada a chamada da função "MSG_process_create()" pelo método 
+"create()" da classe "Actor";
+Em "mrsg_kill_last_workers()", subtituídas as funções "MSG_process_from_PID()" e "MSG_process_kill()"
+pelos métodos "by_pid()" e "kill()" da classe "Actor";
+Em "listen_mrsg()", trocado uso das função "MSG_process_self_PID()"  e "MSG_process_create()" pelos
+método "get_pid()" da classe "this_actor" e "create()" da classe "Actor";
+Em "compute_mrsg()", trocado uso da função "MSG_process_self_PID()" pelo método "get_pid()" da
+classe "this_actor". Também foi alterado como é recebido a tarefa, ao invés de ser obtida através
+de "MSG_process_get_data()", agora é passada como parâmetro;
+Em "get_mrsg_worker_id()", a obtenção do WID agora é através do método "get_property()" da classe
+"Host", ao invés de "MSG_host_get_data()".
+
+@include/worker_mrsg.hpp:
+Descontinuado o uso da estrutura "w_mrsg_info_t".
+
+@src/simcore_mrsg.cpp:
+Em todas as funções as quais se aplica, trocado uso de "msg_host_t" por "simgrid::s4u::Host*" e
+de "MSG_get_clock()" por "simgrid::s4u::Engine::get_clock()";
+Em "init_mrsg_config()", foi alterado o modo de passar o WID ao seu respectivo host, ao invés de
+se utilizar "MSG_host_set_data()", agora é utilizado o método "set_property()" da classe "Host",
+onde na propriedade "WID" é salvo o valor de WID em forma de strig.
+
+@src/dfs_mrsg.cpp:
+Em todas as funções as quais se aplica, trocado uso de "msg_host_t" por "simgrid::s4u::Host*" e
+de "MSG_get_clock()" por "simgrid::s4u::Engine::get_clock()";
+Em "data_note_mrsg()", trocado uso da função "MSG_process_self_PID()" pelo método "get_pid()" da
+classe "this_actor".
+
+#############################04 JULHO 2018######################################################
+
+@include/task_mrsg.hpp:
+Adicionado atributo "exec_actor_pid" que representa o PID do processo responsável por executar a
+tarefa.
+
+@src/task_mrsg.cpp:
+Em "execute()", adicionado atribuição do PID do processo atual à "exec_actor_pid";
+Em "destroy()", se a tarefa ainda estiver em execução, o processo responsável também é morto.
+
+#############################06 JULHO 2018######################################################
+
+@src/master_mrsg.cpp:
+Em "send_mrsg_task()" alterado "simgrid::s4u::MailboxPtr" para "simgrid::s4u::Mailbox *" devido
+as mudanças da atualização 3.22 do Simgrid. 
+
+@src/commom_mrsg:
+Em "receive()" e "send()" foi alterado "simgrid::s4u::MailboxPtr" para "simgrid::s4u::Mailbox *" devido
+as mudanças da atualização 3.22 do Simgrid.

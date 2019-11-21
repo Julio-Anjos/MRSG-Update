@@ -1,9 +1,0 @@
-<map id="G" name="G">
-<area shape="rect" id="node3" href="$common__mrsg_8c.html" title="src/common_mrsg.c" alt="" coords="5,86,147,117"/>
-<area shape="rect" id="node5" href="$dfs__mrsg_8c.html" title="src/dfs_mrsg.c" alt="" coords="171,86,280,117"/>
-<area shape="rect" id="node7" href="$master__mrsg_8c.html" title="src/master_mrsg.c" alt="" coords="304,86,435,117"/>
-<area shape="rect" id="node9" href="$simcore__mrsg_8c.html" title="src/simcore_mrsg.c" alt="" coords="459,86,597,117"/>
-<area shape="rect" id="node11" href="$user__mrsg_8c.html" title="src/user_mrsg.c" alt="" coords="621,86,739,117"/>
-<area shape="rect" id="node13" href="$worker__mrsg_8c.html" title="src/worker_mrsg.c" alt="" coords="763,86,893,117"/>
-<area shape="rect" id="node15" href="$hello__mrsg_8c.html" title="examples/hello_mrsg.c" alt="" coords="917,86,1077,117"/>
-</map>
